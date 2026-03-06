@@ -1,0 +1,1887 @@
+/* ==========================================================================
+   components.css — Reusable UI components: .btn, form elements, science card
+   internals (visual/personality/genetic/synthesis card animations), modals,
+   overlays, card layout elements, pagination, and all SVG icon styles.
+   ========================================================================== */
+
+/* Buttons */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 1rem 2rem;
+    border-radius: 4px;
+    font-size: 1rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    border: none;
+    font-family: inherit;
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, var(--gold), var(--gold-champagne));
+    color: var(--maroon-deep);
+    box-shadow: 0 4px 20px rgba(212, 168, 83, 0.3);
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 30px rgba(212, 168, 83, 0.5);
+}
+
+.btn-secondary {
+    background: transparent;
+    color: var(--navy);
+    border: 2px solid var(--maroon);
+}
+
+/* FIXED: Dark mode secondary button with gold gradient to match graph */
+[data-theme="dark"] .btn-secondary {
+    background: linear-gradient(135deg, rgba(240, 200, 110, 0.15), rgba(245, 217, 138, 0.1));
+    border-color: var(--gold);
+    color: var(--gold);
+}
+
+.btn-secondary:hover {
+    background: var(--maroon);
+    color: white;
+    border-color: var(--maroon);
+}
+
+[data-theme="dark"] .btn-secondary:hover {
+    background: var(--gold);
+    color: var(--dark-bg);
+    border-color: var(--gold);
+}
+
+.btn-group {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+/* Science Card */
+.science-card {
+    flex: 0 0 min(900px, 85vw);
+    min-height: 420px;
+    padding: 2.5rem;
+    border-radius: 12px;
+    transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+    user-select: none;
+    scroll-snap-align: center;
+    background: rgba(114, 47, 55, 0.04);
+    border: 1px solid rgba(212, 168, 83, 0.25);
+    display: flex;
+    flex-direction: column;
+}
+
+[data-theme="dark"] .science-card {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(212, 168, 83, 0.15);
+}
+
+.science-card:hover {
+    border-color: var(--gold);
+    box-shadow: 0 15px 50px rgba(212, 168, 83, 0.12);
+}
+
+/* =============================================
+   VISUAL CARD - EYE OPENING ANIMATION
+   ============================================= */
+
+/* Visual card specific - initial state */
+.science-card.visual-card {
+    position: relative;
+    overflow: hidden;
+    --eye-duration: 3s; /* Default, will be set by JS */
+}
+
+.science-card.visual-card .card-header {
+    position: relative;
+    z-index: 2;
+}
+
+/* Eye container - starts centered */
+.science-card.visual-card .eye-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100px;
+    height: 100px;
+    z-index: 10;
+    transition: top var(--eye-duration) cubic-bezier(0.4, 0, 0.2, 1),
+                left var(--eye-duration) cubic-bezier(0.4, 0, 0.2, 1),
+                transform var(--eye-duration) cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* On active - eye moves to header position with arc effect */
+.science-card.visual-card.eye-open .eye-container {
+    top: calc(2.5rem + 50px);
+    left: calc(2.5rem + 50px);
+    transform: translate(-50%, -50%);
+}
+
+/* Eye SVG elements */
+.visual-eye-icon {
+    width: 100%;
+    height: 100%;
+    filter: drop-shadow(0 0 8px rgba(212, 168, 83, 0.25));
+}
+
+/* Pupil/iris - starts hidden */
+.visual-eye-icon .eye-pupil {
+    opacity: 0;
+    transition: opacity var(--eye-duration) cubic-bezier(0.4, 0, 0.2, 1);
+    transition-delay: 0.3s;
+}
+
+.science-card.visual-card.eye-open .visual-eye-icon .eye-pupil {
+    opacity: 1;
+}
+
+/* Diamond shape - starts hidden */
+.visual-eye-icon .eye-diamond {
+    opacity: 0;
+    transition: opacity var(--eye-duration) cubic-bezier(0.4, 0, 0.2, 1);
+    transition-delay: 0.3s;
+}
+
+.science-card.visual-card.eye-open .visual-eye-icon .eye-diamond {
+    opacity: 0.2;
+}
+
+/* Outer circle - always visible but subtle */
+.visual-eye-icon .eye-outer {
+    opacity: 0.3;
+}
+
+/* Hide original card-visual in visual-card */
+.science-card.visual-card .card-visual {
+    opacity: 0;
+    width: 100px;
+    height: 100px;
+}
+
+/* Title group - starts hidden */
+.science-card.visual-card .card-title-group {
+    opacity: 0;
+    transition: opacity var(--eye-duration) cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.science-card.visual-card.eye-open .card-title-group {
+    opacity: 1;
+}
+
+/* Comparison columns - blocks visible but text hidden */
+.science-card.visual-card .comparison-column {
+    background: rgba(114, 47, 55, 0.03);
+    border: 1px solid transparent;
+    transition: all var(--eye-duration) cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+[data-theme="dark"] .science-card.visual-card .comparison-column {
+    background: rgba(255, 255, 255, 0.02);
+}
+
+/* Text inside blocks - starts hidden */
+.science-card.visual-card .comp-label,
+.science-card.visual-card .comp-text {
+    opacity: 0;
+    transition: opacity var(--eye-duration) cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.science-card.visual-card.eye-open .comp-label,
+.science-card.visual-card.eye-open .comp-text {
+    opacity: 1;
+}
+
+/* Dim column text still slightly dimmed when open */
+.science-card.visual-card.eye-open .comparison-column.dim .comp-text {
+    opacity: 0.6;
+}
+
+/* Highlight column - gets gold styling when open */
+.science-card.visual-card .comparison-column.highlight {
+    background: rgba(114, 47, 55, 0.03);
+    border: 1px solid transparent;
+}
+
+[data-theme="dark"] .science-card.visual-card .comparison-column.highlight {
+    background: rgba(255, 255, 255, 0.02);
+}
+
+.science-card.visual-card.eye-open .comparison-column.highlight {
+    background: rgba(212, 168, 83, 0.08);
+    border: 1px solid rgba(212, 168, 83, 0.2);
+}
+
+/* Highlight label color when open */
+.science-card.visual-card .comparison-column.highlight .comp-label {
+    color: var(--maroon);
+    transition: color var(--eye-duration) cubic-bezier(0.4, 0, 0.2, 1), opacity var(--eye-duration) cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+[data-theme="dark"] .science-card.visual-card .comparison-column.highlight .comp-label {
+    color: rgba(255, 255, 255, 0.4);
+}
+
+.science-card.visual-card.eye-open .comparison-column.highlight .comp-label {
+    color: var(--gold);
+    opacity: 1;
+}
+
+/* =============================================
+   PERSONALITY CARD - CONNECTION ANIMATION
+   ============================================= */
+
+.science-card.personality-card {
+    position: relative;
+    overflow: hidden;
+    --personality-duration: 3s;
+}
+
+.science-card.personality-card.animated-once {
+    --personality-duration: 2.5s;
+}
+
+/* --- ICON CONTAINER --- */
+.science-card.personality-card .personality-icon-container {
+    position: absolute;
+    top: 38%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 140px;
+    height: 140px;
+    z-index: 10;
+    opacity: 1;
+    transition: top 1s cubic-bezier(0.4, 0, 0.2, 1),
+                left 1s cubic-bezier(0.4, 0, 0.2, 1),
+                transform 1s cubic-bezier(0.4, 0, 0.2, 1),
+                width 1s cubic-bezier(0.4, 0, 0.2, 1),
+                height 1s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Movement phase - icon moves and shrinks while staying fully visible */
+.science-card.personality-card.icon-moving .personality-icon-container {
+    top: calc(2.5rem + 50px);
+    left: calc(2.5rem + 50px);
+    transform: translate(-50%, -50%);
+    width: 100px;
+    height: 100px;
+    opacity: 1;
+}
+
+.personality-animated-icon {
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+}
+
+/* --- STATIC ELEMENTS --- */
+.personality-animated-icon .dot {
+    opacity: 1;
+}
+
+/* --- ANIMATED ELEMENTS --- */
+/* 1. Inner Lines (Dots to Center) - Drawing animation */
+.personality-animated-icon .inner-line {
+    opacity: 0;
+    stroke-dasharray: 40;
+    stroke-dashoffset: 40;
+    transition: stroke-dashoffset 0.25s linear,
+                opacity 0.1s linear;
+}
+/* All lines draw simultaneously when animation starts */
+.science-card.personality-card.line-1-visible .inner-line {
+    opacity: 1;
+    stroke-dashoffset: 0;
+    transition: stroke-dashoffset 0.6s cubic-bezier(0.4, 0, 0.2, 1),
+                opacity 0.2s ease;
+}
+/* 2. Center Circle - Pop in */
+.personality-animated-icon .center-circle {
+    opacity: 0;
+    transform: scale(0);
+    transform-origin: center;
+    transition: all 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.science-card.personality-card.center-visible .center-circle {
+    opacity: 1;
+    transform: scale(1);
+}
+
+/* 3. Outer Arcs - Mask-based drawing animation */
+.personality-animated-icon .mask-path {
+    stroke-dasharray: 120;
+    stroke-dashoffset: 120;
+    transition: stroke-dashoffset 0.7s ease-out;
+}
+
+.science-card.personality-card.outer-circle-animating .mask-path {
+    stroke-dashoffset: 0;
+}
+
+/* --- HEADER STATIC ICON --- */
+/* Keep static icon hidden - we use the animated icon instead */
+.science-card.personality-card .card-visual.personality-icon {
+    opacity: 0;
+    width: 100px;
+    height: 100px;
+}
+
+/* --- TITLE/SUBTITLE --- */
+.science-card.personality-card .card-title-group {
+    opacity: 0;
+    transition: opacity 0.8s ease;
+}
+
+/* Fade in when center circle appears */
+.science-card.personality-card.center-visible .card-title-group {
+    opacity: 1;
+}
+
+/* --- COMPARISON BOXES --- */
+.science-card.personality-card .comparison-column {
+    background: rgba(114, 47, 55, 0.03);
+    border: 1px solid transparent;
+    transition: all 0.4s ease, box-shadow 0.4s ease, border-color 0.4s ease;
+}
+
+[data-theme="dark"] .science-card.personality-card .comparison-column {
+    background: rgba(255, 255, 255, 0.02);
+}
+
+/* Boxes always visible as silhouettes */
+.science-card.personality-card .personality-box {
+    opacity: 1;
+    transition: opacity 0.5s ease, box-shadow 0.4s ease, border-color 0.4s ease;
+}
+
+/* Text inside boxes - hidden by default */
+.science-card.personality-card .comp-label,
+.science-card.personality-card .comp-text {
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+
+/* Show text when boxes become visible during animation */
+.science-card.personality-card.science-box-visible .science-box .comp-label,
+.science-card.personality-card.science-box-visible .science-box .comp-text {
+    opacity: 1;
+}
+
+.science-card.personality-card.apps-box-visible .apps-box .comp-label,
+.science-card.personality-card.apps-box-visible .apps-box .comp-text {
+    opacity: 1;
+}
+
+.science-card.personality-card.harmonia-box-visible .harmonia-box .comp-text {
+    opacity: 1;
+}
+
+/* Dim column text slightly dimmed */
+.science-card.personality-card .comparison-column.dim .comp-text {
+    opacity: 0;
+}
+
+.science-card.personality-card.apps-box-visible .comparison-column.dim .comp-text {
+    opacity: 0.6;
+}
+
+/* Glow States */
+.science-card.personality-card.science-box-glow .science-box,
+.science-card.personality-card.apps-box-glow .apps-box {
+    box-shadow: 0 0 25px rgba(212, 168, 83, 0.4);
+    border-color: rgba(212, 168, 83, 0.6);
+}
+
+.science-card.personality-card.harmonia-glow .harmonia-box {
+    box-shadow: 0 0 40px rgba(212, 168, 83, 0.6);
+    border-color: var(--gold);
+    background: rgba(212, 168, 83, 0.15);
+}
+
+/* Highlight column styling - only gets gold background when animation complete */
+.science-card.personality-card .comparison-column.highlight {
+    background: rgba(114, 47, 55, 0.03);
+    border: 1px solid transparent;
+}
+
+.science-card.personality-card.animation-complete .comparison-column.highlight {
+    background: rgba(212, 168, 83, 0.08);
+    border: 1px solid rgba(212, 168, 83, 0.2);
+}
+
+/* Harmonia label - hidden initially */
+.science-card.personality-card .comparison-column.highlight .comp-label {
+    color: var(--maroon);
+    opacity: 0;
+    transition: color 0.5s ease, opacity 0.5s ease;
+}
+
+[data-theme="dark"] .science-card.personality-card .comparison-column.highlight .comp-label {
+    color: rgba(255, 255, 255, 0.4);
+}
+
+/* Show HARMONIA and make it gold when harmonia-visible */
+.science-card.personality-card.harmonia-box-visible .comparison-column.highlight .comp-label {
+    color: var(--gold);
+    opacity: 1;
+}
+
+/* After reset (animated-once but no animation in progress) - show HARMONIA in maroon */
+.science-card.personality-card.animated-once:not(.line-1-visible) .comparison-column.highlight .comp-label {
+    opacity: 1;
+    color: var(--maroon);
+}
+
+[data-theme="dark"] .science-card.personality-card.animated-once:not(.line-1-visible) .comparison-column.highlight .comp-label {
+    color: rgba(255, 255, 255, 0.4);
+}
+
+/* Override: during animation, harmonia-box-visible takes precedence with gold */
+.science-card.personality-card.harmonia-box-visible .comparison-column.highlight .comp-label {
+    color: var(--gold);
+    opacity: 1;
+}
+
+.science-card.personality-card.animation-complete .comparison-column.dim .comp-text {
+    opacity: 0.6;
+}
+
+/* =============================================
+   GENETIC CARD - DNA HELIX ANIMATION
+   ============================================= */
+
+.science-card.genetic-card {
+    position: relative;
+    overflow: hidden;
+    --genetic-duration: 3s;
+}
+
+.science-card.genetic-card.animated-once {
+    --genetic-duration: 1.5s;
+}
+
+/* --- DNA ICON CONTAINER --- */
+.science-card.genetic-card .dna-icon-container {
+    position: absolute;
+    top: 38%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 140px;
+    height: 140px;
+    z-index: 10;
+    perspective: 500px;
+}
+
+/* Movement to corner */
+.science-card.genetic-card.dna-moving .dna-icon-container {
+    top: calc(2.5rem + 50px);
+    left: calc(2.5rem + 50px);
+    width: 100px;
+    height: 100px;
+    transition: top 1.1s cubic-bezier(0.4, 0, 0.2, 1),
+                left 1.1s cubic-bezier(0.4, 0, 0.2, 1),
+                width 1.1s cubic-bezier(0.4, 0, 0.2, 1),
+                height 1.1s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.science-card.genetic-card.animation-complete .dna-icon-container {
+    top: calc(2.5rem + 50px);
+    left: calc(2.5rem + 50px);
+    width: 100px;
+    height: 100px;
+}
+
+/* --- ANIMATED DNA ICON --- */
+.dna-animated-icon {
+    width: 100%;
+    height: 100%;
+    transform-style: preserve-3d;
+}
+
+/* Y-axis rotation during movement */
+.science-card.genetic-card.dna-moving .dna-animated-icon {
+    animation: dnaRoll 1.1s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+@keyframes dnaRoll {
+    0% { transform: rotateY(0deg); }
+    100% { transform: rotateY(540deg); } /* 1.5 rotations */
+}
+
+/* Helix curves - draw themselves using stroke-dashoffset */
+.dna-animated-icon .helix-gold,
+.dna-animated-icon .helix-maroon {
+    stroke-dasharray: 200;
+    stroke-dashoffset: 200; /* Fully hidden at start */
+    transition: stroke-dashoffset 1.1s ease-out; /* Draw during the roll/move */
+}
+
+/* Faster transition for subsequent plays */
+.science-card.genetic-card.animated-once .dna-animated-icon .helix-gold,
+.science-card.genetic-card.animated-once .dna-animated-icon .helix-maroon {
+    transition: stroke-dashoffset 0.6s ease-out;
+}
+
+/* Helix draws itself when forming */
+.science-card.genetic-card.helix-forming .dna-animated-icon .helix-gold,
+.science-card.genetic-card.helix-forming .dna-animated-icon .helix-maroon {
+    stroke-dashoffset: 0;
+}
+
+/* Helix warp effect */
+.science-card.genetic-card.helix-warping .dna-animated-icon .helix-gold {
+    animation: helixWarp 0.4s ease-in-out infinite;
+}
+
+.science-card.genetic-card.helix-warping .dna-animated-icon .helix-maroon {
+    animation: helixWarp 0.4s ease-in-out infinite 0.1s;
+}
+
+@keyframes helixWarp {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(2px); }
+    75% { transform: translateX(-2px); }
+}
+
+/* Rungs */
+.dna-animated-icon .dna-rung {
+    opacity: 0.4;
+    transition: opacity 0.3s ease, filter 0.3s ease;
+}
+
+/* Rungs glow during crackle */
+.science-card.genetic-card.crackling .dna-animated-icon .dna-rung {
+    opacity: 1;
+    filter: drop-shadow(0 0 4px var(--gold)) drop-shadow(0 0 8px rgba(255, 235, 59, 0.6));
+}
+
+/* --- ELECTRIC CRACKLE OVERLAY --- */
+.crackle-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    opacity: 0;
+}
+
+.crackle-bolt {
+    filter: drop-shadow(0 0 3px #ffeb3b) drop-shadow(0 0 6px #ff9800);
+    stroke-dasharray: 3 2;
+    stroke-linecap: round;
+}
+
+.science-card.genetic-card.crackling .crackle-overlay {
+    opacity: 1;
+}
+
+.science-card.genetic-card.crackling .crackle-bolt {
+    animation: crackleFlash 0.1s ease infinite, crackleDash 0.15s linear infinite;
+}
+
+.science-card.genetic-card.crackling .bolt-2 {
+    animation-delay: 0.05s;
+}
+
+.science-card.genetic-card.crackling .bolt-3 {
+    animation-delay: 0.1s;
+}
+
+@keyframes crackleFlash {
+    0%, 100% { opacity: 0.7; }
+    50% { opacity: 1; }
+}
+
+@keyframes crackleDash {
+    to { stroke-dashoffset: -5; }
+}
+
+/* --- AMBER PARTICLES --- */
+.amber-particles {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+}
+
+.amber-particle {
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    background: #ffa726;
+    border-radius: 50%;
+    box-shadow: 0 0 8px #ffa726, 0 0 15px #ff8f00;
+    opacity: 0;
+}
+
+/* Starting positions at top of helix */
+.amber-particle.p1 { top: 10%; left: 35%; }
+.amber-particle.p2 { top: 10%; left: 35%; }
+.amber-particle.p3 { top: 10%; left: 65%; }
+.amber-particle.p4 { top: 10%; left: 35%; }
+.amber-particle.p5 { top: 10%; left: 65%; }
+
+/* Particles travel along helix during drawing phase */
+.science-card.genetic-card.helix-forming .amber-particle {
+    opacity: 1;
+}
+
+.science-card.genetic-card.helix-forming .p1 {
+    animation: particleAlongHelixLeft 1.1s ease-out forwards;
+}
+.science-card.genetic-card.helix-forming .p2 {
+    animation: particleAlongHelixLeft 1.1s ease-out 0.2s forwards;
+}
+.science-card.genetic-card.helix-forming .p3 {
+    animation: particleAlongHelixRight 1.1s ease-out 0.1s forwards;
+}
+.science-card.genetic-card.helix-forming .p4 {
+    animation: particleAlongHelixLeft 1.1s ease-out 0.4s forwards;
+}
+.science-card.genetic-card.helix-forming .p5 {
+    animation: particleAlongHelixRight 1.1s ease-out 0.3s forwards;
+}
+
+/* Faster for subsequent plays */
+.science-card.genetic-card.animated-once.helix-forming .p1 {
+    animation-duration: 0.6s;
+}
+.science-card.genetic-card.animated-once.helix-forming .p2 {
+    animation-duration: 0.6s;
+    animation-delay: 0.1s;
+}
+.science-card.genetic-card.animated-once.helix-forming .p3 {
+    animation-duration: 0.6s;
+    animation-delay: 0.05s;
+}
+.science-card.genetic-card.animated-once.helix-forming .p4 {
+    animation-duration: 0.6s;
+    animation-delay: 0.2s;
+}
+.science-card.genetic-card.animated-once.helix-forming .p5 {
+    animation-duration: 0.6s;
+    animation-delay: 0.15s;
+}
+
+/* Left helix path: follows the gold helix curve */
+@keyframes particleAlongHelixLeft {
+    0% { top: 10%; left: 35%; opacity: 1; transform: scale(1); }
+    25% { top: 25%; left: 60%; opacity: 1; transform: scale(1.2); }
+    50% { top: 45%; left: 35%; opacity: 1; transform: scale(1); }
+    75% { top: 65%; left: 60%; opacity: 1; transform: scale(1.2); }
+    100% { top: 85%; left: 35%; opacity: 0; transform: scale(0.5); }
+}
+
+/* Right helix path: follows the maroon helix curve */
+@keyframes particleAlongHelixRight {
+    0% { top: 10%; left: 65%; opacity: 1; transform: scale(1); }
+    25% { top: 25%; left: 40%; opacity: 1; transform: scale(1.2); }
+    50% { top: 45%; left: 65%; opacity: 1; transform: scale(1); }
+    75% { top: 65%; left: 40%; opacity: 1; transform: scale(1.2); }
+    100% { top: 85%; left: 65%; opacity: 0; transform: scale(0.5); }
+}
+
+/* --- ENERGY WAVE --- */
+.energy-wave {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 0;
+    height: 0;
+    border: 2px solid rgba(212, 168, 83, 0.8);
+    border-radius: 50%;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.science-card.genetic-card.energy-wave-active .energy-wave {
+    animation: energyWaveExpand 0.5s ease-out forwards;
+}
+
+@keyframes energyWaveExpand {
+    0% { width: 20px; height: 20px; opacity: 1; }
+    100% { width: 180px; height: 180px; opacity: 0; }
+}
+
+/* --- FINAL GLOW --- */
+.science-card.genetic-card.final-glow .dna-icon-container {
+    filter: drop-shadow(0 0 20px rgba(212, 168, 83, 0.8)) drop-shadow(0 0 40px rgba(212, 168, 83, 0.4));
+}
+
+.science-card.genetic-card.animation-complete .dna-icon-container {
+    filter: drop-shadow(0 0 8px rgba(212, 168, 83, 0.25));
+    transition: filter 0.5s ease;
+}
+
+/* --- STATIC HEADER ICON --- */
+.science-card.genetic-card .card-visual.genetic-icon {
+    opacity: 0;
+    width: 100px;
+    height: 100px;
+}
+
+/* --- TITLE/SUBTITLE --- */
+.science-card.genetic-card .card-title {
+    opacity: 0;
+    transition: opacity 0.8s ease-out;
+}
+
+.science-card.genetic-card.harmonia-visible .card-title {
+    opacity: 1;
+}
+
+.science-card.genetic-card .card-subtitle {
+    opacity: 0;
+    transition: opacity 1s ease-out;
+}
+
+.science-card.genetic-card.subtitle-visible .card-subtitle {
+    opacity: 0.6;
+}
+
+/* --- COMPARISON BOXES --- */
+.science-card.genetic-card .comparison-column {
+    background: rgba(114, 47, 55, 0.03);
+    border: 1px solid transparent;
+    transition: all 0.6s ease-out, box-shadow 0.6s ease-out, border-color 0.6s ease-out, background 0.6s ease-out;
+}
+
+[data-theme="dark"] .science-card.genetic-card .comparison-column {
+    background: rgba(255, 255, 255, 0.02);
+}
+
+/* Boxes visible as silhouettes */
+.science-card.genetic-card .genetic-box {
+    opacity: 1;
+}
+
+/* Text inside boxes - hidden by default */
+.science-card.genetic-card .comp-label,
+.science-card.genetic-card .comp-text {
+    opacity: 0;
+    transition: opacity 0.8s ease-out;
+}
+
+/* Science + Apps text fades in */
+.science-card.genetic-card.boxes-fading .science-box .comp-label,
+.science-card.genetic-card.boxes-fading .science-box .comp-text,
+.science-card.genetic-card.boxes-fading .apps-box .comp-label,
+.science-card.genetic-card.boxes-fading .apps-box .comp-text {
+    opacity: 1;
+}
+
+.science-card.genetic-card.boxes-fading .apps-box.dim .comp-text {
+    opacity: 0.6;
+}
+
+/* Harmonia text appears at end */
+.science-card.genetic-card.harmonia-visible .harmonia-box .comp-label,
+.science-card.genetic-card.harmonia-visible .harmonia-box .comp-text {
+    opacity: 1;
+}
+
+/* Harmonia label styling - hidden by default */
+.science-card.genetic-card .comparison-column.highlight .comp-label {
+    color: var(--maroon);
+    opacity: 0;
+    transition: color 0.8s ease-out, opacity 0.8s ease-out;
+}
+
+/* Harmonia label appears gold when harmonia-visible */
+.science-card.genetic-card.harmonia-visible .comparison-column.highlight .comp-label {
+    color: var(--gold);
+    opacity: 1;
+}
+
+/* After animation complete and reset - show HARMONIA in maroon */
+.science-card.genetic-card.animation-complete:not(.harmonia-visible) .comparison-column.highlight .comp-label {
+    opacity: 1;
+    color: var(--maroon);
+}
+
+[data-theme="dark"] .science-card.genetic-card.animation-complete:not(.harmonia-visible) .comparison-column.highlight .comp-label {
+    color: rgba(255, 255, 255, 0.4);
+}
+
+/* Highlight column styling */
+.science-card.genetic-card .comparison-column.highlight {
+    background: rgba(114, 47, 55, 0.03);
+    border: 1px solid transparent;
+    transition: all 0.6s ease-out, box-shadow 0.6s ease-out, border-color 0.6s ease-out, background 0.6s ease-out;
+}
+
+.science-card.genetic-card.animation-complete .comparison-column.highlight {
+    background: rgba(212, 168, 83, 0.08);
+    border: 1px solid rgba(212, 168, 83, 0.2);
+}
+
+/* Harmonia glow */
+.science-card.genetic-card.harmonia-glow .harmonia-box {
+    box-shadow: 0 0 30px rgba(212, 168, 83, 0.6);
+    border-color: rgba(212, 168, 83, 0.5);
+    transition: box-shadow 0.5s ease-out, border-color 0.5s ease-out;
+}
+
+/* =============================================
+   SYNTHESIS CARD - COLLISION ANIMATION
+   ============================================= */
+
+.science-card.synthesis-card {
+    position: relative;
+    overflow: hidden;
+}
+
+/* --- ANIMATION CONTAINER --- */
+.synthesis-animation-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    pointer-events: none;
+    z-index: 10;
+}
+
+/* --- THREE ICONS IN TRIANGLE --- */
+.synthesis-icon {
+    position: absolute;
+    width: 45px;
+    height: 45px;
+    transition: all 0.6s cubic-bezier(0.7, 0, 0.3, 1);
+    opacity: 1;
+}
+
+.synthesis-icon svg {
+    width: 100%;
+    height: 100%;
+}
+
+/* Triangle positions */
+.synthesis-icon.icon-visual {
+    top: 20%;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.synthesis-icon.icon-personality {
+    top: 55%;
+    left: 18%;
+}
+
+.synthesis-icon.icon-genetics {
+    top: 55%;
+    left: 64%;
+}
+
+/* Icons rush to center */
+.science-card.synthesis-card.icons-rushing .synthesis-icon {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    opacity: 0;
+}
+
+/* --- IMPACT FLASH --- */
+.impact-flash {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: #fff;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.science-card.synthesis-card.impact .impact-flash {
+    animation: impactFlashExpand 0.5s ease-out forwards;
+}
+
+@keyframes impactFlashExpand {
+    0% { width: 20px; height: 20px; opacity: 1; background: #fff; }
+    30% { background: var(--gold); }
+    100% { width: 150px; height: 150px; opacity: 0; }
+}
+
+/* --- SPARKS --- */
+.sparks-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 10px;
+    height: 10px;
+    pointer-events: none;
+}
+
+.spark {
+    position: absolute;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    opacity: 0;
+}
+
+.spark-gold { background: var(--gold); box-shadow: 0 0 6px var(--gold); }
+.spark-white { background: #fff; box-shadow: 0 0 6px #fff; }
+.spark-maroon { background: var(--maroon); box-shadow: 0 0 6px var(--maroon); }
+
+[data-theme="dark"] .spark-maroon {
+    background: #a05060;
+    box-shadow: 0 0 6px #a05060;
+}
+
+.science-card.synthesis-card.sparks-active .spark {
+    animation: sparkFlyOut 0.6s ease-out forwards;
+}
+
+.spark.s1 { --angle: 0deg; --distance: 70px; animation-delay: 0s; }
+.spark.s2 { --angle: 40deg; --distance: 60px; animation-delay: 0.03s; }
+.spark.s3 { --angle: 80deg; --distance: 75px; animation-delay: 0.05s; }
+.spark.s4 { --angle: 120deg; --distance: 65px; animation-delay: 0.02s; }
+.spark.s5 { --angle: 160deg; --distance: 70px; animation-delay: 0.06s; }
+.spark.s6 { --angle: 200deg; --distance: 60px; animation-delay: 0.04s; }
+.spark.s7 { --angle: 240deg; --distance: 75px; animation-delay: 0.01s; }
+.spark.s8 { --angle: 280deg; --distance: 65px; animation-delay: 0.07s; }
+.spark.s9 { --angle: 320deg; --distance: 70px; animation-delay: 0.03s; }
+
+@keyframes sparkFlyOut {
+    0% { opacity: 1; transform: rotate(var(--angle)) translateY(0); }
+    100% { opacity: 0; transform: rotate(var(--angle)) translateY(calc(var(--distance) * -1)); }
+}
+
+/* --- FOG/GLOW --- */
+.synthesis-fog {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(212, 168, 83, 0.5) 0%, rgba(212, 168, 83, 0.2) 40%, transparent 70%);
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.8s ease-out;
+}
+
+.science-card.synthesis-card.fog-building .synthesis-fog {
+    width: 140px;
+    height: 140px;
+    opacity: 1;
+}
+
+.science-card.synthesis-card.fog-fading .synthesis-fog {
+    width: 180px;
+    height: 180px;
+    opacity: 0;
+    transition: all 1s ease-out;
+}
+
+/* --- HARMONIA LOGO CENTER --- */
+/* ── Synthesis Venn logo container ──────────────────────────────────────
+   Two states:
+     logo-drawing  — strokes draw in at center of card
+     logo-in-header — CSS transition moves it to the card-visual slot
+   Only stroke-dashoffset and CSS transitions are used. No keyframe
+   animates top/left/width/height, so there is nothing that can jump.
+   ─────────────────────────────────────────────────────────────────────── */
+
+.harmonia-logo-center {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 80px;
+    height: 80px;
+    opacity: 0;
+    pointer-events: none;
+    transform: translate(-50%, -50%) scale(0);
+    /* Transition covers every property we animate between states */
+    transition: top    0.4s cubic-bezier(0.4, 0, 0.2, 1),
+                left   0.4s cubic-bezier(0.4, 0, 0.2, 1),
+                width  0.4s cubic-bezier(0.4, 0, 0.2, 1),
+                height 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+                transform 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+                opacity 0.15s ease-out,
+                filter  0.3s ease;
+}
+
+.harmonia-logo-center svg,
+.harmonia-logo-center img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+/* Hard reset — kills all transitions instantly so reset snaps clean */
+.harmonia-logo-center.no-transition,
+.harmonia-logo-center.no-transition svg {
+    transition: none !important;
+    animation: none !important;
+}
+
+/* ── DRAWING STATE: appear at center ── */
+.science-card.synthesis-card.logo-drawing .harmonia-logo-center {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+}
+
+/* Knot icon fade+scale in */
+.science-card.synthesis-card.logo-drawing .synthesis-knot-icon {
+    animation: knotAppear 0.5s ease-out forwards;
+}
+@keyframes knotAppear {
+    from { opacity: 0; transform: scale(0.7); }
+    to   { opacity: 1; transform: scale(1); }
+}
+
+/* ── IN-HEADER STATE: transition position to card-visual slot ──
+   The container transitions top/left/width/height to the corner.
+   The SVG inside spins 360° via a keyframe animation simultaneously. */
+.science-card.synthesis-card.logo-in-header .harmonia-logo-center {
+    top: 2.5rem;
+    left: 2.5rem;
+    width: 100px;
+    height: 100px;
+    transform: translate(0, 0) scale(1);
+    opacity: 1;
+    pointer-events: auto;
+    cursor: pointer;
+    filter: drop-shadow(0 0 8px rgba(212, 168, 83, 0.25));
+}
+
+/* Spin the SVG inside the container as it travels */
+.science-card.synthesis-card.logo-in-header .harmonia-logo-center svg {
+    animation: vennSpin 0.4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+@keyframes vennSpin {
+    from { transform: rotate(0deg); }
+    to   { transform: rotate(180deg); }
+}
+
+.science-card.synthesis-card.logo-in-header .harmonia-logo-center:hover {
+    filter: drop-shadow(0 0 15px rgba(212, 168, 83, 0.5));
+}
+
+/* --- PAUSE/RESUME TEXT --- */
+.pause-animations-text {
+    position: absolute;
+    top: calc(2.5rem + 110px);
+    left: 2.5rem;
+    width: 100px;
+    font-size: 0.7rem;
+    color: var(--gold);
+    font-family: 'DM Sans', sans-serif;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.5s ease-out;
+    text-align: center;
+    white-space: normal;
+    line-height: 1.4;
+}
+
+.science-card.synthesis-card.animation-complete .pause-animations-text {
+    opacity: 0.7;
+    pointer-events: auto;
+    cursor: pointer;
+}
+
+.science-card.synthesis-card.animation-complete .pause-animations-text:hover {
+    opacity: 1;
+}
+
+/* Change text when paused */
+.animations-paused .pause-animations-text .pause-text-content {
+    display: none;
+}
+.pause-animations-text .resume-text-content {
+    display: none;
+}
+.animations-paused .pause-animations-text .resume-text-content {
+    display: inline;
+}
+
+/* --- FINAL ICON (invisible spacer - animated logo overlays this position) --- */
+.science-card.synthesis-card .card-visual.synthesis-icon-final {
+    visibility: hidden; /* Takes up space but invisible */
+}
+
+/* Synthesis logo styled to match other card icons (gold/maroon) */
+.synthesis-logo-styled {
+    filter:
+        brightness(0) saturate(100%)
+        invert(72%) sepia(50%) saturate(500%) hue-rotate(5deg) brightness(95%)
+        drop-shadow(2px 2px 0 rgba(114, 47, 55, 0.4))
+        drop-shadow(-1px -1px 0 rgba(114, 47, 55, 0.2));
+}
+
+[data-theme="dark"] .synthesis-logo-styled {
+    filter:
+        brightness(0) saturate(100%)
+        invert(85%) sepia(30%) saturate(600%) hue-rotate(5deg) brightness(105%)
+        drop-shadow(2px 2px 0 rgba(114, 47, 55, 0.5))
+        drop-shadow(-1px -1px 0 rgba(114, 47, 55, 0.3));
+}
+
+/* Show the spacer when animation completes so flex layout matches other cards */
+.science-card.synthesis-card.logo-in-header .card-visual.synthesis-icon-final,
+.science-card.synthesis-card.animation-complete .card-visual.synthesis-icon-final {
+    visibility: hidden; /* Still hidden, but takes up 100px space in flex */
+}
+
+/* --- TITLE & SUBTITLE --- */
+.science-card.synthesis-card .card-title {
+    opacity: 0;
+    transition: opacity 0.8s ease-out;
+}
+
+.science-card.synthesis-card .card-subtitle {
+    opacity: 0;
+    transition: opacity 0.8s ease-out;
+}
+
+.science-card.synthesis-card.title-visible .card-title {
+    opacity: 1;
+}
+
+.science-card.synthesis-card.title-visible .card-subtitle {
+    opacity: 0.6;
+}
+
+/* --- COMPARISON BOXES --- */
+.science-card.synthesis-card .comparison-column {
+    background: rgba(114, 47, 55, 0.03);
+    border: 1px solid transparent;
+    transition: all 0.6s ease-out, box-shadow 0.6s ease-out, border-color 0.6s ease-out;
+}
+
+[data-theme="dark"] .science-card.synthesis-card .comparison-column {
+    background: rgba(255, 255, 255, 0.02);
+}
+
+/* Box tracing effect */
+.science-card.synthesis-card.boxes-tracing .synthesis-box {
+    border-color: var(--gold);
+    box-shadow: 0 0 15px rgba(212, 168, 83, 0.4);
+}
+
+/* Text hidden by default */
+.science-card.synthesis-card .comp-label,
+.science-card.synthesis-card .comp-text {
+    opacity: 0;
+    transition: opacity 0.5s ease-out;
+}
+
+/* Text cascade - Science first */
+.science-card.synthesis-card.text-science .science-box .comp-label,
+.science-card.synthesis-card.text-science .science-box .comp-text {
+    opacity: 1;
+}
+
+/* Text cascade - Apps second */
+.science-card.synthesis-card.text-apps .apps-box .comp-label,
+.science-card.synthesis-card.text-apps .apps-box .comp-text {
+    opacity: 1;
+}
+
+.science-card.synthesis-card.text-apps .apps-box.dim .comp-text {
+    opacity: 0.6;
+}
+
+/* Text cascade - Harmonia last */
+.science-card.synthesis-card.text-harmonia .harmonia-box .comp-label,
+.science-card.synthesis-card.text-harmonia .harmonia-box .comp-text {
+    opacity: 1;
+}
+
+/* Harmonia label styling */
+.science-card.synthesis-card .comparison-column.highlight .comp-label {
+    color: var(--maroon);
+    transition: color 0.5s ease-out, opacity 0.5s ease-out;
+}
+
+.science-card.synthesis-card.text-harmonia .comparison-column.highlight .comp-label {
+    color: var(--gold);
+}
+
+/* After animation - Harmonia highlighted */
+.science-card.synthesis-card.animation-complete .comparison-column.highlight {
+    background: rgba(212, 168, 83, 0.08);
+    border: 1px solid rgba(212, 168, 83, 0.2);
+}
+
+/* After reset - silhouette state */
+.science-card.synthesis-card.animated-once:not(.animation-complete) .comparison-column.highlight .comp-label {
+    opacity: 1;
+    color: var(--maroon);
+}
+
+[data-theme="dark"] .science-card.synthesis-card.animated-once:not(.animation-complete) .comparison-column.highlight .comp-label {
+    color: rgba(255, 255, 255, 0.4);
+}
+
+/* ============================================== */
+
+.card-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 2rem;
+    margin-bottom: 2rem;
+}
+
+.card-visual {
+    height: 100px;
+    width: 100px;
+    flex-shrink: 0;
+}
+
+.abstract-icon {
+    width: 100%;
+    height: 100%;
+    filter: drop-shadow(0 0 8px rgba(212, 168, 83, 0.25));
+}
+
+/* Dark mode inversion for Harmonia mini-icon in synthesis animation */
+.harmonia-mini-icon {
+    transition: filter 0.4s ease;
+}
+
+[data-theme="dark"] .harmonia-mini-icon {
+    filter: invert(1) hue-rotate(180deg) brightness(1.1) contrast(0.95)
+            drop-shadow(0 0 8px rgba(240, 200, 110, 0.3));
+}
+
+/* Knot icon coloring */
+.synthesis-knot-icon {
+    color: var(--gold);
+}
+[data-theme="dark"] .synthesis-knot-icon {
+    color: var(--gold);
+    filter: drop-shadow(0 0 6px rgba(212, 168, 83, 0.3));
+}
+
+.card-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2.5rem;
+    color: var(--maroon);
+    margin-bottom: 0.5rem;
+    line-height: 1.1;
+}
+
+[data-theme="dark"] .card-title {
+    color: var(--gold);
+}
+
+.card-subtitle {
+    font-size: 1rem;
+    color: var(--maroon);
+    opacity: 0.6;
+    max-width: 400px;
+}
+
+[data-theme="dark"] .card-subtitle {
+    color: var(--rose);
+    opacity: 0.7;
+}
+
+.card-content {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    margin-top: auto;
+}
+
+.comparison-column {
+    padding: 1.5rem;
+    border-radius: 8px;
+    background: rgba(114, 47, 55, 0.03);
+}
+
+[data-theme="dark"] .comparison-column {
+    background: rgba(255, 255, 255, 0.02);
+}
+
+.comparison-column.highlight {
+    background: rgba(212, 168, 83, 0.08);
+    border: 1px solid rgba(212, 168, 83, 0.2);
+}
+
+.comp-label {
+    display: block;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 0.75rem;
+    color: var(--maroon);
+    opacity: 0.5;
+}
+
+.comparison-column.highlight .comp-label {
+    color: var(--gold);
+    opacity: 1;
+}
+
+.comp-text {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.95rem;
+    line-height: 1.5;
+    color: var(--maroon-deep);
+}
+
+[data-theme="dark"] .comp-label { color: rgba(255, 255, 255, 0.4); opacity: 1; }
+[data-theme="dark"] .comp-text { color: var(--rose); }
+
+.comparison-column.dim .comp-text { opacity: 0.6; }
+
+/* Pagination Controls */
+.slider-pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 2rem;
+    padding: 0.75rem 1.25rem;
+    background: rgba(114, 47, 55, 0.06);
+    border-radius: 30px;
+    width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+[data-theme="dark"] .slider-pagination {
+    background: rgba(255, 255, 255, 0.06);
+}
+
+/* Hide arrows - minimal design per Augustine's feedback */
+.pagination-arrow {
+    display: none;
+}
+
+.pagination-dots {
+    display: flex;
+    gap: 0.4rem;
+    align-items: center;
+}
+
+/* Beveled pill-shaped dots - Augustine's feedback */
+.pagination-dot {
+    width: 12px;
+    height: 4px;
+    border-radius: 2px;
+    background: var(--gold-light);
+    opacity: 0.5;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.pagination-dot.active {
+    width: 32px;
+    opacity: 1;
+    background: var(--maroon-deep);
+}
+
+[data-theme="dark"] .pagination-dot {
+    background: rgba(212, 168, 83, 0.4);
+}
+
+[data-theme="dark"] .pagination-dot.active {
+    background: var(--gold);
+}
+
+/* Regal Form (Right Column) */
+.regal-form-container {
+    background: rgba(255, 255, 255, 0.5);
+    backdrop-filter: blur(12px);
+    padding: 2.5rem;
+    border: 1px solid rgba(114, 47, 55, 0.08);
+    border-radius: 2px;
+}
+
+[data-theme="dark"] .regal-form-container {
+    background: rgba(45, 26, 28, 0.5);
+    border-color: rgba(212, 168, 83, 0.12);
+}
+
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+}
+
+.input-group {
+    margin-bottom: 1.5rem;
+    position: relative;
+}
+
+/* Underline Input Style */
+.regal-form label {
+    display: block;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 0.85rem;
+    color: var(--slate);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 0.4rem;
+}
+
+.regal-form input,
+.regal-form select,
+.regal-form textarea {
+    width: 100%;
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid rgba(71, 85, 105, 0.4);
+    padding: 0.6rem 0;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 1rem;
+    color: var(--navy);
+    border-radius: 0;
+    transition: border-color 0.4s ease;
+    caret-color: var(--gold);
+}
+
+.regal-form textarea {
+    resize: none;
+    min-height: 60px;
+}
+
+.regal-form select {
+    cursor: pointer;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23475569' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 0 center;
+}
+
+.regal-form select option {
+    background-color: var(--cream);
+    color: var(--navy);
+    padding: 0.5rem;
+}
+
+.regal-form input:focus,
+.regal-form select:focus,
+.regal-form textarea:focus {
+    outline: none;
+    border-bottom-color: var(--gold);
+}
+
+.regal-form input::placeholder,
+.regal-form textarea::placeholder {
+    color: var(--slate);
+    opacity: 0.5;
+}
+
+[data-theme="dark"] .regal-form input,
+[data-theme="dark"] .regal-form select,
+[data-theme="dark"] .regal-form textarea {
+    color: var(--rose);
+    border-bottom-color: rgba(196, 184, 176, 0.3);
+}
+
+/* Dark mode select dropdown styling */
+[data-theme="dark"] .regal-form select {
+    background-color: rgba(45, 26, 28, 0.8);
+    color: var(--rose);
+}
+
+[data-theme="dark"] .regal-form select option {
+    background-color: #2D1A1C;
+    color: #EFE5DC;
+    padding: 0.5rem;
+}
+
+[data-theme="dark"] .regal-form input:focus,
+[data-theme="dark"] .regal-form select:focus,
+[data-theme="dark"] .regal-form textarea:focus {
+    border-bottom-color: var(--gold);
+}
+
+[data-theme="dark"] .regal-form select {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23C4B8B0' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+}
+
+/* Submit Button - Elegant Text Link */
+.btn-regal-submit {
+    background: none;
+    border: none;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.2rem;
+    color: var(--maroon);
+    cursor: pointer;
+    padding: 0;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: gap 0.3s ease, color 0.3s ease, opacity 0.3s ease;
+    margin-top: 0.5rem;
+}
+
+.btn-regal-submit .arrow {
+    font-family: sans-serif;
+    font-size: 1rem;
+    transition: transform 0.3s ease;
+}
+
+.btn-regal-submit:hover {
+    color: var(--navy);
+    gap: 1rem;
+}
+
+.btn-regal-submit:hover .arrow {
+    transform: translateX(4px);
+}
+
+[data-theme="dark"] .btn-regal-submit {
+    color: var(--gold);
+}
+
+[data-theme="dark"] .btn-regal-submit:hover {
+    color: var(--rose);
+}
+
+.form-message {
+    display: none;
+    margin-top: 1rem;
+}
+
+.btn-regal-submit.processing {
+    opacity: 0.6;
+    cursor: wait;
+}
+
+/* Partnerships Modal */
+.partnerships-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(18, 9, 10, 0.7);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    z-index: 2000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.partnerships-modal-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.partnerships-modal-content {
+    background: var(--cream);
+    max-width: 500px;
+    width: 90%;
+    padding: 2.5rem;
+    border: 1px solid var(--gold-light);
+    position: relative;
+    transform: scale(0.95);
+    transition: transform 0.3s ease;
+}
+
+[data-theme="dark"] .partnerships-modal-content {
+    background: var(--dark-surface);
+    border-color: var(--gold-light);
+}
+
+.partnerships-modal-overlay.active .partnerships-modal-content {
+    transform: scale(1);
+}
+
+.partnerships-modal-close {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    color: var(--slate);
+    cursor: pointer;
+    transition: color 0.3s ease;
+    line-height: 1;
+}
+
+.partnerships-modal-close:hover {
+    color: var(--maroon);
+}
+
+[data-theme="dark"] .partnerships-modal-close:hover {
+    color: var(--gold);
+}
+
+.partnerships-modal-icon {
+    height: 80px;
+    width: 80px;
+    margin-bottom: 1rem;
+}
+
+.partnerships-modal-icon .abstract-icon {
+    width: 100%;
+    height: 100%;
+}
+
+.partnerships-modal-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.5rem;
+    color: var(--maroon);
+    margin-bottom: 1rem;
+    font-weight: 600;
+}
+
+[data-theme="dark"] .partnerships-modal-title {
+    color: var(--gold);
+}
+
+.partnerships-modal-desc {
+    font-size: 1rem;
+    color: var(--slate);
+    line-height: 1.7;
+    margin-bottom: 1.5rem;
+}
+
+.partnerships-modal-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.partnerships-modal-list li {
+    font-size: 0.95rem;
+    color: var(--navy);
+    padding: 0.5rem 0;
+    padding-left: 1.5rem;
+    position: relative;
+    border-bottom: 1px solid var(--gold-light);
+}
+
+.partnerships-modal-list li:last-child {
+    border-bottom: none;
+}
+
+.partnerships-modal-list li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 6px;
+    height: 6px;
+    background: var(--gold);
+    border-radius: 50%;
+}
+
+/* Contact Form Specific Styles */
+.regal-form h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.5rem;
+    color: var(--maroon-deep);
+    margin-bottom: 1.5rem;
+    text-align: center;
+}
+
+[data-theme="dark"] .regal-form h3 {
+    color: var(--gold);
+}
+
+.input-group label {
+    display: block;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--maroon);
+    margin-bottom: 0.5rem;
+}
+
+[data-theme="dark"] .input-group label {
+    color: var(--gold-champagne);
+}
+
+.input-group input,
+.input-group select,
+.input-group textarea {
+    width: 100%;
+    padding: 0.75rem 0;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 1rem;
+    color: var(--navy);
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid var(--slate);
+    outline: none;
+    transition: border-color 0.3s ease;
+    caret-color: var(--gold);
+}
+
+.input-group textarea {
+    resize: vertical;
+    min-height: 100px;
+    border: 1px solid var(--slate);
+    border-radius: 4px;
+    padding: 0.75rem;
+}
+
+.input-group input:focus,
+.input-group select:focus,
+.input-group textarea:focus {
+    border-color: var(--gold);
+}
+
+[data-theme="dark"] .input-group input,
+[data-theme="dark"] .input-group select,
+[data-theme="dark"] .input-group textarea {
+    color: var(--rose);
+    border-color: rgba(196, 184, 176, 0.3);
+}
+
+[data-theme="dark"] .input-group input:focus,
+[data-theme="dark"] .input-group select:focus,
+[data-theme="dark"] .input-group textarea:focus {
+    border-color: var(--gold);
+}
+
+.input-group input::placeholder,
+.input-group textarea::placeholder {
+    color: var(--slate);
+    opacity: 0.6;
+}
+
+/* Select Dropdown */
+.input-group select {
+    cursor: pointer;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23722F37' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 0 center;
+}
+
+[data-theme="dark"] .input-group select {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23F0C86E' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+}
+
+[data-theme="dark"] .input-group select option {
+    background-color: #2D1A1C;
+    color: #EFE5DC;
+}
+
+/* Submit Button */
+.submit-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    width: 100%;
+    padding: 1rem;
+    margin-top: 0.5rem;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--maroon-deep);
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.submit-btn:hover {
+    color: var(--gold);
+    transform: translateY(-1px);
+}
+
+.submit-btn:hover .arrow {
+    transform: translateX(4px);
+}
+
+[data-theme="dark"] .submit-btn {
+    color: var(--gold);
+}
+
+[data-theme="dark"] .submit-btn:hover {
+    color: var(--gold-champagne);
+}
+
+.submit-btn .arrow {
+    transition: transform 0.3s ease;
+}
+
+.submit-btn.processing {
+    opacity: 0.6;
+    pointer-events: none;
+}
+
+/* Success Message */
+.form-success {
+    text-align: center;
+    padding: 1rem;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.1rem;
+    color: var(--maroon-deep);
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+
+.form-success.visible {
+    opacity: 1;
+}
+
+[data-theme="dark"] .form-success {
+    color: var(--gold);
+}
+
+/* --- HIDE ALL ARROWS GLOBALLY (True Minimalism) --- */
+/* Users intuitively swipe on mobile; arrows add clutter */
+.slider-arrow,
+.pagination-arrow {
+    display: none !important;
+}
+
+/* --- UNIVERSAL DOT STYLING (Mobile & Desktop Sliders) --- */
+/* Applies beveled rectangle style to Team (.dot) and Why Harmonia (.pagination-dot) */
+.dot,
+.pagination-dot {
+    width: 12px;
+    height: 4px;
+    border-radius: 2px;
+    background: var(--gold-light);
+    opacity: 0.5;
+    transition: all 0.3s ease;
+}
+
+.dot.active,
+.pagination-dot.active {
+    width: 32px;
+    opacity: 1;
+    background: var(--maroon-deep);
+}
+
+[data-theme="dark"] .dot,
+[data-theme="dark"] .pagination-dot {
+    background: rgba(212, 168, 83, 0.4);
+}
+
+[data-theme="dark"] .dot.active,
+[data-theme="dark"] .pagination-dot.active {
+    background: var(--gold);
+}

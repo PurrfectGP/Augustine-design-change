@@ -1,0 +1,55 @@
+/* ============================================================
+   Harmonia Preview — variables.css
+   Theme custom properties: dark (default) and light overrides
+   ============================================================ */
+
+
+/* ===================================================
+   1. THEME VARIABLES
+   =================================================== */
+
+:root,
+[data-theme="dark"] {
+  --bg:    #0A0506;
+  --bg2:   #1A0F10;
+  --bg3:   #2D1A1C;
+  --bg4:   #3A2224;
+  --bdr:   #3D2426;
+  --gold:  #F0C86E;
+  --gold2: #FFD875;
+  --goldd: #C9A855;
+  --goldg: rgba(240, 200, 110, 0.4);
+  --golds: rgba(240, 200, 110, 0.12);
+  --mar:   #722F37;
+  --marl:  #8B3A3A;
+  --mard:  #5C1A1B;
+  --marg:  rgba(114, 47, 55, 0.5);
+  --t1:    #F5F0E8;
+  --t2:    #C4B8B0;
+  --t3:    #7A6E68;
+  --glass: rgba(45, 26, 28, 0.55);
+  --gbdr:  rgba(240, 200, 110, 0.1);
+  --ghl:   rgba(240, 200, 110, 0.05);
+  --ok:    #4CAF50;
+  --wrn:   #FFC107;
+  --err:   #E53935;
+}
+
+[data-theme="light"] {
+  --bg:    #FAF6F1;
+  --bg2:   #F5EDE6;
+  --bg3:   #F0E8DF;
+  --bg4:   #fff;
+  --bdr:   rgba(114, 47, 55, 0.1);
+  --gold:  #D4A853;
+  --gold2: #E8C97A;
+  --goldd: #B08C3E;
+  --goldg: rgba(212, 168, 83, 0.3);
+  --golds: rgba(212, 168, 83, 0.08);
+  --t1:    #1E293B;
+  --t2:    #475569;
+  --t3:    #94A3B8;
+  --glass: rgba(255, 255, 255, 0.6);
+  --gbdr:  rgba(114, 47, 55, 0.08);
+  --ghl:   rgba(255, 255, 255, 0.3);
+}

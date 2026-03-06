@@ -1,0 +1,299 @@
+/* ==========================================================================
+   nav.css — All navigation styles: nav bar, logo, nav-right, nav-links,
+   hamburger menu, theme toggle, and mobile nav overlay.
+   Includes all nav-specific dark mode overrides.
+   ========================================================================== */
+
+/* Navigation */
+nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    background: rgba(250, 246, 241, 0.92);
+    -webkit-backdrop-filter: blur(20px);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid rgba(114, 47, 55, 0.1);
+    padding: 1rem 3rem;
+    padding-top: max(1rem, env(safe-area-inset-top));
+    padding-left: max(1.5rem, env(safe-area-inset-left));
+    padding-right: max(1.5rem, env(safe-area-inset-right));
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-justify-content: space-between;
+    justify-content: space-between;
+    -webkit-align-items: center;
+    align-items: center;
+    transition: background 0.4s ease;
+    box-sizing: border-box;
+}
+
+[data-theme="dark"] nav {
+    background: rgba(26, 15, 16, 0.92);
+    border-bottom: 1px solid rgba(61, 36, 38, 0.5);
+    box-shadow: 0 4px 20px rgba(240, 200, 110, 0.08);
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: pointer;
+}
+
+.logo img {
+    height: 42px;
+    width: auto;
+    display: block;
+    transition: transform 0.25s ease, filter 0.4s ease;
+    filter: drop-shadow(0 0 6px rgba(160, 90, 90, 0.25))
+            drop-shadow(0 0 12px rgba(140, 75, 75, 0.15));
+}
+
+[data-theme="dark"] .logo img {
+    filter: invert(1) hue-rotate(180deg) brightness(1.1) contrast(0.95)
+            drop-shadow(0 0 6px rgba(240, 200, 110, 0.3))
+            drop-shadow(0 0 12px rgba(245, 217, 138, 0.2));
+}
+
+.nav-right {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+}
+
+.nav-links {
+    display: flex;
+    gap: 1.8rem;
+    list-style: none;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: var(--slate);
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: color 0.3s ease, text-shadow 0.3s ease;
+    cursor: pointer;
+    white-space: nowrap;
+}
+
+.nav-links a:hover, .nav-links a.active {
+    color: var(--maroon);
+    text-shadow: 0 0 20px rgba(114, 47, 55, 0.3);
+}
+
+[data-theme="dark"] .nav-links a:hover,
+[data-theme="dark"] .nav-links a.active {
+    color: var(--gold);
+    text-shadow: 0 0 20px rgba(240, 200, 110, 0.4);
+}
+
+/* Hamburger Menu */
+.hamburger {
+    display: none;
+    flex-direction: column;
+    justify-content: space-around;
+    width: 28px;
+    height: 22px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    z-index: 1005;
+    -webkit-tap-highlight-color: transparent;
+    position: relative;
+}
+
+.hamburger span {
+    display: block;
+    width: 100%;
+    height: 2px;
+    background: var(--maroon);
+    border-radius: 2px;
+    transition: all 0.3s ease;
+    transform-origin: center;
+}
+
+[data-theme="dark"] .hamburger span {
+    background: var(--gold);
+}
+
+.hamburger.active span:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 6px);
+}
+
+.hamburger.active span:nth-child(2) {
+    opacity: 0;
+    transform: scaleX(0);
+}
+
+.hamburger.active span:nth-child(3) {
+    transform: rotate(-45deg) translate(5px, -6px);
+}
+
+/* Mobile Navigation Overlay - Full Screen Modern Design */
+.nav-links.mobile-open {
+    display: -webkit-box !important;
+    display: -webkit-flex !important;
+    display: flex !important;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100vw;
+    height: 100vh;
+    height: 100dvh;
+    background: var(--cream);
+    -webkit-flex-direction: column;
+    flex-direction: column;
+    -webkit-justify-content: center;
+    justify-content: center;
+    -webkit-align-items: center;
+    align-items: center;
+    gap: 0;
+    z-index: 1004;
+    padding: 0;
+    overflow: hidden;
+    /* Hide scrollbar on all browsers */
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+.nav-links.mobile-open::-webkit-scrollbar {
+    display: none;
+}
+
+[data-theme="dark"] .nav-links.mobile-open {
+    background: var(--dark-bg);
+}
+
+.nav-links.mobile-open li {
+    border: none;
+    width: auto;
+    text-align: center;
+    opacity: 0;
+    animation: fadeInUp 0.5s ease forwards;
+}
+
+.nav-links.mobile-open li:nth-child(1) { animation-delay: 0.05s; }
+.nav-links.mobile-open li:nth-child(2) { animation-delay: 0.1s; }
+.nav-links.mobile-open li:nth-child(3) { animation-delay: 0.15s; }
+.nav-links.mobile-open li:nth-child(4) { animation-delay: 0.2s; }
+.nav-links.mobile-open li:nth-child(5) { animation-delay: 0.25s; }
+.nav-links.mobile-open li:nth-child(6) { animation-delay: 0.3s; }
+.nav-links.mobile-open li:nth-child(7) { animation-delay: 0.35s; }
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+[data-theme="dark"] .nav-links.mobile-open li {
+    border: none;
+}
+
+.nav-links.mobile-open a {
+    font-size: 1.6rem;
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 500;
+    display: block;
+    padding: 0.9rem 3rem;
+    width: 100%;
+    text-align: center;
+    transition: all 0.3s ease;
+    color: var(--slate);
+    letter-spacing: 0.02em;
+}
+
+.nav-links.mobile-open a:hover,
+.nav-links.mobile-open a:active {
+    color: var(--maroon);
+    transform: scale(1.05);
+}
+
+[data-theme="dark"] .nav-links.mobile-open a:hover,
+[data-theme="dark"] .nav-links.mobile-open a:active {
+    color: var(--gold);
+}
+
+.nav-links.mobile-open a.active {
+    color: var(--maroon);
+    font-weight: 600;
+}
+
+[data-theme="dark"] .nav-links.mobile-open a.active {
+    color: var(--gold);
+}
+
+/* Theme Toggle */
+.theme-toggle {
+    position: relative;
+    width: 52px;
+    height: 28px;
+    background: #e8e0d5;
+    border-radius: 14px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+    border: none;
+    padding: 0;
+    box-shadow: none;
+    outline: none;
+    -webkit-appearance: none;
+    appearance: none;
+}
+
+[data-theme="dark"] .theme-toggle {
+    background: var(--gold);
+}
+
+.theme-toggle::before {
+    content: '';
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    width: 24px;
+    height: 24px;
+    background: white;
+    border-radius: 50%;
+    transition: transform 0.3s ease;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.15);
+}
+
+[data-theme="dark"] .theme-toggle::before {
+    transform: translateX(24px);
+}
+
+.theme-toggle-icons {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 6px;
+    pointer-events: none;
+}
+
+.theme-toggle-icons svg {
+    width: 14px;
+    height: 14px;
+}
+
+.sun-icon { color: var(--gold); }
+.moon-icon { color: white; }
+
+/* Dark mode toggle icons - colors to match dark theme */
+[data-theme="dark"] .sun-icon { color: white; }
+[data-theme="dark"] .moon-icon { color: #722F37; }

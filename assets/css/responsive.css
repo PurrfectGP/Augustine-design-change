@@ -1,0 +1,1861 @@
+/* ==========================================================================
+   responsive.css — ALL @media queries from the original styles.css.
+   These override everything and must be loaded last.
+   ========================================================================== */
+
+/* Mobile container padding */
+@media (max-width: 768px) {
+    .container {
+        padding: 0 1rem;
+    }
+}
+
+/* Tablet and mobile: prevent body from forcing full viewport height */
+@media (max-width: 1024px) {
+    html {
+        height: auto;
+    }
+    body {
+        min-height: auto;
+        height: auto;
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        padding: 0 0.75rem;
+    }
+}
+
+/* ==================== HERO RESPONSIVE ==================== */
+
+@media (max-width: 1400px) {
+    .hero {
+        grid-template-columns: 1.3fr 1fr;
+        gap: 2.5rem;
+        padding: 3rem;
+        margin-top: 80px;
+    }
+    .tagline {
+        font-size: clamp(1.8rem, 3.5vw, 3rem);
+    }
+}
+
+@media (max-width: 1200px) {
+    .nav-links {
+        gap: 1.4rem;
+    }
+    .nav-links a {
+        font-size: 0.85rem;
+    }
+    .hero {
+        grid-template-columns: 1.2fr 1fr;
+        gap: 2rem;
+        padding: 2.5rem;
+        margin-top: 70px;
+    }
+    .tagline {
+        font-size: clamp(1.6rem, 3vw, 2.5rem);
+    }
+    .subtitle {
+        font-size: 1.05rem;
+        max-width: 500px;
+    }
+    .radar-container {
+        width: 350px;
+        height: 350px;
+    }
+    .radar-bg-circle.large { width: 320px; height: 320px; }
+    .radar-bg-circle.medium { width: 240px; height: 240px; }
+    .radar-bg-circle.small { width: 160px; height: 160px; }
+}
+
+@media (max-width: 1024px) {
+    html, body {
+        min-height: auto;
+        height: auto;
+    }
+    body {
+        display: block;
+    }
+    .hero {
+        display: block; /* Switch from grid to block for simpler mobile layout */
+        padding: 2rem;
+        padding-left: max(1rem, env(safe-area-inset-left));
+        padding-right: max(1rem, env(safe-area-inset-right));
+        text-align: center;
+        min-height: auto;
+        height: auto;
+        margin-top: 70px;
+    }
+    .hero-content {
+        margin-bottom: 2rem;
+    }
+    .tagline {
+        font-size: clamp(1.5rem, 4vw, 2.2rem);
+    }
+    .subtitle {
+        max-width: 100%;
+        margin-left: auto;
+        margin-right: auto;
+        font-size: 1rem;
+    }
+    .btn-group {
+        -webkit-justify-content: center;
+        justify-content: center;
+    }
+    .radar-wrapper {
+        height: auto;
+        min-height: 350px;
+        position: relative;
+        margin: 0 auto;
+    }
+    .radar-container {
+        width: 320px;
+        height: 320px;
+        position: relative;
+        margin: 0 auto;
+    }
+    .radar-bg-circle.large { width: 300px; height: 300px; }
+    .radar-bg-circle.medium { width: 225px; height: 225px; }
+    .radar-bg-circle.small { width: 150px; height: 150px; }
+    nav {
+        padding: 1rem 1.5rem;
+        padding-top: max(0.75rem, env(safe-area-inset-top));
+    }
+    .nav-links {
+        display: none;
+    }
+    .hamburger {
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: flex;
+    }
+    .theme-toggle {
+        width: 44px;
+        height: 24px;
+        border-radius: 12px;
+    }
+    .theme-toggle::before {
+        width: 20px;
+        height: 20px;
+    }
+    [data-theme="dark"] .theme-toggle::before {
+        transform: translateX(20px);
+    }
+    .theme-toggle-icons svg {
+        width: 12px;
+        height: 12px;
+    }
+    .nav-right {
+        gap: 1.25rem;
+    }
+    .footer-inner {
+        -webkit-flex-direction: column;
+        flex-direction: column;
+        gap: 1rem;
+        text-align: center;
+        -webkit-align-items: center;
+        align-items: center;
+    }
+    footer {
+        padding: 1.5rem 2rem;
+        padding-bottom: max(1.5rem, env(safe-area-inset-bottom));
+    }
+    footer .logo-text {
+        margin-left: 0;
+        text-align: center;
+        width: 100%;
+    }
+    .footer-links {
+        -webkit-flex-wrap: wrap;
+        flex-wrap: wrap;
+        -webkit-justify-content: center;
+        justify-content: center;
+        gap: 1rem 1.5rem;
+    }
+    .copyright {
+        text-align: center;
+        width: 100%;
+    }
+}
+
+@media (max-width: 768px) {
+    .hero {
+        padding: 1.5rem;
+        padding-left: max(1rem, env(safe-area-inset-left));
+        padding-right: max(1rem, env(safe-area-inset-right));
+        min-height: auto;
+        height: auto;
+        margin-top: 60px;
+    }
+    .hero-content {
+        margin-bottom: 1.5rem;
+    }
+    .tagline {
+        font-size: clamp(1.4rem, 5vw, 2rem);
+    }
+    .subtitle {
+        font-size: 0.95rem;
+    }
+    .radar-wrapper {
+        height: auto;
+        min-height: 280px;
+        width: 100%;
+        max-width: 300px;
+        margin: 0 auto 1rem auto;
+    }
+    .radar-container {
+        width: 260px;
+        height: 260px;
+        margin: 0 auto;
+    }
+    .radar-bg-circle.large { width: 240px; height: 240px; }
+    .radar-bg-circle.medium { width: 180px; height: 180px; }
+    .radar-bg-circle.small { width: 120px; height: 120px; }
+    .radar-label {
+        font-size: 0.6rem;
+    }
+    .btn {
+        padding: 0.8rem 1.5rem;
+        font-size: 0.9rem;
+    }
+    .btn-group {
+        -webkit-flex-direction: column;
+        flex-direction: column;
+        width: 100%;
+    }
+    .btn-group .btn {
+        width: 100%;
+        -webkit-justify-content: center;
+        justify-content: center;
+    }
+}
+
+@media (max-width: 480px) {
+    nav {
+        padding: 0.75rem 1rem;
+        padding-top: max(0.5rem, env(safe-area-inset-top));
+    }
+    .logo img {
+        height: 32px;
+    }
+    .hero {
+        padding: 1rem;
+        margin-top: 55px;
+        height: auto;
+    }
+    .hero-content {
+        margin-bottom: 1rem;
+    }
+    .tagline {
+        font-size: 1.3rem;
+    }
+    .radar-wrapper {
+        height: auto;
+        min-height: 200px;
+        margin-bottom: 1rem;
+    }
+    .radar-container {
+        width: 180px;
+        height: 180px;
+        margin: 0 auto;
+    }
+    .radar-bg-circle.large { width: 160px; height: 160px; }
+    .radar-bg-circle.medium { width: 120px; height: 120px; }
+    .radar-bg-circle.small { width: 80px; height: 80px; }
+    .radar-status {
+        font-size: 0.65rem;
+        padding: 0.3rem 0.6rem;
+    }
+    .radar-label {
+        font-size: 0.5rem;
+    }
+    footer {
+        padding: 1rem;
+        padding-bottom: max(1rem, env(safe-area-inset-bottom));
+    }
+    .footer-links {
+        -webkit-flex-wrap: wrap;
+        flex-wrap: wrap;
+        -webkit-justify-content: center;
+        justify-content: center;
+        gap: 0.75rem;
+    }
+}
+
+/* ==================== PAGE SYSTEM MOBILE OVERRIDE ==================== */
+@media (max-width: 1024px) {
+    .page.active {
+        display: block;
+        min-height: auto;
+        height: auto;
+    }
+
+    #page-home,
+    #page-p2p {
+        min-height: auto;
+        height: auto;
+    }
+
+    #page-home .hero,
+    .p2p-section {
+        min-height: auto;
+        height: auto;
+    }
+
+    /* Prevent footer stretching on all pages */
+    .page footer {
+        flex: none;
+    }
+
+    /* Disable flex:1 on all section containers for mobile */
+    #why-harmonia,
+    #why-harmonia > .container,
+    .partnerships-section,
+    .team-section,
+    .founding-story,
+    .contact-section,
+    .contact-content,
+    .engine-container,
+    .p2p-section {
+        flex: none;
+        min-height: auto;
+        height: auto;
+    }
+}
+
+/* ==================== WHY HARMONIA RESPONSIVE ==================== */
+
+@media (max-width: 768px) {
+    #why-harmonia {
+        padding: 1.5rem 1rem 3rem;
+        margin-top: 60px;
+    }
+
+    .science-card {
+        flex: 0 0 min(600px, calc(100vw - 2rem));
+        min-height: auto;
+        padding: 1.5rem;
+        position: relative;
+    }
+
+    .card-header {
+        flex-direction: column;
+        gap: 1rem;
+        align-items: center;
+    }
+
+    /* Hide the static icon placeholders on mobile - we use centered animated icons */
+    .card-visual {
+        display: none;
+    }
+
+    .card-title {
+        font-size: 1.8rem;
+        text-align: center;
+    }
+
+    .card-subtitle {
+        text-align: center;
+    }
+
+    .card-content {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+
+    .slider-track {
+        padding: 0 max(1rem, calc((100vw - min(600px, calc(100vw - 2rem))) / 2));
+    }
+
+    .science-slider-wrapper {
+        overflow-x: hidden;
+        width: 100%;
+        margin-left: 0;
+        margin-right: 0;
+    }
+
+    .science-slider-container {
+        padding-left: 0;
+        padding-right: 0;
+    }
+
+    .note-box {
+        margin-top: 2rem;
+        padding: 1.5rem;
+    }
+}
+
+@media (max-width: 480px) {
+    #why-harmonia {
+        padding: 1rem 0 2rem;
+        margin-top: 55px;
+        overflow-x: hidden;
+    }
+
+    .science-slider-wrapper {
+        width: 100%;
+        margin-left: 0;
+        margin-right: 0;
+        padding: 1rem 0;
+    }
+
+    .science-slider-container {
+        padding: 0;
+    }
+
+    .slider-track {
+        padding: 0 1.5rem;
+        gap: 1.5rem;
+    }
+
+    .science-card {
+        flex: 0 0 calc(100vw - 3rem);
+        padding: 1.25rem;
+        scroll-snap-align: center;
+        min-height: auto;
+        border-width: 1.5px;
+        position: relative;
+    }
+
+    .card-header {
+        flex-direction: column;
+        gap: 1rem;
+        margin-bottom: 1.5rem;
+        align-items: center;
+    }
+
+    /* Hide static icon placeholders on phone */
+    .card-visual {
+        display: none;
+    }
+
+    .card-title {
+        font-size: 1.5rem;
+        text-align: center;
+    }
+
+    .card-subtitle {
+        font-size: 0.85rem;
+        text-align: center;
+    }
+
+    .card-content {
+        grid-template-columns: 1fr;
+        gap: 0.75rem;
+    }
+
+    .comparison-column {
+        padding: 1rem;
+        /* More visible transition on mobile */
+        transition: opacity 0.5s ease, transform 0.5s ease, background 0.3s ease;
+    }
+
+    /* Stagger animation for comparison boxes on mobile */
+    .comparison-column:nth-child(1) { transition-delay: 0s; }
+    .comparison-column:nth-child(2) { transition-delay: 0.15s; }
+    .comparison-column:nth-child(3) { transition-delay: 0.3s; }
+
+    /* Enhanced highlight box visibility on mobile */
+    .comparison-column.highlight {
+        background: rgba(212, 168, 83, 0.15);
+        border: 1.5px solid rgba(212, 168, 83, 0.4);
+    }
+
+    .note-box {
+        padding: 1rem;
+        margin-left: 1.5rem;
+        margin-right: 1.5rem;
+    }
+
+    .note-box h4 {
+        font-size: 0.8rem;
+    }
+
+    .note-box p {
+        font-size: 0.9rem;
+    }
+}
+
+/* =============================================
+   RESPONSIVE ANIMATED ICON CONTAINERS
+   ============================================= */
+
+/* Tablet - 768px - Icons stay centered, no corner movement */
+@media (max-width: 768px) {
+    /* Visual Card Eye - stays at top center, no movement */
+    .science-card.visual-card .eye-container {
+        width: 90px;
+        height: 90px;
+        top: 30px;
+        left: 50%;
+        transform: translate(-50%, 0);
+        transition: opacity 0.8s ease;
+    }
+    .science-card.visual-card.eye-open .eye-container {
+        top: 30px;
+        left: 50%;
+        transform: translate(-50%, 0);
+        width: 90px;
+        height: 90px;
+    }
+    /* Title pushed lower to give icon more space */
+    .science-card.visual-card .card-header {
+        margin-top: 105px;
+        margin-bottom: 1rem;
+        text-align: center;
+    }
+    .science-card.visual-card.eye-open .card-header {
+        margin-top: 105px;
+    }
+    /* Visual card text sizing for equal spacing */
+    .science-card.visual-card .card-title {
+        font-size: 1.6rem;
+        margin-bottom: 0.5rem;
+    }
+    .science-card.visual-card .card-subtitle {
+        font-size: 0.9rem;
+        margin-bottom: 0;
+        line-height: 1.4;
+    }
+    .science-card.visual-card .card-content {
+        margin-top: 0;
+    }
+    .science-card.visual-card .card-title-group {
+        opacity: 0;
+        transform: translateY(10px);
+        transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .science-card.visual-card.eye-open .card-title-group {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    /* Personality Card Icon - stays at top center, no movement */
+    .science-card.personality-card .personality-icon-container {
+        width: 110px;
+        height: 110px;
+        top: 25px;
+        left: 50%;
+        transform: translate(-50%, 0);
+        transition: opacity 0.8s ease;
+    }
+    .science-card.personality-card.icon-moving .personality-icon-container {
+        top: 25px;
+        left: 50%;
+        transform: translate(-50%, 0);
+        width: 110px;
+        height: 110px;
+    }
+    .science-card.personality-card .card-header {
+        margin-top: 105px;
+        margin-bottom: 1rem;
+        text-align: center;
+    }
+    .science-card.personality-card.icon-moving .card-header,
+    .science-card.personality-card.animation-complete .card-header {
+        margin-top: 105px;
+    }
+    /* Personality card text sizing for equal spacing */
+    .science-card.personality-card .card-title {
+        font-size: 1.6rem;
+        margin-bottom: 0.5rem;
+    }
+    .science-card.personality-card .card-subtitle {
+        font-size: 0.9rem;
+        margin-bottom: 0;
+        line-height: 1.4;
+    }
+    .science-card.personality-card .card-content {
+        margin-top: 0;
+    }
+
+    /* Genetic Card DNA - stays at top center, no movement */
+    .science-card.genetic-card .dna-icon-container {
+        width: 100px;
+        height: 100px;
+        top: 18px;
+        left: 50%;
+        transform: translate(-50%, 0);
+    }
+    .science-card.genetic-card.dna-moving .dna-icon-container,
+    .science-card.genetic-card.animation-complete .dna-icon-container {
+        top: 18px;
+        left: 50%;
+        transform: translate(-50%, 0);
+        width: 100px;
+        height: 100px;
+        transition: opacity 0.8s ease;
+    }
+    .science-card.genetic-card .card-header {
+        margin-top: 110px;
+        margin-bottom: 1rem;
+        text-align: center;
+    }
+    .science-card.genetic-card.dna-moving .card-header,
+    .science-card.genetic-card.animation-complete .card-header {
+        margin-top: 110px;
+    }
+    /* Genetic card text sizing for equal spacing */
+    .science-card.genetic-card .card-title {
+        font-size: 1.6rem;
+        margin-bottom: 0.5rem;
+    }
+    .science-card.genetic-card .card-subtitle {
+        font-size: 0.9rem;
+        margin-bottom: 0;
+        line-height: 1.4;
+    }
+    .science-card.genetic-card .card-content {
+        margin-top: 0;
+    }
+
+    /* Synthesis Card Logo - stays at top center, spins in place */
+    /* Tablet: icon sits centered at top */
+    .science-card.synthesis-card.logo-in-header .harmonia-logo-center {
+        top: 2.5rem;
+        left: 50%;
+        width: 90px;
+        height: 90px;
+        transform: translateX(-50%) scale(1);
+    }
+    .science-card.synthesis-card .card-header {
+        margin-top: 130px;
+        margin-bottom: 1rem;
+        text-align: center;
+    }
+    .science-card.synthesis-card.logo-in-header .card-header,
+    .science-card.synthesis-card.animation-complete .card-header {
+        margin-top: 130px;
+    }
+    /* Synthesis card text sizing for equal spacing */
+    .science-card.synthesis-card .card-title {
+        font-size: 1.6rem;
+        margin-bottom: 0.5rem;
+        opacity: 1 !important;
+    }
+    .science-card.synthesis-card .card-subtitle {
+        font-size: 0.9rem;
+        margin-bottom: 0;
+        line-height: 1.4;
+        opacity: 0.6 !important;
+    }
+    .science-card.synthesis-card .card-content {
+        margin-top: 0;
+    }
+    /* Make comparison box text visible by default on tablet */
+    .science-card.synthesis-card .comp-label,
+    .science-card.synthesis-card .comp-text {
+        opacity: 1 !important;
+    }
+    .science-card.synthesis-card .comparison-column.dim .comp-text {
+        opacity: 0.5 !important;
+    }
+    /* Harmonia highlight box always styled on tablet */
+    .science-card.synthesis-card .comparison-column.highlight {
+        background: rgba(212, 168, 83, 0.08);
+        border: 1px solid rgba(212, 168, 83, 0.2);
+    }
+    .science-card.synthesis-card .comparison-column.highlight .comp-label {
+        color: var(--gold) !important;
+    }
+    /* Hide the spacer on mobile since icon is centered */
+    .science-card.synthesis-card .card-visual.synthesis-icon-final {
+        display: none;
+    }
+    .pause-animations-text {
+        top: 15px;
+        left: 50%;
+        transform: translateX(-50%);
+        font-size: 0.6rem;
+    }
+
+    /* Center the title groups */
+    .card-title-group {
+        text-align: center;
+        width: 100%;
+    }
+    .card-header {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+    .card-title {
+        text-align: center;
+        width: 100%;
+    }
+    .card-subtitle {
+        max-width: none;
+        text-align: center;
+        width: 100%;
+    }
+
+    /* Ensure comparison box text fades in more visibly */
+    .comp-label, .comp-text {
+        transition: opacity 0.4s ease, transform 0.4s ease;
+    }
+
+    /* Visual card boxes */
+    .science-card.visual-card .comp-label,
+    .science-card.visual-card .comp-text {
+        opacity: 0;
+        transform: translateY(8px);
+    }
+    .science-card.visual-card.eye-open .comp-label,
+    .science-card.visual-card.eye-open .comp-text {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    .science-card.visual-card.eye-open .comparison-column:nth-child(1) .comp-label,
+    .science-card.visual-card.eye-open .comparison-column:nth-child(1) .comp-text { transition-delay: 0.2s; }
+    .science-card.visual-card.eye-open .comparison-column:nth-child(2) .comp-label,
+    .science-card.visual-card.eye-open .comparison-column:nth-child(2) .comp-text { transition-delay: 0.4s; }
+    .science-card.visual-card.eye-open .comparison-column:nth-child(3) .comp-label,
+    .science-card.visual-card.eye-open .comparison-column:nth-child(3) .comp-text { transition-delay: 0.6s; }
+}
+
+/* Phone - 480px - Icons stay at top center, no movement */
+@media (max-width: 480px) {
+    /* Visual Card Eye - stays at top center */
+    .science-card.visual-card .eye-container {
+        width: 75px;
+        height: 75px;
+        top: 20px;
+        left: 50%;
+        transform: translate(-50%, 0);
+        transition: opacity 0.6s ease;
+    }
+    .science-card.visual-card.eye-open .eye-container {
+        top: 20px;
+        left: 50%;
+        transform: translate(-50%, 0);
+        width: 75px;
+        height: 75px;
+    }
+    .science-card.visual-card .card-header {
+        margin-top: 92px;
+        margin-bottom: 0.75rem;
+    }
+    .science-card.visual-card.eye-open .card-header {
+        margin-top: 92px;
+    }
+    /* Visual card text sizing for equal spacing */
+    .science-card.visual-card .card-title {
+        font-size: 1.4rem;
+        margin-bottom: 0.5rem;
+    }
+    .science-card.visual-card .card-subtitle {
+        font-size: 0.8rem;
+        margin-bottom: 0;
+        line-height: 1.4;
+    }
+    .science-card.visual-card .card-content {
+        margin-top: 0;
+    }
+
+    /* Personality Card Icon - stays at top center */
+    .science-card.personality-card .personality-icon-container {
+        width: 85px;
+        height: 85px;
+        top: 18px;
+        left: 50%;
+        transform: translate(-50%, 0);
+    }
+    .science-card.personality-card.icon-moving .personality-icon-container {
+        top: 18px;
+        left: 50%;
+        transform: translate(-50%, 0);
+        width: 85px;
+        height: 85px;
+    }
+    .science-card.personality-card .card-header {
+        margin-top: 92px;
+        margin-bottom: 0.75rem;
+    }
+    .science-card.personality-card.icon-moving .card-header,
+    .science-card.personality-card.animation-complete .card-header {
+        margin-top: 92px;
+    }
+    /* Personality card text sizing for equal spacing */
+    .science-card.personality-card .card-title {
+        font-size: 1.4rem;
+        margin-bottom: 0.5rem;
+    }
+    .science-card.personality-card .card-subtitle {
+        font-size: 0.8rem;
+        margin-bottom: 0;
+        line-height: 1.4;
+    }
+    .science-card.personality-card .card-content {
+        margin-top: 0;
+    }
+
+    /* Genetic Card DNA - stays at top center */
+    .science-card.genetic-card .dna-icon-container {
+        width: 75px;
+        height: 75px;
+        top: 15px;
+        left: 50%;
+        transform: translate(-50%, 0);
+    }
+    .science-card.genetic-card.dna-moving .dna-icon-container,
+    .science-card.genetic-card.animation-complete .dna-icon-container {
+        top: 15px;
+        left: 50%;
+        transform: translate(-50%, 0);
+        width: 75px;
+        height: 75px;
+    }
+    .science-card.genetic-card .card-header {
+        margin-top: 92px;
+        margin-bottom: 0.75rem;
+    }
+    .science-card.genetic-card.dna-moving .card-header,
+    .science-card.genetic-card.animation-complete .card-header {
+        margin-top: 92px;
+    }
+    /* Genetic card text sizing for equal spacing */
+    .science-card.genetic-card .card-title {
+        font-size: 1.4rem;
+        margin-bottom: 0.5rem;
+    }
+    .science-card.genetic-card .card-subtitle {
+        font-size: 0.8rem;
+        margin-bottom: 0;
+        line-height: 1.4;
+    }
+    .science-card.genetic-card .card-content {
+        margin-top: 0;
+    }
+
+    /* Synthesis Card Logo - stays at top center, spins in place */
+    /* Phone: icon sits centered at top */
+    .science-card.synthesis-card.logo-in-header .harmonia-logo-center {
+        top: 2rem;
+        left: 50%;
+        width: 75px;
+        height: 75px;
+        transform: translateX(-50%) scale(1);
+    }
+    .science-card.synthesis-card .card-header {
+        margin-top: 115px;
+        margin-bottom: 0.75rem;
+    }
+    .science-card.synthesis-card.logo-in-header .card-header,
+    .science-card.synthesis-card.animation-complete .card-header {
+        margin-top: 115px;
+    }
+    /* Synthesis card text sizing for equal spacing */
+    .science-card.synthesis-card .card-title {
+        font-size: 1.4rem;
+        margin-bottom: 0.5rem;
+        opacity: 1 !important;
+    }
+    .science-card.synthesis-card .card-subtitle {
+        font-size: 0.8rem;
+        margin-bottom: 0;
+        line-height: 1.4;
+        opacity: 0.6 !important;
+    }
+    .science-card.synthesis-card .card-content {
+        margin-top: 0;
+    }
+    /* Make comparison box text visible by default on phone */
+    .science-card.synthesis-card .comp-label,
+    .science-card.synthesis-card .comp-text {
+        opacity: 1 !important;
+    }
+    .science-card.synthesis-card .comparison-column.dim .comp-text {
+        opacity: 0.5 !important;
+    }
+    /* Harmonia highlight box always styled on phone */
+    .science-card.synthesis-card .comparison-column.highlight {
+        background: rgba(212, 168, 83, 0.08);
+        border: 1px solid rgba(212, 168, 83, 0.2);
+    }
+    .science-card.synthesis-card .comparison-column.highlight .comp-label {
+        color: var(--gold) !important;
+    }
+    .science-card.synthesis-card .card-visual.synthesis-icon-final {
+        display: none;
+    }
+    .pause-animations-text {
+        top: 12px;
+        left: 50%;
+        transform: translateX(-50%);
+        font-size: 0.55rem;
+    }
+
+    /* Comparison boxes - stack better on mobile */
+    .comparison-column .comp-label {
+        font-size: 0.65rem;
+    }
+    .comparison-column .comp-text {
+        font-size: 0.85rem;
+        line-height: 1.5;
+    }
+
+    /* Even more visible stagger on phone */
+    .comparison-column:nth-child(1) { transition-delay: 0s; }
+    .comparison-column:nth-child(2) { transition-delay: 0.2s; }
+    .comparison-column:nth-child(3) { transition-delay: 0.4s; }
+
+    /* Visual card text fade-in on phone */
+    .science-card.visual-card .comp-label,
+    .science-card.visual-card .comp-text {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    .science-card.visual-card.eye-open .comp-label,
+    .science-card.visual-card.eye-open .comp-text {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    .science-card.visual-card.eye-open .comparison-column:nth-child(1) .comp-label,
+    .science-card.visual-card.eye-open .comparison-column:nth-child(1) .comp-text { transition-delay: 0.3s; }
+    .science-card.visual-card.eye-open .comparison-column:nth-child(2) .comp-label,
+    .science-card.visual-card.eye-open .comparison-column:nth-child(2) .comp-text { transition-delay: 0.5s; }
+    .science-card.visual-card.eye-open .comparison-column:nth-child(3) .comp-label,
+    .science-card.visual-card.eye-open .comparison-column:nth-child(3) .comp-text { transition-delay: 0.7s; }
+
+    /* Card header improvements */
+    .card-header {
+        text-align: center;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    .card-title-group {
+        text-align: center;
+        width: 100%;
+    }
+    .card-title {
+        text-align: center;
+        width: 100%;
+    }
+    .card-subtitle {
+        text-align: center;
+        width: 100%;
+    }
+}
+
+/* ==================== WHY HARMONIA STATS RESPONSIVE ==================== */
+
+@media (max-width: 768px) {
+    .stats-grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+        text-align: center;
+    }
+    .stat-card {
+        text-align: center;
+    }
+    .stat-number {
+        text-align: center;
+    }
+    .stat-label {
+        text-align: center;
+    }
+    .stat-citation {
+        text-align: center;
+    }
+}
+
+/* Tablet portrait (768px - 1024px) - better intermediate handling */
+@media (min-width: 768px) and (max-width: 1024px) {
+    .stats-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1rem;
+        text-align: center;
+    }
+    .stat-card {
+        text-align: center;
+    }
+    .stat-number {
+        font-size: 2.8rem;
+        text-align: center;
+    }
+    .stat-label {
+        font-size: 0.8rem;
+        text-align: center;
+    }
+}
+
+/* Tablet-specific styles (768px - 1024px) - iPad portrait/landscape */
+@media (min-width: 768px) and (max-width: 1024px) {
+    /* Body - disable flex to prevent stretching */
+    body {
+        display: block;
+    }
+
+    /* Page container */
+    .page.active {
+        display: block;
+        min-height: auto;
+        height: auto;
+    }
+
+    #page-home,
+    #page-p2p {
+        min-height: auto;
+        height: auto;
+    }
+
+    /* Hero section */
+    .hero {
+        display: block;
+        text-align: center;
+        padding: 2rem;
+        margin-top: 70px;
+        min-height: auto;
+        height: auto;
+    }
+
+    /* P2P section */
+    .p2p-section {
+        min-height: auto;
+        height: auto;
+    }
+    .hero-content {
+        margin-bottom: 2rem;
+    }
+    .tagline {
+        font-size: clamp(1.8rem, 4vw, 2.4rem);
+    }
+    .btn-group {
+        justify-content: center;
+    }
+    .radar-wrapper {
+        max-width: 350px;
+        margin: 0 auto;
+    }
+
+    /* Science cards - Why Harmonia */
+    .science-slider-wrapper {
+        width: 100vw;
+        margin-left: calc(-50vw + 50%);
+        margin-right: calc(-50vw + 50%);
+    }
+    .science-card {
+        flex: 0 0 min(600px, 85vw);
+        padding: 2rem;
+    }
+    .card-content {
+        grid-template-columns: repeat(3, 1fr);
+    }
+    .slider-track {
+        padding: 0 calc((100vw - min(600px, 85vw)) / 2);
+    }
+
+    /* Animated icon containers - Tablet */
+    .card-visual {
+        height: 80px;
+        width: 80px;
+    }
+    .science-card.visual-card .eye-container {
+        width: 80px;
+        height: 80px;
+    }
+    .science-card.visual-card.eye-open .eye-container {
+        top: calc(2rem + 40px);
+        left: calc(2rem + 40px);
+    }
+    .science-card.personality-card .personality-icon-container {
+        width: 110px;
+        height: 110px;
+    }
+    .science-card.personality-card.icon-moving .personality-icon-container {
+        top: calc(2rem + 40px);
+        left: calc(2rem + 40px);
+        width: 80px;
+        height: 80px;
+    }
+    .science-card.genetic-card .dna-icon-container {
+        width: 110px;
+        height: 110px;
+    }
+    .science-card.genetic-card.dna-moving .dna-icon-container,
+    .science-card.genetic-card.animation-complete .dna-icon-container {
+        top: calc(2rem + 40px);
+        left: calc(2rem + 40px);
+        width: 80px;
+        height: 80px;
+    }
+    /* Tablet-mid: icon aligns to top-left corner */
+    .science-card.synthesis-card.logo-in-header .harmonia-logo-center {
+        top: 2rem;
+        left: 2rem;
+        width: 80px;
+        height: 80px;
+        transform: translate(0, 0) scale(1);
+    }
+    .science-card.synthesis-card .card-visual.synthesis-icon-final {
+        width: 80px;
+        height: 80px;
+    }
+    .pause-animations-text {
+        top: calc(2rem + 85px);
+        left: 2rem;
+    }
+
+    /* Navigation */
+    nav {
+        padding: 1rem 2rem;
+    }
+
+    /* Footer - prevent stretching */
+    footer {
+        flex: none;
+        flex-shrink: 0;
+        flex-grow: 0;
+    }
+    .footer-links {
+        gap: 1.5rem;
+    }
+}
+
+/* Desktop-specific styles (> 1024px) */
+@media (min-width: 1025px) {
+    .science-slider-wrapper {
+        width: 100vw;
+        margin-left: calc(-50vw + 50%);
+        margin-right: calc(-50vw + 50%);
+    }
+    .science-card {
+        flex: 0 0 min(850px, 65vw);
+        padding: 2.5rem;
+    }
+    .slider-track {
+        padding: 0 calc((100vw - min(850px, 65vw)) / 2);
+        gap: 2rem;
+    }
+    .card-content {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1.5rem;
+    }
+}
+
+/* Large desktop (> 1400px) */
+@media (min-width: 1400px) {
+    .science-card {
+        flex: 0 0 950px;
+    }
+    .slider-track {
+        padding: 0 calc((100vw - 950px) / 2);
+    }
+}
+
+/* ==================== WHY HARMONIA FOOTER RESPONSIVE ==================== */
+
+@media (max-width: 1024px) {
+    /* Why Harmonia page footer */
+    .page#page-why-harmonia .footer-inner {
+        flex-direction: column;
+        gap: 1rem;
+        text-align: center;
+        align-items: center;
+    }
+    .page#page-why-harmonia footer {
+        padding: 1.5rem 2rem;
+    }
+    .page#page-why-harmonia footer .logo-text {
+        margin-left: 0;
+        text-align: center;
+    }
+}
+
+/* ==================== PARTNERSHIPS RESPONSIVE ==================== */
+
+@media (max-width: 1024px) {
+    .partnerships-section {
+        padding: 2rem 1.5rem;
+        -webkit-box-flex: 0;
+        -webkit-flex: none;
+        flex: none;
+        min-height: auto;
+        height: auto;
+    }
+
+    .partnerships-layout {
+        grid-template-columns: 1fr;
+        gap: 2.5rem;
+    }
+
+    .feature-boxes {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1rem;
+    }
+
+    .regal-benefits {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+
+    .form-row {
+        grid-template-columns: 1fr;
+        gap: 0;
+    }
+}
+
+/* Partnerships section tablet-specific (768px - 1024px) */
+@media (min-width: 768px) and (max-width: 1024px) {
+    .partnerships-section {
+        margin-top: 70px;
+        padding: 1.5rem 2rem;
+    }
+    /* Hide tabs on tablet - dropdown handles tier selection */
+    .partnerships-tier-tabs {
+        display: none;
+    }
+    /* Two-column layout: boxes left, form right */
+    .partnerships-layout {
+        display: grid !important;
+        grid-template-columns: 1fr 1fr !important;
+        gap: 1.5rem !important;
+        max-width: 100%;
+        margin: 0 auto;
+        align-items: start;
+    }
+    .partnerships-content {
+        grid-column: 1;
+    }
+    .regal-form-container {
+        grid-column: 2;
+    }
+    .partnerships-footer {
+        grid-column: 1 / -1;
+    }
+    /* Show Interest dropdown on tablet */
+    .regal-form .interest-input-group {
+        display: block;
+    }
+    .regal-benefits {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    /* Feature boxes: compact card format (icon + title + desc) */
+    .feature-boxes {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+    }
+    .feature-box {
+        padding: 16px;
+        display: block;
+        text-align: center;
+    }
+    .feature-box .card-visual {
+        width: 44px;
+        height: 44px;
+        margin: 0 auto 10px;
+    }
+    .feature-box .box-content {
+        text-align: center;
+    }
+    .feature-box .box-title {
+        font-size: 0.8rem;
+        margin-bottom: 6px;
+    }
+    .feature-box .box-desc {
+        display: block;
+        font-size: 12px;
+        line-height: 1.4;
+    }
+    .feature-box .box-bullets {
+        display: none;
+    }
+    .feature-box .tap-hint {
+        display: none;
+    }
+    .regal-title {
+        font-size: 1.4rem;
+        text-align: center;
+    }
+    .regal-intro {
+        font-size: 0.85rem;
+        text-align: center;
+    }
+}
+
+@media (max-width: 767px) {
+    .partnerships-section {
+        padding: 1.5rem 1rem;
+        margin-top: 60px;
+    }
+    .regal-title { font-size: 1.6rem; }
+    .regal-intro { font-size: 1rem; }
+    /* Show tier tabs on mobile - horizontal scroll */
+    .partnerships-tier-tabs {
+        display: flex;
+        flex-wrap: nowrap;
+        justify-content: flex-start;
+        margin-bottom: 1.25rem;
+    }
+    /* Hide Interest dropdown on mobile - tabs replace it */
+    .regal-form .interest-input-group {
+        display: none;
+    }
+    .feature-boxes {
+        grid-template-columns: 1fr;
+        gap: 0.75rem;
+    }
+    .feature-box {
+        padding: 1rem 1.25rem;
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        text-align: left;
+    }
+    .feature-box .card-visual {
+        width: 40px;
+        height: 40px;
+        margin-bottom: 0;
+        flex-shrink: 0;
+    }
+    .box-content {
+        flex: 1;
+    }
+    /* Hide description, show tap hint on mobile */
+    .feature-box .box-desc {
+        display: none;
+    }
+    .feature-box .tap-hint {
+        display: block;
+    }
+    .benefit-col h4 { font-size: 0.85rem; }
+    .benefit-col p { font-size: 0.9rem; }
+    .regal-form-container {
+        padding: 1.25rem;
+        width: 100%;
+        box-sizing: border-box;
+    }
+    .input-group input,
+    .input-group select,
+    .input-group textarea {
+        font-size: 16px; /* Prevents iOS zoom */
+    }
+}
+
+@media (max-width: 480px) {
+    .partnerships-section {
+        padding: 1rem 0.75rem;
+        margin-top: 55px;
+    }
+    .regal-title { font-size: 1.4rem; }
+    .regal-intro { font-size: 0.9rem; }
+    .benefit-col h4 { font-size: 0.8rem; }
+    .benefit-col p { font-size: 0.85rem; }
+    .regal-form-container { padding: 1rem; }
+    .trusted-logos {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+    .trusted-separator {
+        display: none;
+    }
+    .trusted-name.serif {
+        font-size: 1.1rem;
+    }
+    .trusted-divider::before,
+    .trusted-divider::after {
+        width: 40px;
+        margin: 0 0.75rem;
+    }
+}
+
+/* Smaller laptop screens (13-inch) - Partnerships */
+@media (max-height: 800px) {
+    .partnerships-section {
+        padding: 2rem 4rem;
+    }
+
+    .partnerships-layout {
+        gap: 2.5rem;
+    }
+
+    .partnerships-footer {
+        padding-top: 2rem;
+    }
+
+    .regal-intro {
+        margin-bottom: 1.5rem;
+    }
+
+    .input-group {
+        margin-bottom: 1rem;
+    }
+
+    .regal-form-container {
+        padding: 2rem;
+    }
+}
+
+/* ==================== TEAM RESPONSIVE ==================== */
+
+/* Desktop: Diamond/Staggered Layout (>1024px) */
+@media (min-width: 1025px) {
+    .team-section {
+        padding: 3rem 2rem;
+    }
+
+    .team-header {
+        margin-bottom: 2rem;
+    }
+
+    .team-slider-wrapper {
+        display: block;
+        width: 100%;
+        max-width: 1000px;
+        margin: 0 auto;
+        padding: 0 1rem;
+    }
+
+    .team-slider-wrapper .slider-arrow {
+        display: none;
+    }
+
+    .team-slider {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        grid-template-rows: auto auto auto;
+        gap: 1.5rem;
+        overflow: visible;
+        padding: 1rem 0;
+        width: 100%;
+    }
+
+    .team-card {
+        flex: none;
+        scroll-snap-align: unset;
+        min-height: auto;
+        min-width: 0;
+    }
+
+    /* Desktop grid text sizing */
+    .team-card h3 {
+        font-size: 1.2rem;
+    }
+
+    .team-card .role {
+        font-size: 0.65rem;
+    }
+
+    .team-card .bio {
+        font-size: 0.8rem;
+        line-height: 1.5;
+    }
+
+    .team-avatar-radar {
+        width: 60px;
+        height: 60px;
+        margin-bottom: 0.75rem;
+    }
+
+    /* Card 1: Joles - Top Left (columns 1-2) */
+    .team-card:nth-child(1) {
+        grid-column: 1 / 3;
+        grid-row: 1;
+    }
+
+    /* Card 2: Avery - Top Right (columns 3-4) */
+    .team-card:nth-child(2) {
+        grid-column: 3 / 5;
+        grid-row: 1;
+    }
+
+    /* Card 3: Brian - CENTER (columns 2-3) */
+    .team-card:nth-child(3) {
+        grid-column: 2 / 4;
+        grid-row: 2;
+    }
+
+    /* Card 4: Abe - Bottom Left (columns 1-2) */
+    .team-card:nth-child(4) {
+        grid-column: 1 / 3;
+        grid-row: 3;
+    }
+
+    /* Card 5: Felix - Bottom Right (columns 3-4) */
+    .team-card:nth-child(5) {
+        grid-column: 3 / 5;
+        grid-row: 3;
+    }
+
+    .slider-dots {
+        display: none;
+    }
+}
+
+/* Mobile/Tablet: Slider Layout (<=1024px) */
+@media (max-width: 1024px) {
+    .team-slider-wrapper {
+        display: flex;
+        align-items: center;
+    }
+
+    .team-slider-wrapper .slider-arrow {
+        display: none; /* Hide arrows on mobile per Augustine's feedback */
+    }
+
+    .team-slider {
+        display: flex;
+        gap: 1.5rem;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        scroll-snap-type: x mandatory;
+        -webkit-scroll-snap-type: x mandatory;
+        scroll-behavior: smooth;
+        padding: 1rem calc(50% - 150px);
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+        flex: 1;
+    }
+
+    .team-slider::-webkit-scrollbar {
+        display: none;
+    }
+
+    .team-card {
+        flex: 0 0 300px;
+        scroll-snap-align: center;
+        scroll-snap-stop: always;
+    }
+
+    .slider-dots {
+        display: flex;
+    }
+}
+
+@media (max-width: 1024px) {
+    .team-section { padding: 2rem 0; }
+    .team-header { padding: 0 1.5rem; }
+    .slider-arrow { display: none; }
+    .team-slider { padding: 1rem calc(50% - 150px); }
+    .team-card { flex: 0 0 300px; max-width: 300px; }
+    .story-content { column-count: 1; }
+    .founding-story { padding: 1.5rem; margin: 0 1.5rem; }
+}
+
+/* Team section tablet-specific (768px - 1024px) */
+@media (min-width: 768px) and (max-width: 1024px) {
+    .team-section {
+        margin-top: 70px;
+    }
+    .team-slider {
+        padding: 1rem calc(50% - 140px);
+        scroll-snap-type: x mandatory;
+    }
+    .team-card {
+        flex: 0 0 280px;
+        max-width: 280px;
+        scroll-snap-align: center;
+        cursor: pointer;
+    }
+    .slider-dots {
+        display: none;
+    }
+}
+
+@media (max-width: 768px) {
+    .team-section {
+        padding: 1.5rem 0;
+        margin-top: 60px;
+    }
+    .team-header { padding: 0 1rem; }
+    .team-header h2 { font-size: 1.6rem; }
+    .team-header p { font-size: 0.9rem; }
+    .team-slider {
+        padding: 1rem calc(50% - 130px);
+        gap: 1rem;
+        scroll-snap-type: x mandatory;
+    }
+    .team-card {
+        flex: 0 0 260px;
+        max-width: 260px;
+        padding: 1rem;
+        scroll-snap-align: center;
+    }
+    .team-avatar-radar { width: 55px; height: 55px; }
+    .team-card h3 { font-size: 1.15rem; }
+    .team-card .role { font-size: 0.65rem; }
+    .team-card .bio {
+        font-size: 0.75rem;
+        line-height: 1.45;
+    }
+    .slider-dots { margin: 1rem 0; }
+    .founding-story {
+        padding: 1.25rem;
+        margin: 1rem 1rem;
+    }
+    .story-content { font-size: 0.85rem; }
+}
+
+@media (max-width: 480px) {
+    .team-section {
+        padding: 1rem 0;
+        margin-top: 55px;
+    }
+    .team-header { padding: 0 0.75rem; }
+    .team-header h2 { font-size: 1.4rem; }
+    .team-slider {
+        padding: 1rem calc(50% - 115px);
+        gap: 0.75rem;
+    }
+    .team-card {
+        flex: 0 0 230px;
+        max-width: 230px;
+        padding: 0.875rem;
+    }
+    .team-avatar-radar { width: 45px; height: 45px; }
+    .team-card h3 { font-size: 1rem; }
+    .team-card .role { font-size: 0.6rem; }
+    .team-card .bio {
+        font-size: 0.7rem;
+        line-height: 1.4;
+    }
+    .slider-dots { margin: 0.75rem 0; }
+    .founding-story { padding: 1rem; margin: 1rem 0.75rem; }
+    .story-content { font-size: 0.8rem; }
+}
+
+@media (max-width: 375px) {
+    .team-slider {
+        padding: 1rem calc(50% - 100px);
+    }
+    .team-card {
+        flex: 0 0 200px;
+        max-width: 200px;
+        padding: 0.75rem;
+    }
+    .team-avatar-radar { width: 40px; height: 40px; }
+    .team-card h3 { font-size: 0.95rem; }
+    .team-card .role { font-size: 0.55rem; }
+    .team-card .bio {
+        font-size: 0.65rem;
+        line-height: 1.35;
+    }
+    .slider-dots { margin: 0.5rem 0; gap: 6px; }
+    .dot { width: 6px; height: 6px; }
+    .dot.active { width: 18px; }
+}
+
+@media (max-height: 800px) {
+    .team-section { padding: 1.5rem 4rem; }
+    .team-header { margin-bottom: 1rem; }
+    .team-header h2 { font-size: 2rem; }
+    .team-card { padding: 1.25rem; }
+    .team-avatar-radar { width: 60px; height: 60px; margin-bottom: 0.75rem; }
+    .team-card .bio { font-size: 0.75rem; }
+    .founding-story { margin-top: 1rem; padding: 1.25rem 1.5rem; }
+    .story-content { font-size: 0.9rem; line-height: 1.6; }
+    .slider-dots { margin-top: 0.75rem; }
+}
+
+/* --- DESKTOP TEAM DIAMOND LAYOUT (Min-width: 1025px) --- */
+@media (min-width: 1025px) {
+    .team-slider-wrapper {
+        display: block;
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 0 2rem;
+    }
+
+    .team-slider {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        grid-template-rows: auto auto auto;
+        gap: 1.5rem;
+
+        /* Disable slider mechanics */
+        overflow-x: visible;
+        scroll-snap-type: none;
+        padding: 0;
+    }
+
+    .team-card {
+        flex: none;
+        width: auto;
+        max-width: none;
+
+        /* Equal height cards */
+        display: flex;
+        flex-direction: column;
+        min-height: 280px;
+    }
+
+    .team-card .bio {
+        flex: 1;
+        font-size: 0.8rem;
+        line-height: 1.5;
+    }
+
+    .team-card h3 {
+        font-size: 1.15rem;
+    }
+
+    .team-card .role {
+        font-size: 0.65rem;
+    }
+
+    .team-avatar-radar {
+        width: 55px;
+        height: 55px;
+    }
+
+    /* Diamond positioning */
+    .team-card:nth-child(1) { grid-column: 1 / 3; grid-row: 1; }  /* Joles - top left */
+    .team-card:nth-child(2) { grid-column: 3 / 5; grid-row: 1; }  /* Avery - top right */
+    .team-card:nth-child(3) { grid-column: 2 / 4; grid-row: 2; }  /* Brian - CENTER */
+    .team-card:nth-child(4) { grid-column: 1 / 3; grid-row: 3; }  /* Abe - bottom left */
+    .team-card:nth-child(5) { grid-column: 3 / 5; grid-row: 3; }  /* Felix - bottom right */
+
+    /* Hide slider controls for Team section on desktop */
+    .team-slider-wrapper .slider-arrow,
+    .slider-dots {
+        display: none;
+    }
+}
+
+/* ==================== CONTACT RESPONSIVE ==================== */
+
+@media (max-width: 1024px) {
+    .contact-section { padding: 2rem 1.5rem; }
+    .contact-layout {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+    .contact-options {
+        flex-direction: row;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+    .contact-card {
+        flex: 0 0 auto;
+        min-width: 200px;
+    }
+    .form-row {
+        grid-template-columns: 1fr;
+        gap: 0;
+    }
+}
+
+/* Contact section tablet-specific (768px - 1024px) */
+@media (min-width: 768px) and (max-width: 1024px) {
+    .contact-section {
+        margin-top: 70px;
+        padding: 2rem;
+    }
+    .contact-layout {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+        max-width: 600px;
+        margin: 0 auto;
+    }
+    .contact-options {
+        justify-content: center;
+    }
+    .contact-card {
+        min-width: 180px;
+    }
+}
+
+@media (max-width: 768px) {
+    .contact-section {
+        padding: 1.5rem 1rem;
+        margin-top: 60px;
+    }
+    .contact-header h2 { font-size: 1.6rem; }
+    .contact-header p { font-size: 0.9rem; max-width: 100%; }
+    .contact-options {
+        flex-direction: column;
+        overflow-x: visible;
+        gap: 0.75rem;
+    }
+    .contact-card {
+        flex: none;
+        min-width: auto;
+        width: 100%;
+        padding: 1rem;
+    }
+    .contact-card p {
+        font-size: 0.85rem;
+        overflow-wrap: break-word;
+        word-wrap: break-word;
+    }
+    .regal-form-container {
+        padding: 1.25rem;
+        width: 100%;
+        box-sizing: border-box;
+    }
+    .regal-form h3 { font-size: 1.3rem; }
+    .input-group input,
+    .input-group textarea {
+        font-size: 16px; /* Prevents iOS zoom on focus */
+    }
+}
+
+@media (max-width: 480px) {
+    .contact-section {
+        padding: 1rem 0.75rem;
+        margin-top: 55px;
+    }
+    .contact-header h2 { font-size: 1.4rem; }
+    .contact-header p { font-size: 0.85rem; }
+    .contact-card { padding: 0.85rem; }
+    .contact-card h3 { font-size: 1rem; }
+    .contact-card p { font-size: 0.8rem; }
+    .regal-form-container { padding: 1rem; }
+    .regal-form h3 { font-size: 1.1rem; }
+}
+
+@media (max-height: 800px) {
+    .contact-section { padding: 1rem 4rem 1.5rem; }
+    .contact-header { margin-bottom: 1rem; }
+    .contact-header h2 { font-size: 1.8rem; }
+    .contact-header p { font-size: 0.9rem; }
+    .regal-form-container { padding: 1.25rem 1.75rem; }
+    .regal-form h3 { font-size: 1.3rem; margin-bottom: 1rem; }
+    .input-group { margin-bottom: 0.75rem; }
+    .input-group textarea { min-height: 80px; }
+    .contact-card { padding: 0.85rem 1rem; }
+    .contact-card h3 { font-size: 1.1rem; }
+    .contact-card p { font-size: 0.8rem; }
+}
+
+/* ==================== LOCAL & P2P RESPONSIVE ==================== */
+
+@media (max-width: 1024px) {
+    .engine-container, .p2p-section { padding: 2rem 1.5rem; }
+    .engine-content { grid-template-columns: 1fr; gap: 1.5rem; }
+    .waitlist-form input[type="email"] { min-width: 100%; }
+}
+
+@media (max-width: 768px) {
+    .engine-container, .p2p-section { padding: 1.5rem 1rem; margin-top: 60px; }
+    .engine-header { flex-direction: column; text-align: center; gap: 0.75rem; }
+    .engine-title { font-size: 1.5rem; }
+    .compatibility-score { font-size: 3rem; }
+    .p2p-title { font-size: 1.8rem; }
+    .rebellion-tagline { font-size: 1.2rem; }
+    .free-dna-banner { padding: 1rem 1.25rem; margin-top: 2rem; }
+    .free-dna-banner h3 { font-size: 1.1rem; }
+    .waitlist-form form { flex-direction: column; }
+    .waitlist-form input[type="email"] {
+        width: 100%;
+        min-width: auto;
+        font-size: 16px; /* Prevents iOS zoom */
+    }
+}
+
+@media (max-width: 480px) {
+    .engine-container, .p2p-section { padding: 1rem; margin-top: 55px; }
+    .profile-panel { padding: 1rem; }
+    .compatibility-panel { padding: 1.5rem 1rem; }
+    .compatibility-score { font-size: 2.5rem; }
+    .connection-themes { gap: 0.25rem; }
+    .theme-badge { font-size: 0.6rem; padding: 0.2rem 0.5rem; }
+    .trait-tag { font-size: 0.65rem; }
+}

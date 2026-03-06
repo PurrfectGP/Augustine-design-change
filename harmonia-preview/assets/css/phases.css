@@ -1,0 +1,528 @@
+/* ============================================================
+   Harmonia Preview — phases.css
+   Phase-specific styles for all onboarding and app phases
+   ============================================================ */
+
+
+/* ===================================================
+   Phase 0 - Sign Up
+   =================================================== */
+
+.consent { display: flex; gap: 10px; align-items: flex-start; }
+
+.consent input[type="checkbox"] {
+  width: 18px; height: 18px;
+  accent-color: var(--gold);
+  margin-top: 2px;
+  flex-shrink: 0;
+}
+
+.consent label {
+  font-size: .75rem;
+  color: var(--t2);
+  line-height: 1.4;
+  text-transform: none;
+  letter-spacing: 0;
+}
+
+
+/* ===================================================
+   Phase 0.5 - Photos
+   =================================================== */
+
+/* Photo grid */
+.pgrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  max-width: 320px;
+  margin: 0 auto;
+}
+
+.pslot {
+  aspect-ratio: 3/4;
+  border-radius: 14px;
+  border: 2px dashed var(--bdr);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all .3s;
+  position: relative;
+  overflow: hidden;
+  background: var(--bg2);
+}
+
+.pslot:hover { border-color: var(--gold); box-shadow: 0 0 16px var(--golds); }
+.pslot.main  { border-color: var(--gold); border-style: solid; }
+
+.pslot .slbl {
+  position: absolute;
+  bottom: 6px;
+  font-size: .58rem;
+  font-weight: 700;
+  color: var(--gold);
+  text-transform: uppercase;
+  letter-spacing: .5px;
+}
+
+.pslot .plus      { color: var(--t3); }
+.pslot .plus svg  { width: 20px; height: 20px; fill: currentColor; }
+.pslot.on         { border-style: solid; border-color: var(--gbdr); }
+
+.pslot .dbtn {
+  position: absolute;
+  top: 4px; right: 4px;
+  width: 18px; height: 18px;
+  border-radius: 50%;
+  background: var(--gold);
+  color: #1A0F10;
+  border: none;
+  cursor: pointer;
+  font-size: .55rem;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+}
+
+.pslot.on .dbtn { display: flex; }
+.pslot .sav     { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; }
+
+/* Photo count */
+.pcount { font-size: .72rem; color: var(--t3); text-align: center; margin-top: 8px; }
+
+
+/* ===================================================
+   Phase 1 - Visual Calibration
+   =================================================== */
+
+.cal-area { display: flex; flex-direction: column; align-items: center; }
+
+.fcard-wrap {
+  position: relative;
+  width: 280px; height: 380px;
+  margin: 12px auto;
+}
+
+.fcard {
+  position: absolute;
+  inset: 0;
+  border-radius: 18px;
+  overflow: hidden;
+  background: var(--bg3);
+  border: 1px solid var(--gbdr);
+  cursor: grab;
+  touch-action: none;
+  user-select: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 8px 32px rgba(0,0,0,.2);
+}
+
+.fcard:active { cursor: grabbing; }
+
+.fcard .stamp {
+  position: absolute;
+  top: 20px;
+  padding: 5px 14px;
+  border-radius: 8px;
+  font-size: 1.2rem;
+  font-weight: 800;
+  letter-spacing: 2px;
+  opacity: 0;
+  pointer-events: none;
+  font-family: 'DM Sans', sans-serif;
+}
+
+.fcard .st-like { left: 14px;  transform: rotate(-12deg); color: var(--gold); border: 3px solid var(--gold); }
+.fcard .st-nope { right: 14px; transform: rotate(12deg);  color: var(--marl); border: 3px solid var(--marl); }
+
+.stars { display: flex; gap: 8px; margin-top: 12px; }
+
+.star {
+  width: 42px; height: 42px;
+  border-radius: 50%;
+  border: 2px solid var(--bdr);
+  background: var(--bg2);
+  color: var(--t3);
+  font-size: .88rem;
+  cursor: pointer;
+  transition: all .2s;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.star:hover { transform: scale(1.15); }
+.star:nth-child(4), .star:nth-child(5) { border-color: var(--goldd); color: var(--gold); }
+.star:nth-child(1), .star:nth-child(2) { border-color: var(--marl);  color: var(--marl); }
+
+/* Calibration ring / num */
+.calring { /* placeholder for any .calring styles */ }
+#calnum  { /* placeholder for any #calnum styles */ }
+
+
+/* ===================================================
+   Phase 2 - Psychometric
+   =================================================== */
+
+.qwrap { max-width: 480px; width: 100%; margin: 0 auto; }
+
+.qtxt {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: clamp(1rem, 1.3vw, 1.1rem);
+  color: var(--t1);
+  line-height: 1.55;
+  margin-bottom: 14px;
+  text-align: center;
+}
+
+.wcount { font-size: .72rem; margin-top: 4px; font-weight: 600; text-align: right; }
+.wcount.ok  { color: var(--ok); }
+.wcount.bad { color: var(--err); }
+
+.nstats { display: flex; gap: 10px; justify-content: center; margin-top: 14px; }
+
+.nstat {
+  padding: 5px 10px;
+  border-radius: 8px;
+  font-size: .62rem;
+  font-weight: 600;
+  background: var(--glass);
+  border: 1px solid var(--gbdr);
+  text-align: center;
+}
+
+.nstat b {
+  color: var(--gold);
+  font-size: .82rem;
+  display: block;
+  font-family: 'JetBrains Mono', monospace;
+}
+
+
+/* ===================================================
+   Phase 3 - HLA
+   =================================================== */
+
+.loci { display: flex; gap: 8px; margin-bottom: 14px; }
+
+.loc {
+  flex: 1;
+  padding: 12px 8px;
+  text-align: center;
+  border-radius: 12px;
+  background: var(--bg2);
+  border: 1px solid var(--bdr);
+  transition: all .5s;
+}
+
+.loc span    { display: block; }
+.loc .ln     { font-family: 'JetBrains Mono', monospace; font-size: .66rem; color: var(--t3); margin-bottom: 3px; }
+.loc .lv     { font-size: .78rem; font-weight: 600; color: var(--t3); }
+.loc.act     { border-color: var(--gold); box-shadow: 0 0 12px var(--golds); }
+.loc.act .lv { color: var(--gold); }
+
+.upzone {
+  border: 2px dashed var(--goldd);
+  border-radius: 16px;
+  padding: 28px;
+  text-align: center;
+  cursor: pointer;
+  transition: all .3s;
+  margin-bottom: 14px;
+  background: linear-gradient(135deg, rgba(240,200,110,.03), transparent);
+}
+
+.upzone:hover { border-style: solid; background: var(--golds); box-shadow: 0 0 20px var(--golds); }
+.upzone svg   { width: 32px; height: 32px; fill: var(--gold); margin-bottom: 6px; }
+.upzone p     { color: var(--t2); font-size: .82rem; }
+
+.upbar { width: 100%; height: 2px; background: var(--bdr); border-radius: 1px; margin-top: 10px; overflow: hidden; display: none; }
+.upbar div { height: 100%; background: linear-gradient(90deg, var(--gold), var(--gold2)); width: 0%; box-shadow: 0 0 6px var(--goldg); }
+
+
+/* ===================================================
+   Phase 6 - Completion
+   =================================================== */
+
+.comp { text-align: center; max-width: 440px; margin: 0 auto; }
+
+.comp h1 {
+  font-size: clamp(2rem, 4vw, 2.8rem);
+  color: var(--gold);
+  margin-bottom: 12px;
+  line-height: 1.15;
+}
+
+.formula {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: .75rem;
+  color: var(--goldd);
+  margin-bottom: 18px;
+  padding: 10px 16px;
+  background: var(--bg2);
+  border-radius: 8px;
+  border: 1px solid var(--gbdr);
+  display: inline-block;
+}
+
+.cklist { list-style: none; text-align: left; margin: 0 auto 18px; max-width: 380px; }
+
+.cklist li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 0;
+  font-size: .85rem;
+  color: var(--t2);
+  border-bottom: 1px solid var(--bdr);
+}
+
+.ck { width: 22px; height: 22px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.ck svg { width: 12px; height: 12px; }
+
+.ck.done { background: linear-gradient(135deg, var(--gold), var(--gold2)); box-shadow: 0 0 8px var(--golds); }
+.ck.done svg { fill: #1A0F10; }
+.ck.pend { background: var(--bg3); border: 1px solid var(--bdr); }
+.ck.pend svg { fill: var(--t3); }
+
+.qbadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 20px;
+  border-radius: 100px;
+  background: linear-gradient(135deg, var(--golds), rgba(240,200,110,.06));
+  color: var(--gold);
+  font-weight: 700;
+  font-size: .88rem;
+  margin-bottom: 20px;
+  border: 1px solid rgba(240,200,110,.2);
+}
+
+
+/* ===================================================
+   Phase 7 - Swipe Deck
+   =================================================== */
+
+/* .deck, .scard, .sact, .abtn, .a-no, .a-yes, .a-sup, .emptydeck
+   are in components.css as reusable swipe-deck components */
+
+
+/* ===================================================
+   Phase 9 - Matches & Chat
+   =================================================== */
+
+/* Match item */
+.mitem {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 14px;
+  border-radius: 14px;
+  background: var(--glass);
+  backdrop-filter: blur(12px);
+  border: 1px solid var(--gbdr);
+  margin-bottom: 8px;
+  cursor: pointer;
+  transition: all .3s;
+  position: relative;
+  overflow: hidden;
+}
+
+.mitem::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--ghl), transparent);
+}
+
+.mitem:hover { transform: translateY(-2px); border-color: var(--goldd); }
+
+.mav   { /* avatar within match item — inherits .av sizing */ }
+.minfo { flex: 1; min-width: 0; }
+.minfo .mn { font-weight: 600; font-size: .9rem; }
+
+.mbadge { margin-top: 2px; }
+
+.mscores { display: flex; gap: 8px; margin-top: 4px; }
+.msc     { font-size: .7rem; color: var(--t3); }
+
+/* .chatarea, .chdr, .backbtn, .msgs, .bub, .chinput, .sendbtn, .typi
+   are in components.css as reusable chat components */
+
+/* cmsg / cbbl aliases */
+.cmsg { /* match item last message preview */ }
+.cbbl { /* chat bubble alias — same as .bub */ }
+
+
+/* ===================================================
+   Phase 10 - Profile
+   =================================================== */
+
+/* Profile header */
+.profhdr { text-align: center; margin-bottom: 16px; }
+
+.profhdr .av { margin: 0 auto 10px; animation: glow 3s ease-in-out infinite; }
+
+.profhdr h2 { font-size: 1.5rem; }
+.profhdr .pm { color: var(--t2); font-size: .85rem; margin-top: 3px; }
+
+/* Profile card / avatar */
+.profcard { /* profile card container */ }
+.profav   { /* profile avatar — inherits .av */ }
+
+/* Profile gallery */
+.pgal { display: flex; gap: 6px; overflow-x: auto; padding-bottom: 6px; margin-bottom: 16px; }
+
+.pgal div {
+  width: 64px; height: 82px;
+  border-radius: 10px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background: var(--bg3);
+  border: 1px solid var(--gbdr);
+}
+
+/* Personality bars */
+.pbrow { display: flex; align-items: center; gap: 6px; margin-bottom: 7px; font-size: .76rem; }
+.pbrow .pblbl { width: 80px; text-align: right; color: var(--t2); font-weight: 500; flex-shrink: 0; font-size: .72rem; }
+.pbrow .pbbar { flex: 1; height: 16px; background: var(--bg2); border-radius: 3px; position: relative; overflow: hidden; }
+.pbrow .pbbar .pbctr { position: absolute; left: 50%; top: 0; bottom: 0; width: 1px; background: var(--t3); opacity: .3; }
+.pbrow .pbfill { position: absolute; top: 2px; bottom: 2px; border-radius: 2px; }
+.pbrow .pbfill.vice    { background: linear-gradient(90deg,  var(--goldd), var(--gold)); left: 50%; }
+.pbrow .pbfill.virtue  { background: linear-gradient(270deg, var(--mar),   var(--marl)); right: 50%; }
+.pbrow .pbsc { width: 34px; font-family: 'JetBrains Mono', monospace; font-size: .68rem; color: var(--t3); }
+.pbrow .pbwt { width: 26px; font-size: .62rem; color: var(--t3); text-align: right; }
+
+/* Sinusoidal bars (compatibility/score bars) */
+.sinbar   { /* sinusoidal bar container */ }
+.sinlabel { /* label for sinusoidal bar */ }
+.sinval   { /* value for sinusoidal bar */ }
+
+/* .stitle is in components.css */
+
+/* Radar canvas */
+canvas#radar { display: block; margin: 0 auto; }
+
+
+/* ===================================================
+   Phase 11 - Admin
+   =================================================== */
+
+/* Admin stats */
+.astats { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 16px; }
+
+.astat {
+  flex: 1;
+  min-width: 70px;
+  text-align: center;
+  padding: 12px 6px;
+  border-radius: 12px;
+  backdrop-filter: blur(12px);
+  background: var(--glass);
+  border: 1px solid var(--gbdr);
+  position: relative;
+  overflow: hidden;
+}
+
+.astat::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px; background: linear-gradient(90deg, transparent, var(--ghl), transparent); }
+.astat .an { font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; font-weight: 700; }
+.astat .al { font-size: .58rem; color: var(--t3); text-transform: uppercase; letter-spacing: .5px; margin-top: 1px; }
+
+/* Candidate table / rows */
+.ctable { /* table container */ }
+
+.crow {
+  padding: 14px;
+  border-radius: 14px;
+  background: var(--glass);
+  backdrop-filter: blur(12px);
+  border: 1px solid var(--gbdr);
+  margin-bottom: 10px;
+  transition: all .4s;
+  overflow: hidden;
+  position: relative;
+}
+
+.crow::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px; background: linear-gradient(90deg, transparent, var(--ghl), transparent); }
+.crow .rh  { display: flex; gap: 5px; margin-bottom: 7px; }
+.crow .rt  { font-family: 'JetBrains Mono', monospace; font-size: .72rem; color: var(--t2); line-height: 1.5; margin-bottom: 7px; }
+.crow .rm  { display: flex; gap: 12px; font-size: .7rem; color: var(--t3); margin-bottom: 5px; }
+.crow .re  { display: inline-block; padding: 3px 10px; background: var(--golds); border-radius: 6px; font-size: .7rem; color: var(--gold); margin-bottom: 8px; }
+
+/* Candidate evidence / score / confidence */
+.clevid { /* evidence text */ }
+.cscore { /* score display */ }
+.cconf  { /* confidence display */ }
+
+/* Review card (admin review actions) */
+.rcard {
+  padding: 14px;
+  border-radius: 14px;
+  background: var(--glass);
+  backdrop-filter: blur(12px);
+  border: 1px solid var(--gbdr);
+  margin-bottom: 10px;
+  transition: all .4s;
+  overflow: hidden;
+  position: relative;
+}
+
+.rcard::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px; background: linear-gradient(90deg, transparent, var(--ghl), transparent); }
+.rcard .rh  { display: flex; gap: 5px; margin-bottom: 7px; }
+.rcard .rt  { font-family: 'JetBrains Mono', monospace; font-size: .72rem; color: var(--t2); line-height: 1.5; margin-bottom: 7px; }
+.rcard .rm  { display: flex; gap: 12px; font-size: .7rem; color: var(--t3); margin-bottom: 5px; }
+.rcard .re  { display: inline-block; padding: 3px 10px; background: var(--golds); border-radius: 6px; font-size: .7rem; color: var(--gold); margin-bottom: 8px; }
+
+.racts { display: flex; gap: 5px; }
+
+.racts button {
+  flex: 1;
+  padding: 7px 8px;
+  border-radius: 8px;
+  border: 1.5px solid;
+  background: transparent;
+  font-weight: 600;
+  font-size: .7rem;
+  cursor: pointer;
+  transition: all .2s;
+}
+
+.racts .ra { border-color: var(--gold); color: var(--gold); }
+.racts .ra:hover { background: var(--golds); }
+.racts .rc { border-color: var(--wrn);  color: var(--wrn); }
+.racts .rr { border-color: var(--marl); color: var(--marl); }
+
+.cpanel { display: none; margin-top: 8px; padding: 10px; background: var(--bg2); border-radius: 8px; }
+.cpanel.on { display: block; }
+.cpanel input[type="range"] { width: 100%; accent-color: var(--wrn); }
+.cpanel .cv { font-family: 'JetBrains Mono', monospace; font-size: .8rem; color: var(--wrn); text-align: center; margin: 3px 0; }
+
+/* Heatmap grid */
+.hmgrid { display: grid; grid-template-columns: 68px repeat(6, 1fr); gap: 2px; font-size: .62rem; margin-bottom: 16px; }
+.hmhdr  { text-align: center; font-weight: 600; color: var(--t3); padding: 4px 2px; }
+.hmrl   { font-weight: 500; color: var(--t2); padding: 4px 2px; display: flex; align-items: center; }
+.hmc    { text-align: center; padding: 5px 2px; border-radius: 4px; font-weight: 600; font-family: 'JetBrains Mono', monospace; }
+.hmc.hg { background: rgba(240,200,110,.18); color: var(--gold); }
+.hmc.hs { background: rgba(122,110,104,.12); color: var(--t2); }
+.hmc.hm { background: rgba(114,47,55,.18);  color: var(--marl); }
+
+/* Hmcell alias */
+.hmcell { /* alias for .hmc */ }
+
+/* Chart boxes */
+.chartbox { /* chart container */ }
+
+.effchart { /* effectiveness chart container */ }
+
+.effbar { /* effectiveness bar */ }

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no, viewport-fit=cover">
-    <title>Harmonia - The Compatibility Engine</title>
+    <title>Harmonia — Contact</title>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="assets/css/variables.css">
     <link rel="stylesheet" href="assets/css/base.css">
@@ -35,13 +35,13 @@
         </div>
         <div class="nav-right">
             <ul class="nav-links">
-                <li><a href="index.html" id="nav-home" class="active" class="active">Home</a></li>
+                <li><a href="index.html" id="nav-home" class="active">Home</a></li>
                 <li><a href="why-harmonia.html" id="nav-why-harmonia">Why Harmonia</a></li>
                 <li><a href="partnerships.html" id="nav-partnerships">Ignite Your Platform</a></li>
                 <li><a href="team.html" id="nav-team">Team</a></li>
                 <li><a href="local-network.html" id="nav-local-network">Local Network</a></li>
                 <li><a href="p2p-testing.html" id="nav-p2p">Join Our Testing Pool</a></li>
-                <li><a href="contact.html" id="nav-contact">Contact</a></li>
+                <li><a href="contact.html" id="nav-contact" class="active">Contact</a></li>
             </ul>
             <button class="hamburger" onclick="toggleMobileNav()" aria-label="Toggle menu">
                 <span></span>
@@ -63,39 +63,75 @@
 
     <!-- HOME PAGE -->
 
-    <div class="page active" id="page-home">
-        <!-- HOME PAGE -->
-            <section class="hero">
-                <div class="hero-content">
-                    <h1 class="tagline">
-                        They designed <span class="addiction">addiction.</span><br>We designed <span class="compatibility">compatibility.</span>
-                    </h1>
-                    <p class="subtitle">Harmonia is the next evolution in compatibility engines for dating platforms. It combines visual attraction, psychological compatibility, and genetic chemistry to prioritize real human connection over endless swiping.</p>
-                    <div class="btn-group">
-                        <button class="btn btn-primary" onclick="window.location.href='p2p-testing.html'">Join the Testing Pool</button>
-                        <button class="btn btn-secondary" onclick="window.location.href='partnerships.html'">Integrate the Engine</button>
-                    </div>
+        <section class="contact-section">
+                <div class="contact-header">
+                    <h2>Get in Touch</h2>
+                    <p>Whether you're a potential partner, investor, or curious about what we're building — we'd love to hear from you.</p>
                 </div>
         
-                <div class="radar-wrapper">
-                    <div class="radar-bg-circle large"></div>
-                    <div class="radar-bg-circle medium"></div>
-                    <div class="radar-bg-circle small"></div>
-                    
-                    <div class="radar-container">
-                        <svg class="radar-svg" viewBox="0 0 400 400">
-                            <polygon class="radar-grid" points="200,40 350,120 350,280 200,360 50,280 50,120"/>
-                            <polygon class="radar-grid" points="200,80 310,140 310,260 200,320 90,260 90,140"/>
-                            <polygon class="radar-grid" points="200,120 270,160 270,240 200,280 130,240 130,160"/>
-                            <polygon id="radarA" class="radar-shape-a" points="200,50 340,125 330,275 200,345 60,270 70,130"/>
-                            <polygon id="radarB" class="radar-shape-b" points="200,70 320,140 325,265 200,330 80,260 75,135"/>
-                        </svg>
-                        
-                        <span class="radar-label top">VISUAL</span>
-                        <span class="radar-label bottom-left">GENETIC</span>
-                        <span class="radar-label bottom-right">PERSONALITY</span>
-                        
-                        <div class="radar-status" id="radar-status">SYNTHESIZING...</div>
+                <div class="contact-layout">
+                    <div class="contact-options">
+                        <div class="contact-card" data-type="platform" onclick="selectContactType(this, 'platform')">
+                            <h3>For Platforms</h3>
+                            <p>Interested in integrating the Harmonia Engine into your platform? Let's discuss how compatibility science can improve your matching.</p>
+                            <span class="card-indicator">Selected →</span>
+                        </div>
+        
+                        <div class="contact-card" data-type="individual" onclick="selectContactType(this, 'individual')">
+                            <h3>For Testing</h3>
+                            <p>Want to be part of our London beta? Join the testing pool and help us refine compatibility matching.</p>
+                            <span class="card-indicator">Selected →</span>
+                        </div>
+        
+                        <div class="contact-card" data-type="other" onclick="selectContactType(this, 'other')">
+                            <h3>General Inquiries</h3>
+                            <p>Press, research collaborations, or just want to say hello? We're always happy to connect.</p>
+                            <span class="card-indicator">Selected →</span>
+                        </div>
+                    </div>
+        
+                    <div class="regal-form-container">
+                        <form class="regal-form" id="contactForm">
+                            <h3>Send a Message</h3>
+                            
+                            <div class="form-row">
+                                <div class="input-group">
+                                    <label for="contact-name">Your Name</label>
+                                    <input type="text" id="contact-name" name="name" required placeholder="Jane Smith">
+                                </div>
+                                <div class="input-group">
+                                    <label for="contact-email">Email</label>
+                                    <input type="email" id="contact-email" name="email" required placeholder="jane@example.com">
+                                </div>
+                            </div>
+        
+                            <div class="input-group">
+                                <label for="contact-type">I am a...</label>
+                                <select id="contact-type" name="type" required>
+                                    <option value="">Select...</option>
+                                    <option value="platform">Dating Platform</option>
+                                    <option value="investor">Investor</option>
+                                    <option value="researcher">Researcher</option>
+                                    <option value="press">Press</option>
+                                    <option value="individual">Individual User</option>
+                                    <option value="other">Other</option>
+                                </select>
+                            </div>
+        
+                            <div class="input-group">
+                                <label for="contact-message">Message</label>
+                                <textarea id="contact-message" name="message" required placeholder="Tell us what you're thinking..."></textarea>
+                            </div>
+        
+                            <button type="submit" class="submit-btn" id="submitBtn">
+                                <span class="btn-text">Send Message</span>
+                                <span class="arrow">→</span>
+                            </button>
+        
+                            <div class="form-success" id="formSuccess">
+                                Message received. We will be in touch shortly.
+                            </div>
+                        </form>
                     </div>
                 </div>
             </section>
@@ -106,7 +142,7 @@
                 <span class="logo-text">Harmonia Engine</span>
                 <div class="footer-links">
                     <a href="why-harmonia.html">Why Harmonia</a>
-                    <a onclick="window.location.href='partnerships.html'">Ignite Your Platform</a>
+                    <a href="partnerships.html">Ignite Your Platform</a>
                     <a href="team.html">Team</a>
                     <a href="contact.html">Contact</a>
                 </div>
@@ -115,7 +151,6 @@
         </footer>
     </div>
 
-    <!-- WHY HARMONIA PAGE -->
 
     <script src="assets/js/utils.js"></script>
     <script src="assets/js/nav.js"></script>

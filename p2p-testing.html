@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no, viewport-fit=cover">
-    <title>Harmonia - The Compatibility Engine</title>
+    <title>Harmonia — Join Our Testing Pool</title>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="assets/css/variables.css">
     <link rel="stylesheet" href="assets/css/base.css">
@@ -35,12 +35,12 @@
         </div>
         <div class="nav-right">
             <ul class="nav-links">
-                <li><a href="index.html" id="nav-home" class="active" class="active">Home</a></li>
+                <li><a href="index.html" id="nav-home" class="active">Home</a></li>
                 <li><a href="why-harmonia.html" id="nav-why-harmonia">Why Harmonia</a></li>
                 <li><a href="partnerships.html" id="nav-partnerships">Ignite Your Platform</a></li>
                 <li><a href="team.html" id="nav-team">Team</a></li>
                 <li><a href="local-network.html" id="nav-local-network">Local Network</a></li>
-                <li><a href="p2p-testing.html" id="nav-p2p">Join Our Testing Pool</a></li>
+                <li><a href="p2p-testing.html" id="nav-p2p" class="active">Join Our Testing Pool</a></li>
                 <li><a href="contact.html" id="nav-contact">Contact</a></li>
             </ul>
             <button class="hamburger" onclick="toggleMobileNav()" aria-label="Toggle menu">
@@ -63,50 +63,45 @@
 
     <!-- HOME PAGE -->
 
-    <div class="page active" id="page-home">
-        <!-- HOME PAGE -->
-            <section class="hero">
-                <div class="hero-content">
-                    <h1 class="tagline">
-                        They designed <span class="addiction">addiction.</span><br>We designed <span class="compatibility">compatibility.</span>
-                    </h1>
-                    <p class="subtitle">Harmonia is the next evolution in compatibility engines for dating platforms. It combines visual attraction, psychological compatibility, and genetic chemistry to prioritize real human connection over endless swiping.</p>
-                    <div class="btn-group">
-                        <button class="btn btn-primary" onclick="window.location.href='p2p-testing.html'">Join the Testing Pool</button>
-                        <button class="btn btn-secondary" onclick="window.location.href='partnerships.html'">Integrate the Engine</button>
-                    </div>
-                </div>
-        
-                <div class="radar-wrapper">
-                    <div class="radar-bg-circle large"></div>
-                    <div class="radar-bg-circle medium"></div>
-                    <div class="radar-bg-circle small"></div>
-                    
-                    <div class="radar-container">
-                        <svg class="radar-svg" viewBox="0 0 400 400">
-                            <polygon class="radar-grid" points="200,40 350,120 350,280 200,360 50,280 50,120"/>
-                            <polygon class="radar-grid" points="200,80 310,140 310,260 200,320 90,260 90,140"/>
-                            <polygon class="radar-grid" points="200,120 270,160 270,240 200,280 130,240 130,160"/>
-                            <polygon id="radarA" class="radar-shape-a" points="200,50 340,125 330,275 200,345 60,270 70,130"/>
-                            <polygon id="radarB" class="radar-shape-b" points="200,70 320,140 325,265 200,330 80,260 75,135"/>
-                        </svg>
-                        
-                        <span class="radar-label top">VISUAL</span>
-                        <span class="radar-label bottom-left">GENETIC</span>
-                        <span class="radar-label bottom-right">PERSONALITY</span>
-                        
-                        <div class="radar-status" id="radar-status">SYNTHESIZING...</div>
-                    </div>
-                </div>
-            </section>
+        <section class="p2p-section">
+            <div class="coming-soon-container">
+                <span class="coming-soon-badge">Testing Pool Open</span>
+                <h2 class="p2p-title">Join the London Beta</h2>
+                <p class="rebellion-tagline">"Chemistry, not selection."</p>
+                
+                <p class="p2p-subtitle">
+                    Be among the first to experience compatibility matching that goes beyond swiping. We're recruiting London-based participants for our February 2026 beta launch.
+                </p>
 
+                <div class="waitlist-form">
+                    <form id="waitlistForm">
+                        <input type="email" name="email" placeholder="Enter your email" required>
+                        <button type="submit" class="btn btn-primary">Join Waitlist</button>
+                    </form>
+                    <div id="waitlistMessage" class="form-message"></div>
+                </div>
+
+                <div class="free-dna-banner">
+                    <h3>Free DNA Kit for Beta Testers</h3>
+                    <p>First 100 participants receive a complimentary genetic analysis kit, a £35 value.</p>
+                </div>
+            </div>
+        </section>
+
+
+            <div class="preview-cta" style="margin-top:48px;text-align:center;padding:32px;background:rgba(212,168,83,0.08);border:1px solid rgba(212,168,83,0.2);border-radius:12px;max-width:520px;margin-left:auto;margin-right:auto;margin-bottom:48px;">
+                <p style="font-size:0.82rem;color:var(--slate);text-transform:uppercase;letter-spacing:0.12em;margin-bottom:8px">Interactive Preview</p>
+                <h3 style="color:var(--gold);font-family:'Cormorant Garamond',serif;font-size:1.7rem;margin-bottom:12px">Experience Harmonia</h3>
+                <p style="color:var(--slate);margin-bottom:24px;font-size:0.9rem;line-height:1.6">Walk through every phase — from sign-up to match reveal — before joining the beta.</p>
+                <a href="harmonia-preview/index.html" class="btn btn-primary" style="display:inline-block;text-decoration:none;padding:14px 32px;">Launch the Preview →</a>
+            </div>
         <!-- Footer -->
         <footer>
             <div class="footer-inner">
                 <span class="logo-text">Harmonia Engine</span>
                 <div class="footer-links">
                     <a href="why-harmonia.html">Why Harmonia</a>
-                    <a onclick="window.location.href='partnerships.html'">Ignite Your Platform</a>
+                    <a href="partnerships.html">Ignite Your Platform</a>
                     <a href="team.html">Team</a>
                     <a href="contact.html">Contact</a>
                 </div>
@@ -115,7 +110,6 @@
         </footer>
     </div>
 
-    <!-- WHY HARMONIA PAGE -->
 
     <script src="assets/js/utils.js"></script>
     <script src="assets/js/nav.js"></script>

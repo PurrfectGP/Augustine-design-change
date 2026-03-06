@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no, viewport-fit=cover">
-    <title>Harmonia - The Compatibility Engine</title>
+    <title>Harmonia — Ignite Your Platform</title>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="assets/css/variables.css">
     <link rel="stylesheet" href="assets/css/base.css">
@@ -35,9 +35,9 @@
         </div>
         <div class="nav-right">
             <ul class="nav-links">
-                <li><a href="index.html" id="nav-home" class="active" class="active">Home</a></li>
+                <li><a href="index.html" id="nav-home" class="active">Home</a></li>
                 <li><a href="why-harmonia.html" id="nav-why-harmonia">Why Harmonia</a></li>
-                <li><a href="partnerships.html" id="nav-partnerships">Ignite Your Platform</a></li>
+                <li><a href="partnerships.html" id="nav-partnerships" class="active">Ignite Your Platform</a></li>
                 <li><a href="team.html" id="nav-team">Team</a></li>
                 <li><a href="local-network.html" id="nav-local-network">Local Network</a></li>
                 <li><a href="p2p-testing.html" id="nav-p2p">Join Our Testing Pool</a></li>
@@ -63,42 +63,95 @@
 
     <!-- HOME PAGE -->
 
-    <div class="page active" id="page-home">
-        <!-- HOME PAGE -->
-            <section class="hero">
-                <div class="hero-content">
-                    <h1 class="tagline">
-                        They designed <span class="addiction">addiction.</span><br>We designed <span class="compatibility">compatibility.</span>
-                    </h1>
-                    <p class="subtitle">Harmonia is the next evolution in compatibility engines for dating platforms. It combines visual attraction, psychological compatibility, and genetic chemistry to prioritize real human connection over endless swiping.</p>
-                    <div class="btn-group">
-                        <button class="btn btn-primary" onclick="window.location.href='p2p-testing.html'">Join the Testing Pool</button>
-                        <button class="btn btn-secondary" onclick="window.location.href='partnerships.html'">Integrate the Engine</button>
-                    </div>
+        <section class="partnerships-section">
+                <!-- Tier Tabs - Mobile/Tablet only -->
+                <div class="partnerships-tier-tabs" id="partnershipsTierTabs">
+                    <button class="tier-tab active" data-tier="default">Overview</button>
+                    <button class="tier-tab" data-tier="pilot">Pilot Program</button>
+                    <button class="tier-tab" data-tier="api">API Integration</button>
+                    <button class="tier-tab" data-tier="core">Core License</button>
                 </div>
-        
-                <div class="radar-wrapper">
-                    <div class="radar-bg-circle large"></div>
-                    <div class="radar-bg-circle medium"></div>
-                    <div class="radar-bg-circle small"></div>
+
+                <div class="partnerships-layout">
                     
-                    <div class="radar-container">
-                        <svg class="radar-svg" viewBox="0 0 400 400">
-                            <polygon class="radar-grid" points="200,40 350,120 350,280 200,360 50,280 50,120"/>
-                            <polygon class="radar-grid" points="200,80 310,140 310,260 200,320 90,260 90,140"/>
-                            <polygon class="radar-grid" points="200,120 270,160 270,240 200,280 130,240 130,160"/>
-                            <polygon id="radarA" class="radar-shape-a" points="200,50 340,125 330,275 200,345 60,270 70,130"/>
-                            <polygon id="radarB" class="radar-shape-b" points="200,70 320,140 325,265 200,330 80,260 75,135"/>
-                        </svg>
-                        
-                        <span class="radar-label top">VISUAL</span>
-                        <span class="radar-label bottom-left">GENETIC</span>
-                        <span class="radar-label bottom-right">PERSONALITY</span>
-                        
-                        <div class="radar-status" id="radar-status">SYNTHESIZING...</div>
+                    <div class="partnerships-content">
+                        <div class="content-wrapper" id="partnershipsContentWrapper">
+                            <h2 class="regal-title" id="partnershipsDynamicTitle">The Matching Layer You're Missing</h2>
+                            <p class="regal-intro" id="partnershipsDynamicIntro">Industry retention rates have stalled at <a href="https://www.businessofapps.com/data/dating-app-benchmarks/" target="_blank" class="stat-link">3.3%</a>. Over <a href="https://www.businessofapps.com/data/dating-app-market/" target="_blank" class="stat-link">half the market's revenue</a> sits with one conglomerate. Harmonia exists for independent platforms ready to compete differently. Shared engine. Individual identity. A dating market where quality determines who wins.</p>
+                            
+                            <div class="feature-boxes" id="partnershipsFeatureBoxes">
+                                <!-- Boxes populated by JS -->
+                            </div>
+                        </div>
+                    </div>
+        
+                    <div class="regal-form-container">
+                        <form id="partnershipsIntegrationForm" class="regal-form">
+                            <div class="form-row">
+                                <div class="input-group">
+                                    <label for="partnershipCompany">Company</label>
+                                    <input type="text" id="partnershipCompany" name="company" required>
+                                </div>
+                                <div class="input-group">
+                                    <label for="partnershipEmail">Work Email</label>
+                                    <input type="email" id="partnershipEmail" name="email" required>
+                                </div>
+                            </div>
+                            
+                            <div class="input-group">
+                                <label for="partnershipMau">Monthly Active Users</label>
+                                <select id="partnershipMau" name="mau" required>
+                                    <option value="" selected>Select range...</option>
+                                    <option value="<10k">&lt; 10,000</option>
+                                    <option value="10k-100k">10,000 - 100,000</option>
+                                    <option value="100k-1m">100,000 - 1,000,000</option>
+                                    <option value="1m+">1,000,000+</option>
+                                </select>
+                            </div>
+                            
+                            <div class="input-group interest-input-group">
+                                <label for="partnershipInterest">Interest</label>
+                                <select id="partnershipInterest" name="interest" required>
+                                    <option value="default" selected>Select integration type...</option>
+                                    <option value="pilot">Pilot Program</option>
+                                    <option value="api">Full API Integration</option>
+                                    <option value="core">Core Engine License</option>
+                                </select>
+                            </div>
+        
+                            <div class="input-group">
+                                <label for="partnershipInquiry">Inquiry</label>
+                                <textarea id="partnershipInquiry" name="inquiry" rows="2" placeholder="Tell us about your platform..."></textarea>
+                            </div>
+        
+                            <button type="submit" class="btn-regal-submit" id="partnershipsSubmitBtn">
+                                <span class="btn-text">Request Access</span> <span class="arrow">→</span>
+                            </button>
+                            <div id="partnershipsFormMessage" class="form-message"></div>
+                        </form>
+                    </div>
+        
+                    <div class="partnerships-footer">
+                        <div class="trusted-divider">
+                            <span>Trusted By</span>
+                        </div>
+                        <div class="trusted-logos">
+                            <span class="trusted-name sans">Google Cloud</span>
+                        </div>
                     </div>
                 </div>
             </section>
+
+        <!-- Partnerships Modal -->
+        <div class="partnerships-modal-overlay" id="partnershipsModalOverlay">
+            <div class="partnerships-modal-content">
+                <button class="partnerships-modal-close" onclick="closePartnershipsModal()">×</button>
+                <div class="partnerships-modal-icon" id="partnershipsModalIcon"></div>
+                <h3 class="partnerships-modal-title" id="partnershipsModalTitle"></h3>
+                <p class="partnerships-modal-desc" id="partnershipsModalDesc"></p>
+                <ul class="partnerships-modal-list" id="partnershipsModalList"></ul>
+            </div>
+        </div>
 
         <!-- Footer -->
         <footer>
@@ -106,7 +159,7 @@
                 <span class="logo-text">Harmonia Engine</span>
                 <div class="footer-links">
                     <a href="why-harmonia.html">Why Harmonia</a>
-                    <a onclick="window.location.href='partnerships.html'">Ignite Your Platform</a>
+                    <a href="partnerships.html">Ignite Your Platform</a>
                     <a href="team.html">Team</a>
                     <a href="contact.html">Contact</a>
                 </div>
@@ -115,7 +168,6 @@
         </footer>
     </div>
 
-    <!-- WHY HARMONIA PAGE -->
 
     <script src="assets/js/utils.js"></script>
     <script src="assets/js/nav.js"></script>

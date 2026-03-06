@@ -1,0 +1,52 @@
+/* ==========================================================================
+   variables.css — CSS custom properties for light and dark themes.
+   Contains ONLY :root variables and [data-theme="dark"] overrides.
+   ========================================================================== */
+
+:root {
+    /* Light Mode - Warm Parchment Base */
+    --cream: #FAF6F1;
+    --blush: #F5EDE6;
+    --rose: #EFE5DC;
+    --card-bg: #F0E8DF;
+
+    /* Accent Colors */
+    --gold: #D4A853;
+    --gold-light: rgba(212, 168, 83, 0.15);
+    --gold-champagne: #E8C97A;
+    --gold-rose: #D4A574;
+    --maroon: #722F37;
+    --maroon-deep: #5C1A1B;
+    --maroon-light: rgba(114, 47, 55, 0.12);
+    --wine: #8B3A3A;
+    --wine-light: rgba(139, 58, 58, 0.15);
+
+    /* Mediterranean Blues */
+    --navy: #1E293B;
+    --navy-med: #2C3E50;
+    --slate: #475569;
+    --blue-med: #3B5998;
+
+    /* Dark Mode Surfaces - Wine Black */
+    --dark-bg: #12090A;
+    --dark-surface: #2D1A1C;
+    --dark-border: #3D2426;
+    --gray-light: #E8E0D8;
+}
+
+/* Dark Mode Variables - Wine Black */
+[data-theme="dark"] {
+    --cream: #12090A;
+    --blush: #1A0F10;
+    --rose: #EFE5DC;
+    --card-bg: #2D1A1C;
+    --navy: #F5F0E8;
+    --slate: #C4B8B0;
+    --gray-light: #2D1A1C;
+    --dark-bg: #12090A;
+    --dark-surface: #2D1A1C;
+    --dark-border: #3D2426;
+    --gold: #F0C86E;
+    --gold-champagne: #F5D98A;
+    --gold-light: rgba(240, 200, 110, 0.2);
+}

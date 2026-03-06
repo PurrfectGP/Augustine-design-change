@@ -1,0 +1,45 @@
+/* ============================================================
+   Harmonia Preview — base.css
+   CSS reset, html/body styles, global typography
+   ============================================================ */
+
+
+/* ===================================================
+   2. RESET & BASE
+   =================================================== */
+
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--bg);
+  color: var(--t1);
+  overflow-x: hidden;
+  transition: background .4s, color .3s;
+}
+
+h1, h2, h3, h4 {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 600;
+}
+
+.mono { font-family: 'JetBrains Mono', monospace; }
+
+::selection {
+  background: var(--gold);
+  color: #1A0F10;
+}
+
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--bdr); border-radius: 3px; }
