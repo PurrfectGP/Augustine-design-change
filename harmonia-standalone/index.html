@@ -1,0 +1,3226 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Harmonia — V3 App Preview</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=DM+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+/* ============================================================
+   Harmonia Preview — variables.css
+   Theme custom properties: dark (default) and light overrides
+   ============================================================ */
+
+
+/* ===================================================
+   1. THEME VARIABLES
+   =================================================== */
+
+:root,
+[data-theme="dark"] {
+  --bg:    #0A0506;
+  --bg2:   #1A0F10;
+  --bg3:   #2D1A1C;
+  --bg4:   #3A2224;
+  --bdr:   #3D2426;
+  --gold:  #F0C86E;
+  --gold2: #FFD875;
+  --goldd: #C9A855;
+  --goldg: rgba(240, 200, 110, 0.4);
+  --golds: rgba(240, 200, 110, 0.12);
+  --mar:   #722F37;
+  --marl:  #8B3A3A;
+  --mard:  #5C1A1B;
+  --marg:  rgba(114, 47, 55, 0.5);
+  --t1:    #F5F0E8;
+  --t2:    #C4B8B0;
+  --t3:    #7A6E68;
+  --glass: rgba(45, 26, 28, 0.55);
+  --gbdr:  rgba(240, 200, 110, 0.1);
+  --ghl:   rgba(240, 200, 110, 0.05);
+  --ok:    #4CAF50;
+  --wrn:   #FFC107;
+  --err:   #E53935;
+}
+
+[data-theme="light"] {
+  --bg:    #FAF6F1;
+  --bg2:   #F5EDE6;
+  --bg3:   #F0E8DF;
+  --bg4:   #fff;
+  --bdr:   rgba(114, 47, 55, 0.1);
+  --gold:  #D4A853;
+  --gold2: #E8C97A;
+  --goldd: #B08C3E;
+  --goldg: rgba(212, 168, 83, 0.3);
+  --golds: rgba(212, 168, 83, 0.08);
+  --t1:    #1E293B;
+  --t2:    #475569;
+  --t3:    #94A3B8;
+  --glass: rgba(255, 255, 255, 0.6);
+  --gbdr:  rgba(114, 47, 55, 0.08);
+  --ghl:   rgba(255, 255, 255, 0.3);
+}
+
+/* ============================================================
+   Harmonia Preview — base.css
+   CSS reset, html/body styles, global typography
+   ============================================================ */
+
+
+/* ===================================================
+   2. RESET & BASE
+   =================================================== */
+
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--bg);
+  color: var(--t1);
+  overflow-x: hidden;
+  transition: background .4s, color .3s;
+}
+
+h1, h2, h3, h4 {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 600;
+}
+
+.mono { font-family: 'JetBrains Mono', monospace; }
+
+::selection {
+  background: var(--gold);
+  color: #1A0F10;
+}
+
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--bdr); border-radius: 3px; }
+
+/* ============================================================
+   Harmonia Preview — layout.css
+   Section layouts: nav, sections, grid, overlays positioning
+   ============================================================ */
+
+
+/* ===================================================
+   3. LAYOUT — NAV, SECTIONS, GRID
+   =================================================== */
+
+/* Dust canvas */
+#dust {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* Fixed nav */
+.topnav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px clamp(20px, 4vw, 60px);
+  backdrop-filter: blur(40px) saturate(1.6);
+  background: linear-gradient(180deg, var(--glass), transparent);
+  border-bottom: 1px solid var(--gbdr);
+}
+
+.topnav::after {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  left: 15%; right: 15%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--goldg), transparent);
+}
+
+.topnav .logo {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.3rem;
+  font-weight: 700;
+  background: linear-gradient(135deg, var(--gold), var(--gold2));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.topnav .logo svg { width: 18px; height: 18px; }
+
+.nav-r { display: flex; gap: 8px; align-items: center; }
+
+.nbtn {
+  width: 32px; height: 32px;
+  border-radius: 50%;
+  border: 1px solid var(--gbdr);
+  background: var(--ghl);
+  color: var(--t2);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all .3s;
+}
+
+.nbtn:hover { border-color: var(--gold); color: var(--gold); }
+.nbtn svg { width: 15px; height: 15px; fill: currentColor; stroke: currentColor; stroke-width: 0; }
+
+/* Phase dots */
+.pdots {
+  position: fixed;
+  right: clamp(12px, 2vw, 28px);
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 999;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.pdot {
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  background: var(--bdr);
+  cursor: pointer;
+  transition: all .4s;
+  border: none;
+}
+
+.pdot.on {
+  background: var(--gold);
+  box-shadow: 0 0 8px var(--goldg);
+  transform: scale(1.3);
+}
+
+/* Sections */
+.S {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  padding: 90px clamp(20px, 5vw, 80px) 60px;
+  overflow: hidden;
+}
+
+.S-in {
+  max-width: 1000px;
+  width: 100%;
+  position: relative;
+  z-index: 2;
+}
+
+/* Two-column grid */
+.twocol {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(20px, 3vw, 48px);
+  align-items: center;
+}
+
+/* Skip button */
+.skip {
+  position: absolute;
+  bottom: clamp(20px, 3vh, 40px);
+  right: clamp(20px, 4vw, 60px);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 18px;
+  background: var(--glass);
+  backdrop-filter: blur(12px);
+  border: 1px solid var(--gbdr);
+  border-radius: 10px;
+  color: var(--t3);
+  font-size: .72rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all .3s;
+  z-index: 10;
+  letter-spacing: .4px;
+  text-transform: uppercase;
+}
+
+.skip:hover { color: var(--gold); border-color: var(--gold); }
+.skip svg { width: 11px; height: 11px; fill: currentColor; }
+
+/* Phase header */
+.phdr {
+  text-align: center;
+  margin-bottom: clamp(20px, 3vh, 40px);
+}
+
+.phdr h2 {
+  font-size: clamp(1.7rem, 3.5vw, 2.8rem);
+  color: var(--gold);
+  margin-bottom: 6px;
+  line-height: 1.15;
+}
+
+.phdr p {
+  color: var(--t2);
+  font-size: clamp(.82rem, 1.1vw, .95rem);
+  max-width: 520px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+.phdr .pnum {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: .62rem;
+  color: var(--t3);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-bottom: 8px;
+  display: block;
+}
+
+/* Gemini processing overlay — positioning/layout */
+.govl {
+  position: fixed;
+  inset: 0;
+  background: rgba(10,5,6,.92);
+  backdrop-filter: blur(8px);
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+  gap: 16px;
+  padding: 24px;
+}
+
+.govl.on { display: flex; }
+.govl h3  { font-family: 'Cormorant Garamond', serif; font-size: 1.2rem; color: var(--gold); }
+
+.gprog { width: 200px; height: 2px; background: var(--bdr); border-radius: 1px; overflow: hidden; }
+.gprog div { height: 100%; background: linear-gradient(90deg, var(--gold), var(--gold2)); width: 0%; transition: width .5s; box-shadow: 0 0 8px var(--goldg); }
+
+/* Confetti canvas */
+#confetti { position: fixed; inset: 0; z-index: 10001; pointer-events: none; }
+
+/* Match reveal overlay — positioning/layout */
+.mrovl {
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: rgba(10,5,6,0);
+  padding: 24px;
+  overflow-y: auto;
+}
+
+.mrovl.on { display: flex; }
+
+/* ===================================================
+   9. RESPONSIVE
+   =================================================== */
+
+@media (max-width: 768px) {
+  .twocol       { grid-template-columns: 1fr; }
+  .deck         { width: 260px; height: 380px; }
+  .fcard-wrap   { width: 240px; height: 320px; }
+}
+
+@media (min-width: 1200px) {
+  .S-in { max-width: 1100px; }
+}
+
+/* ============================================================
+   Harmonia Preview — components.css
+   Reusable UI components: glass panel, buttons, badges, fields,
+   avatars, toasts, bottom sheet, match reveal sub-components,
+   swipe deck cards, match list, chat, profile, admin panels
+   ============================================================ */
+
+
+/* ===================================================
+   4. COMPONENTS — GLASS, BUTTONS, BADGES, FIELDS
+   =================================================== */
+
+/* Glass panel */
+.gp {
+  backdrop-filter: blur(20px) saturate(1.4);
+  background: var(--glass);
+  border: 1px solid var(--gbdr);
+  border-radius: 16px;
+  padding: clamp(20px, 3vw, 40px);
+  position: relative;
+  overflow: hidden;
+}
+
+.gp::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--ghl), transparent);
+  pointer-events: none;
+}
+
+/* Gold button */
+.btn-g {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 13px 30px;
+  background: linear-gradient(135deg, var(--gold), var(--gold2));
+  color: #1A0F10;
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 700;
+  font-size: .9rem;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all .3s cubic-bezier(.34, 1.56, .64, 1);
+  box-shadow: 0 4px 20px var(--goldg), inset 0 1px 0 rgba(255,255,255,.2);
+  position: relative;
+  overflow: hidden;
+  letter-spacing: .2px;
+}
+
+.btn-g::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%; height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,.15), transparent);
+  transition: left .5s;
+}
+
+.btn-g:hover { transform: translateY(-2px); box-shadow: 0 8px 32px var(--goldg); }
+.btn-g:hover::before { left: 100%; }
+.btn-g:active { transform: scale(.97); }
+
+.btn-g:disabled {
+  background: var(--bg3);
+  color: var(--t3);
+  box-shadow: none;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* Outline button */
+.btn-o {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 28px;
+  background: transparent;
+  color: var(--gold);
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 600;
+  font-size: .88rem;
+  border: 1.5px solid var(--gold);
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all .3s;
+}
+
+.btn-o:hover { background: var(--golds); transform: translateY(-1px); }
+
+/* Badges */
+.bdg {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 13px;
+  border-radius: 100px;
+  font-size: .7rem;
+  font-weight: 600;
+  letter-spacing: .3px;
+}
+
+.bdg-g {
+  background: linear-gradient(135deg, var(--golds), rgba(240,200,110,.04));
+  color: var(--gold);
+  border: 1px solid rgba(240,200,110,.15);
+}
+
+.bdg-m {
+  background: rgba(114,47,55,.15);
+  color: var(--marl);
+  border: 1px solid rgba(114,47,55,.2);
+}
+
+.bdg-x {
+  background: transparent;
+  color: var(--t2);
+  border: 1px solid var(--gbdr);
+}
+
+/* Text field */
+.tf {
+  width: 100%;
+  padding: 12px 16px;
+  background: var(--bg2);
+  border: 1.5px solid var(--bdr);
+  border-radius: 10px;
+  color: var(--t1);
+  font-family: 'DM Sans', sans-serif;
+  font-size: .88rem;
+  transition: all .3s;
+  outline: none;
+}
+
+.tf:focus { border-color: var(--gold); box-shadow: 0 0 0 3px var(--golds); }
+.tf::placeholder { color: var(--t3); }
+
+select.tf {
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10' fill='%237A6E68' viewBox='0 0 16 16'%3E%3Cpath d='M8 11L3 6h10z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 14px center;
+  padding-right: 32px;
+  cursor: pointer;
+}
+
+select.tf option { background: var(--bg2); color: var(--t1); }
+textarea.tf { resize: none; min-height: 130px; line-height: 1.6; }
+
+/* Form groups */
+.fgroup { margin-bottom: 14px; }
+
+.fgroup label {
+  display: block;
+  font-size: .7rem;
+  font-weight: 600;
+  color: var(--t3);
+  margin-bottom: 5px;
+  text-transform: uppercase;
+  letter-spacing: .8px;
+}
+
+.fgroup .ferr { font-size: .7rem; color: var(--err); margin-top: 3px; display: none; }
+
+/* Section title */
+.stitle {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 10px;
+  padding-bottom: 6px;
+  border-bottom: 1px solid var(--bdr);
+}
+
+/* Avatar */
+.av {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 700;
+  color: var(--t1);
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.av-s  { width: 32px; height: 32px; font-size: .8rem; }
+.av-m  { width: 44px; height: 44px; font-size: 1rem; }
+.av-l  { width: 64px; height: 64px; font-size: 1.5rem; }
+.av-xl { width: 88px; height: 88px; font-size: 2rem; }
+.av-ring { box-shadow: 0 0 0 3px var(--gold), 0 0 20px var(--goldg); }
+
+/* Toast notifications */
+.toasts { position: fixed; top: 68px; right: 16px; z-index: 10000; display: flex; flex-direction: column; gap: 8px; max-width: 300px; }
+
+.toast {
+  padding: 11px 16px;
+  border-radius: 12px;
+  backdrop-filter: blur(30px);
+  background: var(--glass);
+  border: 1px solid var(--gbdr);
+  font-size: .8rem;
+  color: var(--t1);
+  transform: translateX(120%);
+  transition: transform .4s cubic-bezier(.34, 1.56, .64, 1);
+  box-shadow: 0 8px 32px rgba(0,0,0,.3);
+}
+
+.toast.show { transform: translateX(0); }
+.toast.tg   { border-left: 3px solid var(--gold); }
+.toast.tm   { border-left: 3px solid var(--mar); }
+.toast.ti   { border-left: 3px solid var(--t3); }
+
+/* Bottom sheet modal */
+.mbg {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,.5);
+  backdrop-filter: blur(4px);
+  z-index: 1500;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .3s;
+}
+
+.mbg.open { opacity: 1; pointer-events: all; }
+
+.msheet {
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%) translateY(100%);
+  width: 100%;
+  max-width: 500px;
+  max-height: 80vh;
+  border-radius: 20px 20px 0 0;
+  backdrop-filter: blur(40px);
+  background: var(--bg2);
+  border: 1px solid var(--gbdr);
+  border-bottom: none;
+  z-index: 1501;
+  overflow-y: auto;
+  transition: transform .4s cubic-bezier(.34, 1.56, .64, 1);
+  padding: 0 24px 24px;
+}
+
+.msheet.open { transform: translateX(-50%) translateY(0); }
+
+.msheet .handle {
+  width: 40px; height: 4px;
+  background: var(--t3);
+  border-radius: 2px;
+  margin: 12px auto 20px;
+  opacity: .4;
+}
+
+/* Match reveal sub-components */
+.mravs  { display: flex; align-items: center; gap: 14px; margin-bottom: 12px; }
+
+.mrav {
+  width: 70px; height: 70px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.8rem;
+  font-weight: 700;
+  border: 3px solid var(--gold);
+  box-shadow: 0 0 20px var(--goldg);
+}
+
+.mrheart svg { width: 20px; height: 20px; fill: var(--gold); }
+
+#mrtitle {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--gold);
+  margin-bottom: 4px;
+}
+
+#mrscore { font-family: 'Cormorant Garamond', serif; font-size: 2.5rem; font-weight: 700; }
+
+.mrrings { position: relative; width: 200px; height: 200px; margin: 10px auto; }
+.mrrings svg { position: absolute; inset: 0; }
+
+.rlabels { display: flex; gap: 12px; margin: 10px 0 12px; flex-wrap: wrap; justify-content: center; }
+.rlbl    { font-size: .7rem; }
+.rlbl b  { font-weight: 700; }
+
+.rlbl::before {
+  content: '';
+  display: inline-block;
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  margin-right: 4px;
+  vertical-align: middle;
+}
+
+.rlbl.rv::before { background: var(--gold); }
+.rlbl.rp::before { background: var(--marl); }
+.rlbl.rb::before { background: var(--mard); }
+
+.shtrait { display: flex; flex-wrap: wrap; gap: 5px; justify-content: center; margin-bottom: 10px; }
+
+.starters { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 6px; margin-bottom: 14px; max-width: 100%; }
+
+.stcard {
+  min-width: 200px;
+  padding: 11px 14px;
+  border-radius: 12px;
+  backdrop-filter: blur(12px);
+  background: var(--glass);
+  border: 1px solid var(--gbdr);
+  border-left: 3px solid var(--gold);
+  font-size: .76rem;
+  color: var(--t2);
+  line-height: 1.4;
+  cursor: pointer;
+  transition: transform .2s;
+  flex-shrink: 0;
+}
+
+.stcard:hover { transform: translateY(-2px); }
+.mrbtns { display: flex; gap: 10px; }
+
+/* Swipe deck cards */
+.deck { position: relative; width: 300px; height: 440px; margin: 0 auto; }
+
+.scard {
+  position: absolute;
+  width: 100%; height: 100%;
+  border-radius: 20px;
+  overflow: hidden;
+  background: var(--bg3);
+  border: 1px solid var(--gbdr);
+  touch-action: none;
+  user-select: none;
+  will-change: transform;
+  box-shadow: 0 10px 40px rgba(0,0,0,.25);
+}
+
+.scard .cphoto { height: 65%; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; }
+.scard .cphoto .dots { position: absolute; bottom: 8px; display: flex; gap: 4px; }
+.scard .cphoto .dot  { width: 5px; height: 5px; border-radius: 50%; background: rgba(255,255,255,.3); }
+.scard .cphoto .dot.on { background: #fff; box-shadow: 0 0 4px rgba(255,255,255,.5); }
+
+.scard .cinfo {
+  height: 35%;
+  padding: 14px 16px;
+  backdrop-filter: blur(16px);
+  background: var(--glass);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border-top: 1px solid var(--gbdr);
+}
+
+.scard .cname { font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; font-weight: 700; }
+.scard .cloc  { color: var(--t2); font-size: .78rem; margin-top: 2px; display: flex; align-items: center; gap: 4px; }
+.scard .cloc svg { width: 10px; height: 10px; fill: var(--t2); }
+.scard .ctags { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 6px; }
+
+.scard .stamp { position: absolute; top: 18px; padding: 5px 14px; border-radius: 8px; font-size: 1.3rem; font-weight: 800; letter-spacing: 3px; opacity: 0; pointer-events: none; z-index: 5; }
+.scard .st-l  { left: 14px;  transform: rotate(-12deg);          color: var(--gold);  border: 3px solid var(--gold); }
+.scard .st-n  { right: 14px; transform: rotate(12deg);           color: var(--marl);  border: 3px solid var(--marl); }
+.scard .st-s  { left: 50%;   transform: translateX(-50%);        color: var(--gold2); border: 3px solid var(--gold2); }
+
+/* Swipe action buttons */
+.sact { display: flex; align-items: center; justify-content: center; gap: 16px; margin-top: 14px; }
+
+.abtn {
+  border-radius: 50%;
+  border: 2px solid;
+  background: var(--ghl);
+  backdrop-filter: blur(10px);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all .2s;
+}
+
+.abtn:hover  { transform: scale(1.14); }
+.abtn:active { transform: scale(.9); }
+.abtn svg    { fill: currentColor; }
+
+.a-no  { width: 48px; height: 48px; border-color: var(--marl);  color: var(--marl); }
+.a-no svg { width: 18px; height: 18px; }
+
+.a-yes { width: 56px; height: 56px; border-color: var(--gold);  color: var(--gold); box-shadow: 0 0 16px var(--golds); }
+.a-yes svg { width: 22px; height: 22px; }
+
+.a-sup { width: 48px; height: 48px; border-color: var(--gold2); color: var(--gold2); }
+.a-sup svg { width: 18px; height: 18px; }
+
+/* Empty deck state */
+.emptydeck { text-align: center; padding: 60px 20px; }
+.emptydeck svg { width: 48px; height: 48px; fill: var(--gold); margin-bottom: 12px; }
+.emptydeck h3  { font-size: 1.2rem; margin-bottom: 6px; }
+.emptydeck p   { color: var(--t3); font-size: .82rem; }
+
+/* Match list */
+.mcard {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 14px;
+  border-radius: 14px;
+  background: var(--glass);
+  backdrop-filter: blur(12px);
+  border: 1px solid var(--gbdr);
+  margin-bottom: 8px;
+  cursor: pointer;
+  transition: all .3s;
+  position: relative;
+  overflow: hidden;
+}
+
+.mcard::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--ghl), transparent);
+}
+
+.mcard:hover { transform: translateY(-2px); border-color: var(--goldd); }
+.mcard .mi   { flex: 1; min-width: 0; }
+.mcard .mn   { font-weight: 600; font-size: .9rem; }
+.mcard .mb   { margin-top: 2px; }
+.mcard .ml   { color: var(--t3); font-size: .72rem; margin-top: 3px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+/* Chat */
+.chatarea {
+  max-width: 480px;
+  width: 100%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  height: clamp(300px, 50vh, 500px);
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid var(--gbdr);
+  background: var(--bg2);
+}
+
+.chdr {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--gbdr);
+  background: var(--glass);
+  backdrop-filter: blur(12px);
+}
+
+.chdr .backbtn           { background: none; border: none; color: var(--t2); cursor: pointer; display: flex; align-items: center; }
+.chdr .backbtn svg       { width: 16px; height: 16px; fill: currentColor; }
+
+.msgs { flex: 1; overflow-y: auto; padding: 12px; display: flex; flex-direction: column; gap: 6px; }
+
+.bub {
+  max-width: 78%;
+  padding: 10px 14px;
+  border-radius: 16px;
+  font-size: .84rem;
+  line-height: 1.4;
+}
+
+.bub.you {
+  align-self: flex-end;
+  background: linear-gradient(135deg, var(--gold), var(--gold2));
+  color: #1A0F10;
+  border-bottom-right-radius: 4px;
+  box-shadow: 0 2px 12px var(--golds);
+}
+
+.bub.them { align-self: flex-start; background: var(--bg3); color: var(--t1); border-bottom-left-radius: 4px; }
+.bub .btime { font-size: .58rem; margin-top: 2px; opacity: .5; }
+
+.typi { align-self: flex-start; display: none; gap: 3px; padding: 10px 14px; background: var(--bg3); border-radius: 16px; border-bottom-left-radius: 4px; }
+.typi.on { display: flex; }
+
+.typi i {
+  width: 5px; height: 5px;
+  border-radius: 50%;
+  background: var(--t3);
+  animation: bounce 1.4s ease-in-out infinite;
+  display: block;
+}
+
+.typi i:nth-child(2) { animation-delay: .2s; }
+.typi i:nth-child(3) { animation-delay: .4s; }
+
+.chinput { display: flex; gap: 8px; padding: 10px 14px; border-top: 1px solid var(--gbdr); }
+.chinput .tf { flex: 1; }
+
+.sendbtn {
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--gold), var(--gold2));
+  border: none;
+  color: #1A0F10;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform .2s;
+  box-shadow: 0 2px 10px var(--golds);
+}
+
+.sendbtn:hover { transform: scale(1.1); }
+.sendbtn svg   { width: 14px; height: 14px; fill: currentColor; }
+
+/* Quality badge */
+.qbadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 20px;
+  border-radius: 100px;
+  background: linear-gradient(135deg, var(--golds), rgba(240,200,110,.06));
+  color: var(--gold);
+  font-weight: 700;
+  font-size: .88rem;
+  margin-bottom: 20px;
+  border: 1px solid rgba(240,200,110,.2);
+}
+
+/* ============================================================
+   Harmonia Preview — phases.css
+   Phase-specific styles for all onboarding and app phases
+   ============================================================ */
+
+
+/* ===================================================
+   Phase 0 - Sign Up
+   =================================================== */
+
+.consent { display: flex; gap: 10px; align-items: flex-start; }
+
+.consent input[type="checkbox"] {
+  width: 18px; height: 18px;
+  accent-color: var(--gold);
+  margin-top: 2px;
+  flex-shrink: 0;
+}
+
+.consent label {
+  font-size: .75rem;
+  color: var(--t2);
+  line-height: 1.4;
+  text-transform: none;
+  letter-spacing: 0;
+}
+
+
+/* ===================================================
+   Phase 0.5 - Photos
+   =================================================== */
+
+/* Photo grid */
+.pgrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  max-width: 320px;
+  margin: 0 auto;
+}
+
+.pslot {
+  aspect-ratio: 3/4;
+  border-radius: 14px;
+  border: 2px dashed var(--bdr);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all .3s;
+  position: relative;
+  overflow: hidden;
+  background: var(--bg2);
+}
+
+.pslot:hover { border-color: var(--gold); box-shadow: 0 0 16px var(--golds); }
+.pslot.main  { border-color: var(--gold); border-style: solid; }
+
+.pslot .slbl {
+  position: absolute;
+  bottom: 6px;
+  font-size: .58rem;
+  font-weight: 700;
+  color: var(--gold);
+  text-transform: uppercase;
+  letter-spacing: .5px;
+}
+
+.pslot .plus      { color: var(--t3); }
+.pslot .plus svg  { width: 20px; height: 20px; fill: currentColor; }
+.pslot.on         { border-style: solid; border-color: var(--gbdr); }
+
+.pslot .dbtn {
+  position: absolute;
+  top: 4px; right: 4px;
+  width: 18px; height: 18px;
+  border-radius: 50%;
+  background: var(--gold);
+  color: #1A0F10;
+  border: none;
+  cursor: pointer;
+  font-size: .55rem;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+}
+
+.pslot.on .dbtn { display: flex; }
+.pslot .sav     { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; }
+
+/* Photo count */
+.pcount { font-size: .72rem; color: var(--t3); text-align: center; margin-top: 8px; }
+
+
+/* ===================================================
+   Phase 1 - Visual Calibration
+   =================================================== */
+
+.cal-area { display: flex; flex-direction: column; align-items: center; }
+
+.fcard-wrap {
+  position: relative;
+  width: 280px; height: 380px;
+  margin: 12px auto;
+}
+
+.fcard {
+  position: absolute;
+  inset: 0;
+  border-radius: 18px;
+  overflow: hidden;
+  background: var(--bg3);
+  border: 1px solid var(--gbdr);
+  cursor: grab;
+  touch-action: none;
+  user-select: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 8px 32px rgba(0,0,0,.2);
+}
+
+.fcard:active { cursor: grabbing; }
+
+.fcard .stamp {
+  position: absolute;
+  top: 20px;
+  padding: 5px 14px;
+  border-radius: 8px;
+  font-size: 1.2rem;
+  font-weight: 800;
+  letter-spacing: 2px;
+  opacity: 0;
+  pointer-events: none;
+  font-family: 'DM Sans', sans-serif;
+}
+
+.fcard .st-like { left: 14px;  transform: rotate(-12deg); color: var(--gold); border: 3px solid var(--gold); }
+.fcard .st-nope { right: 14px; transform: rotate(12deg);  color: var(--marl); border: 3px solid var(--marl); }
+
+.stars { display: flex; gap: 8px; margin-top: 12px; }
+
+.star {
+  width: 42px; height: 42px;
+  border-radius: 50%;
+  border: 2px solid var(--bdr);
+  background: var(--bg2);
+  color: var(--t3);
+  font-size: .88rem;
+  cursor: pointer;
+  transition: all .2s;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.star:hover { transform: scale(1.15); }
+.star:nth-child(4), .star:nth-child(5) { border-color: var(--goldd); color: var(--gold); }
+.star:nth-child(1), .star:nth-child(2) { border-color: var(--marl);  color: var(--marl); }
+
+/* Calibration ring / num */
+.calring { /* placeholder for any .calring styles */ }
+#calnum  { /* placeholder for any #calnum styles */ }
+
+
+/* ===================================================
+   Phase 2 - Psychometric
+   =================================================== */
+
+.qwrap { max-width: 480px; width: 100%; margin: 0 auto; }
+
+.qtxt {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: clamp(1rem, 1.3vw, 1.1rem);
+  color: var(--t1);
+  line-height: 1.55;
+  margin-bottom: 14px;
+  text-align: center;
+}
+
+.wcount { font-size: .72rem; margin-top: 4px; font-weight: 600; text-align: right; }
+.wcount.ok  { color: var(--ok); }
+.wcount.bad { color: var(--err); }
+
+.nstats { display: flex; gap: 10px; justify-content: center; margin-top: 14px; }
+
+.nstat {
+  padding: 5px 10px;
+  border-radius: 8px;
+  font-size: .62rem;
+  font-weight: 600;
+  background: var(--glass);
+  border: 1px solid var(--gbdr);
+  text-align: center;
+}
+
+.nstat b {
+  color: var(--gold);
+  font-size: .82rem;
+  display: block;
+  font-family: 'JetBrains Mono', monospace;
+}
+
+
+/* ===================================================
+   Phase 3 - HLA
+   =================================================== */
+
+.loci { display: flex; gap: 8px; margin-bottom: 14px; }
+
+.loc {
+  flex: 1;
+  padding: 12px 8px;
+  text-align: center;
+  border-radius: 12px;
+  background: var(--bg2);
+  border: 1px solid var(--bdr);
+  transition: all .5s;
+}
+
+.loc span    { display: block; }
+.loc .ln     { font-family: 'JetBrains Mono', monospace; font-size: .66rem; color: var(--t3); margin-bottom: 3px; }
+.loc .lv     { font-size: .78rem; font-weight: 600; color: var(--t3); }
+.loc.act     { border-color: var(--gold); box-shadow: 0 0 12px var(--golds); }
+.loc.act .lv { color: var(--gold); }
+
+.upzone {
+  border: 2px dashed var(--goldd);
+  border-radius: 16px;
+  padding: 28px;
+  text-align: center;
+  cursor: pointer;
+  transition: all .3s;
+  margin-bottom: 14px;
+  background: linear-gradient(135deg, rgba(240,200,110,.03), transparent);
+}
+
+.upzone:hover { border-style: solid; background: var(--golds); box-shadow: 0 0 20px var(--golds); }
+.upzone svg   { width: 32px; height: 32px; fill: var(--gold); margin-bottom: 6px; }
+.upzone p     { color: var(--t2); font-size: .82rem; }
+
+.upbar { width: 100%; height: 2px; background: var(--bdr); border-radius: 1px; margin-top: 10px; overflow: hidden; display: none; }
+.upbar div { height: 100%; background: linear-gradient(90deg, var(--gold), var(--gold2)); width: 0%; box-shadow: 0 0 6px var(--goldg); }
+
+
+/* ===================================================
+   Phase 6 - Completion
+   =================================================== */
+
+.comp { text-align: center; max-width: 440px; margin: 0 auto; }
+
+.comp h1 {
+  font-size: clamp(2rem, 4vw, 2.8rem);
+  color: var(--gold);
+  margin-bottom: 12px;
+  line-height: 1.15;
+}
+
+.formula {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: .75rem;
+  color: var(--goldd);
+  margin-bottom: 18px;
+  padding: 10px 16px;
+  background: var(--bg2);
+  border-radius: 8px;
+  border: 1px solid var(--gbdr);
+  display: inline-block;
+}
+
+.cklist { list-style: none; text-align: left; margin: 0 auto 18px; max-width: 380px; }
+
+.cklist li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 0;
+  font-size: .85rem;
+  color: var(--t2);
+  border-bottom: 1px solid var(--bdr);
+}
+
+.ck { width: 22px; height: 22px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.ck svg { width: 12px; height: 12px; }
+
+.ck.done { background: linear-gradient(135deg, var(--gold), var(--gold2)); box-shadow: 0 0 8px var(--golds); }
+.ck.done svg { fill: #1A0F10; }
+.ck.pend { background: var(--bg3); border: 1px solid var(--bdr); }
+.ck.pend svg { fill: var(--t3); }
+
+.qbadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 20px;
+  border-radius: 100px;
+  background: linear-gradient(135deg, var(--golds), rgba(240,200,110,.06));
+  color: var(--gold);
+  font-weight: 700;
+  font-size: .88rem;
+  margin-bottom: 20px;
+  border: 1px solid rgba(240,200,110,.2);
+}
+
+
+/* ===================================================
+   Phase 7 - Swipe Deck
+   =================================================== */
+
+/* .deck, .scard, .sact, .abtn, .a-no, .a-yes, .a-sup, .emptydeck
+   are in components.css as reusable swipe-deck components */
+
+
+/* ===================================================
+   Phase 9 - Matches & Chat
+   =================================================== */
+
+/* Match item */
+.mitem {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 14px;
+  border-radius: 14px;
+  background: var(--glass);
+  backdrop-filter: blur(12px);
+  border: 1px solid var(--gbdr);
+  margin-bottom: 8px;
+  cursor: pointer;
+  transition: all .3s;
+  position: relative;
+  overflow: hidden;
+}
+
+.mitem::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--ghl), transparent);
+}
+
+.mitem:hover { transform: translateY(-2px); border-color: var(--goldd); }
+
+.mav   { /* avatar within match item — inherits .av sizing */ }
+.minfo { flex: 1; min-width: 0; }
+.minfo .mn { font-weight: 600; font-size: .9rem; }
+
+.mbadge { margin-top: 2px; }
+
+.mscores { display: flex; gap: 8px; margin-top: 4px; }
+.msc     { font-size: .7rem; color: var(--t3); }
+
+/* .chatarea, .chdr, .backbtn, .msgs, .bub, .chinput, .sendbtn, .typi
+   are in components.css as reusable chat components */
+
+/* cmsg / cbbl aliases */
+.cmsg { /* match item last message preview */ }
+.cbbl { /* chat bubble alias — same as .bub */ }
+
+
+/* ===================================================
+   Phase 10 - Profile
+   =================================================== */
+
+/* Profile header */
+.profhdr { text-align: center; margin-bottom: 16px; }
+
+.profhdr .av { margin: 0 auto 10px; animation: glow 3s ease-in-out infinite; }
+
+.profhdr h2 { font-size: 1.5rem; }
+.profhdr .pm { color: var(--t2); font-size: .85rem; margin-top: 3px; }
+
+/* Profile card / avatar */
+.profcard { /* profile card container */ }
+.profav   { /* profile avatar — inherits .av */ }
+
+/* Profile gallery */
+.pgal { display: flex; gap: 6px; overflow-x: auto; padding-bottom: 6px; margin-bottom: 16px; }
+
+.pgal div {
+  width: 64px; height: 82px;
+  border-radius: 10px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background: var(--bg3);
+  border: 1px solid var(--gbdr);
+}
+
+/* Personality bars */
+.pbrow { display: flex; align-items: center; gap: 6px; margin-bottom: 7px; font-size: .76rem; }
+.pbrow .pblbl { width: 80px; text-align: right; color: var(--t2); font-weight: 500; flex-shrink: 0; font-size: .72rem; }
+.pbrow .pbbar { flex: 1; height: 16px; background: var(--bg2); border-radius: 3px; position: relative; overflow: hidden; }
+.pbrow .pbbar .pbctr { position: absolute; left: 50%; top: 0; bottom: 0; width: 1px; background: var(--t3); opacity: .3; }
+.pbrow .pbfill { position: absolute; top: 2px; bottom: 2px; border-radius: 2px; }
+.pbrow .pbfill.vice    { background: linear-gradient(90deg,  var(--goldd), var(--gold)); left: 50%; }
+.pbrow .pbfill.virtue  { background: linear-gradient(270deg, var(--mar),   var(--marl)); right: 50%; }
+.pbrow .pbsc { width: 34px; font-family: 'JetBrains Mono', monospace; font-size: .68rem; color: var(--t3); }
+.pbrow .pbwt { width: 26px; font-size: .62rem; color: var(--t3); text-align: right; }
+
+/* Sinusoidal bars (compatibility/score bars) */
+.sinbar   { /* sinusoidal bar container */ }
+.sinlabel { /* label for sinusoidal bar */ }
+.sinval   { /* value for sinusoidal bar */ }
+
+/* .stitle is in components.css */
+
+/* Radar canvas */
+canvas#radar { display: block; margin: 0 auto; }
+
+
+/* ===================================================
+   Phase 11 - Admin
+   =================================================== */
+
+/* Admin stats */
+.astats { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 16px; }
+
+.astat {
+  flex: 1;
+  min-width: 70px;
+  text-align: center;
+  padding: 12px 6px;
+  border-radius: 12px;
+  backdrop-filter: blur(12px);
+  background: var(--glass);
+  border: 1px solid var(--gbdr);
+  position: relative;
+  overflow: hidden;
+}
+
+.astat::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px; background: linear-gradient(90deg, transparent, var(--ghl), transparent); }
+.astat .an { font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; font-weight: 700; }
+.astat .al { font-size: .58rem; color: var(--t3); text-transform: uppercase; letter-spacing: .5px; margin-top: 1px; }
+
+/* Candidate table / rows */
+.ctable { /* table container */ }
+
+.crow {
+  padding: 14px;
+  border-radius: 14px;
+  background: var(--glass);
+  backdrop-filter: blur(12px);
+  border: 1px solid var(--gbdr);
+  margin-bottom: 10px;
+  transition: all .4s;
+  overflow: hidden;
+  position: relative;
+}
+
+.crow::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px; background: linear-gradient(90deg, transparent, var(--ghl), transparent); }
+.crow .rh  { display: flex; gap: 5px; margin-bottom: 7px; }
+.crow .rt  { font-family: 'JetBrains Mono', monospace; font-size: .72rem; color: var(--t2); line-height: 1.5; margin-bottom: 7px; }
+.crow .rm  { display: flex; gap: 12px; font-size: .7rem; color: var(--t3); margin-bottom: 5px; }
+.crow .re  { display: inline-block; padding: 3px 10px; background: var(--golds); border-radius: 6px; font-size: .7rem; color: var(--gold); margin-bottom: 8px; }
+
+/* Candidate evidence / score / confidence */
+.clevid { /* evidence text */ }
+.cscore { /* score display */ }
+.cconf  { /* confidence display */ }
+
+/* Review card (admin review actions) */
+.rcard {
+  padding: 14px;
+  border-radius: 14px;
+  background: var(--glass);
+  backdrop-filter: blur(12px);
+  border: 1px solid var(--gbdr);
+  margin-bottom: 10px;
+  transition: all .4s;
+  overflow: hidden;
+  position: relative;
+}
+
+.rcard::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px; background: linear-gradient(90deg, transparent, var(--ghl), transparent); }
+.rcard .rh  { display: flex; gap: 5px; margin-bottom: 7px; }
+.rcard .rt  { font-family: 'JetBrains Mono', monospace; font-size: .72rem; color: var(--t2); line-height: 1.5; margin-bottom: 7px; }
+.rcard .rm  { display: flex; gap: 12px; font-size: .7rem; color: var(--t3); margin-bottom: 5px; }
+.rcard .re  { display: inline-block; padding: 3px 10px; background: var(--golds); border-radius: 6px; font-size: .7rem; color: var(--gold); margin-bottom: 8px; }
+
+.racts { display: flex; gap: 5px; }
+
+.racts button {
+  flex: 1;
+  padding: 7px 8px;
+  border-radius: 8px;
+  border: 1.5px solid;
+  background: transparent;
+  font-weight: 600;
+  font-size: .7rem;
+  cursor: pointer;
+  transition: all .2s;
+}
+
+.racts .ra { border-color: var(--gold); color: var(--gold); }
+.racts .ra:hover { background: var(--golds); }
+.racts .rc { border-color: var(--wrn);  color: var(--wrn); }
+.racts .rr { border-color: var(--marl); color: var(--marl); }
+
+.cpanel { display: none; margin-top: 8px; padding: 10px; background: var(--bg2); border-radius: 8px; }
+.cpanel.on { display: block; }
+.cpanel input[type="range"] { width: 100%; accent-color: var(--wrn); }
+.cpanel .cv { font-family: 'JetBrains Mono', monospace; font-size: .8rem; color: var(--wrn); text-align: center; margin: 3px 0; }
+
+/* Heatmap grid */
+.hmgrid { display: grid; grid-template-columns: 68px repeat(6, 1fr); gap: 2px; font-size: .62rem; margin-bottom: 16px; }
+.hmhdr  { text-align: center; font-weight: 600; color: var(--t3); padding: 4px 2px; }
+.hmrl   { font-weight: 500; color: var(--t2); padding: 4px 2px; display: flex; align-items: center; }
+.hmc    { text-align: center; padding: 5px 2px; border-radius: 4px; font-weight: 600; font-family: 'JetBrains Mono', monospace; }
+.hmc.hg { background: rgba(240,200,110,.18); color: var(--gold); }
+.hmc.hs { background: rgba(122,110,104,.12); color: var(--t2); }
+.hmc.hm { background: rgba(114,47,55,.18);  color: var(--marl); }
+
+/* Hmcell alias */
+.hmcell { /* alias for .hmc */ }
+
+/* Chart boxes */
+.chartbox { /* chart container */ }
+
+.effchart { /* effectiveness chart container */ }
+
+.effbar { /* effectiveness bar */ }
+
+/* ============================================================
+   Harmonia Preview — animations.css
+   All @keyframes rules and animation-only utility classes
+   ============================================================ */
+
+
+/* ===================================================
+   KEYFRAMES
+   =================================================== */
+
+@keyframes bounce {
+  0%, 80%, 100% { transform: translateY(0); }
+  40%           { transform: translateY(-5px); }
+}
+
+@keyframes glow {
+  0%, 100% { box-shadow: 0 0 0 3px var(--gold), 0 0 15px var(--goldg); }
+  50%       { box-shadow: 0 0 0 4px var(--gold), 0 0 35px var(--goldg); }
+}
+
+
+  </style>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+</head>
+<body>
+
+<canvas id="dust"></canvas>
+<canvas id="confetti"></canvas>
+<div class="toasts" id="toasts"></div>
+<div class="mbg" id="mbg" onclick="closeSheet()"></div>
+<div class="msheet" id="msheet"><div class="handle"></div><div id="mcontent"></div></div>
+
+<!-- SVG icon symbols (inline for file:// compatibility; also maintained in assets/icons/symbols.svg) -->
+<svg xmlns="http://www.w3.org/2000/svg" style="display:none">
+  <symbol id="i-diamond" viewBox="0 0 24 24"><path d="M12 2L2 9l10 13L22 9z"/></symbol>
+  <symbol id="i-moon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1111.21 3a7 7 0 009.79 9.79z"/></symbol>
+  <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><path d="M12 1v2m0 18v2M4.22 4.22l1.42 1.42m12.72 12.72l1.42 1.42M1 12h2m18 0h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42" stroke="currentColor" stroke-width="2" fill="none"/></symbol>
+  <symbol id="i-bell" viewBox="0 0 24 24"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9zM13.73 21a2 2 0 01-3.46 0"/></symbol>
+  <symbol id="i-compass" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="2"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88"/></symbol>
+  <symbol id="i-heart" viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></symbol>
+  <symbol id="i-user" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></symbol>
+  <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></symbol>
+  <symbol id="i-x" viewBox="0 0 24 24"><path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none"/></symbol>
+  <symbol id="i-star" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26"/></symbol>
+  <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14m-7-7l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-circle" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8" fill="none" stroke="currentColor" stroke-width="2"/></symbol>
+  <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8" fill="none" stroke="currentColor" stroke-width="2"/><line x1="21" y1="21" x2="16.65" y2="16.65" stroke="currentColor" stroke-width="2"/></symbol>
+  <symbol id="i-cam" viewBox="0 0 24 24"><path d="M23 19a2 2 0 01-2 2H3a2 2 0 01-2-2V8a2 2 0 012-2h4l2-3h6l2 3h4a2 2 0 012 2z" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="13" r="4" fill="none" stroke="currentColor" stroke-width="2"/></symbol>
+  <symbol id="i-gear" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3" fill="none" stroke="currentColor" stroke-width="2"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z" fill="none" stroke="currentColor" stroke-width="2"/></symbol>
+  <symbol id="i-dna" viewBox="0 0 24 24"><path d="M2 15c6.667-6 13.333 0 20-6M2 9c6.667 6 13.333 0 20 6M9 3v2m6-2v2M9 19v2m6-2v2" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/></symbol>
+  <symbol id="i-pin" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="10" r="3" fill="none" stroke="currentColor" stroke-width="2"/></symbol>
+  <symbol id="i-send" viewBox="0 0 24 24"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></symbol>
+  <symbol id="i-plus" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><line x1="5" y1="12" x2="19" y2="12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+  <symbol id="i-back" viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+</svg>
+
+<!-- Match reveal overlay -->
+<div class="mrovl" id="mrovl">
+  <div class="mravs">
+    <div class="mrav" id="mravl" style="background:linear-gradient(135deg,var(--golds),var(--bg3))">A</div>
+    <div class="mrheart"><svg><use href="#i-diamond"/></svg></div>
+    <div class="mrav" id="mravr" style="background:linear-gradient(135deg,var(--marg),var(--bg3))">O</div>
+  </div>
+  <div id="mrtitle">It's a Match!</div>
+  <div id="mrscore">0</div>
+  <div class="mrrings">
+    <svg width="200" height="200" viewBox="0 0 200 200">
+      <circle cx="100" cy="100" r="82" fill="none" stroke="var(--bdr)" stroke-width="5" opacity=".3"/>
+      <circle cx="100" cy="100" r="64" fill="none" stroke="var(--bdr)" stroke-width="4" opacity=".3"/>
+      <circle cx="100" cy="100" r="46" fill="none" stroke="var(--bdr)" stroke-width="3.5" opacity=".3"/>
+      <circle id="rv" cx="100" cy="100" r="82" fill="none" stroke="var(--gold)" stroke-width="5" stroke-linecap="round" stroke-dasharray="515" stroke-dashoffset="515"/>
+      <circle id="rp" cx="100" cy="100" r="64" fill="none" stroke="var(--marl)" stroke-width="4" stroke-linecap="round" stroke-dasharray="402" stroke-dashoffset="402"/>
+      <circle id="rb" cx="100" cy="100" r="46" fill="none" stroke="var(--mard)" stroke-width="3.5" stroke-linecap="round" stroke-dasharray="289" stroke-dashoffset="289"/>
+    </svg>
+  </div>
+  <div class="rlabels">
+    <span class="rlbl rv">Physical <b>85%</b></span>
+    <span class="rlbl rp">Personality <b>78%</b></span>
+    <span class="rlbl rb">Chemistry <b>84%</b></span>
+  </div>
+  <div class="shtrait">
+    <span class="bdg bdg-g">❆ Conflict-avoidant</span>
+    <span class="bdg bdg-g">❆ Generous</span>
+    <span class="bdg bdg-g">❆ Spontaneous</span>
+    <span class="bdg bdg-g">❆ Content</span>
+  </div>
+  <div class="starters">
+    <div class="stcard" onclick="toast('Copied!','tg')">You both value generosity — what's the most generous thing someone has done for you?</div>
+    <div class="stcard" onclick="toast('Copied!','tg')">Your conflict styles align — how do you usually handle disagreements?</div>
+    <div class="stcard" onclick="toast('Copied!','tg')">You're both spontaneous — what's the most impulsive trip you've taken?</div>
+  </div>
+  <div class="mrbtns">
+    <button class="btn-g" onclick="closeMR();scrollToSection(9)">Send a Message</button>
+    <button class="btn-o" onclick="closeMR()">Keep Swiping</button>
+  </div>
+</div>
+
+<!-- Gemini processing overlay -->
+<div class="govl" id="govl">
+  <h3 id="gtxt">Extracting linguistic signals...</h3>
+  <div class="gprog"><div id="gfill"></div></div>
+  <div id="gres" style="opacity:0;margin-top:12px;text-align:center">
+    <p class="mono" style="font-size:.75rem;color:var(--t2)"><b style="color:var(--gold)">Wrath: -2.1</b> — Natural Peacekeeper</p>
+    <p class="mono" style="font-size:.75rem;color:var(--t2)"><b style="color:var(--gold)">Sloth: +0.1</b> — Balanced Drive</p>
+    <p class="mono" style="font-size:.75rem;color:var(--t2)"><b style="color:var(--gold)">Pride: +0.95</b> — Confident Self-Image</p>
+  </div>
+</div>
+
+<!-- Top navigation -->
+<nav class="topnav">
+  <div class="logo"><svg><use href="#i-diamond"/></svg> Harmonia</div>
+  <div class="nav-r">
+    <button class="nbtn" onclick="toast('No notifications','ti')"><svg><use href="#i-bell"/></svg></button>
+    <button class="nbtn" id="thbtn" onclick="togTheme()"><svg><use href="#i-moon"/></svg></button>
+  </div>
+</nav>
+
+<!-- Phase navigation dots (populated by JS) -->
+<div class="pdots" id="pdots"></div>
+
+
+<!-- SECTION 0: HERO -->
+<section class="S" id="s0">
+  <div class="S-in" style="text-align:center">
+    <span class="bdg bdg-g" style="margin-bottom:16px;display:inline-block">V3 APP PREVIEW</span>
+    <h1 style="font-size:clamp(2.2rem,5vw,3.8rem);line-height:1.1;margin-bottom:16px">The Compatibility<br><span style="color:var(--gold)">Engine</span></h1>
+    <p style="color:var(--t2);max-width:520px;margin:0 auto 32px;line-height:1.6;font-size:clamp(.85rem,1.2vw,1rem)">Experience every screen, every animation, and every interaction of Harmonia's dating platform — from onboarding to match reveal.</p>
+    <button class="btn-g" onclick="scrollToSection(1)" style="font-size:1rem;padding:16px 40px">Begin the Journey <svg style="width:14px;height:14px;fill:currentColor"><use href="#i-arrow"/></svg></button>
+  </div>
+  <button class="skip" onclick="scrollToSection(7)">Skip to App <svg><use href="#i-arrow"/></svg></button>
+</section>
+
+
+<!-- SECTION 1: SIGN UP -->
+<section class="S" id="s1">
+  <div class="S-in twocol">
+    <div>
+      <div class="phdr" style="text-align:left">
+        <span class="pnum">Phase 0 — Account</span>
+        <h2>Create Your Profile</h2>
+        <p style="margin:0">Let's start with the basics to set up your Harmonia account.</p>
+      </div>
+      <div id="signupform">
+        <div class="fgroup"><label>First Name</label><input type="text" class="tf" id="fn" value="Alex"><div class="ferr" id="efn">2-50 characters required</div></div>
+        <div class="fgroup"><label>Age</label><input type="number" class="tf" id="fa" value="28" min="18" max="99"><div class="ferr" id="efa">Must be 18-99</div></div>
+        <div class="fgroup"><label>Email</label><input type="email" class="tf" id="fe" value="alex@example.com"><div class="ferr" id="efe">Valid email required</div></div>
+        <div class="fgroup"><label>Location</label><select class="tf" id="fl"><option selected>Central London</option><option>North London</option><option>South London</option><option>East London</option><option>West London</option><option>Greater London</option></select></div>
+        <div class="fgroup"><label>Gender</label><select class="tf" id="fg"><option selected>Male</option><option>Female</option><option>Non-binary</option><option>Prefer not to say</option></select></div>
+        <div class="fgroup"><label>Interested In</label><select class="tf" id="fi"><option selected>Women</option><option>Men</option><option>Everyone</option></select></div>
+        <div class="fgroup"><div class="consent"><input type="checkbox" id="fc" checked><label for="fc">I consent to Harmonia processing my data for compatibility matching. I understand my genetic data will be encrypted and never shared.</label></div></div>
+        <button class="btn-g" style="width:100%;margin-top:6px" onclick="doSignup()">Continue <svg style="width:12px;height:12px;fill:currentColor"><use href="#i-arrow"/></svg></button>
+      </div>
+    </div>
+    <div class="gp" style="text-align:center;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:300px">
+      <svg style="width:64px;height:64px;fill:var(--gold);opacity:.3;margin-bottom:16px"><use href="#i-user"/></svg>
+      <h3 style="color:var(--t1);font-size:1.3rem;margin-bottom:8px">7 Fields</h3>
+      <p style="color:var(--t3);font-size:.82rem;line-height:1.5">Client-side validation<br>Staggered entrance animation<br>GDPR consent capture</p>
+    </div>
+  </div>
+  <button class="skip" onclick="scrollToSection(2)">Skip to Photos <svg><use href="#i-arrow"/></svg></button>
+</section>
+
+
+<!-- SECTION 2: PHOTOS -->
+<section class="S" id="s2">
+  <div class="S-in" style="text-align:center">
+    <div class="phdr"><span class="pnum">Phase 0.5 — Photos</span><h2>Add Your Photos</h2><p>Upload up to 6 photos. Your first photo is your main profile picture.</p></div>
+    <div class="pgrid" id="pgrid"></div>
+    <div style="color:var(--gold);font-size:.82rem;margin-top:10px;font-weight:600" id="pcount">0/6 photos</div>
+    <p style="font-size:.68rem;color:var(--t3);margin:6px 0 16px">Tap a slot to add a photo</p>
+    <button class="btn-g" id="photobtn" disabled onclick="scrollToSection(3)">Continue <svg style="width:12px;height:12px;fill:currentColor"><use href="#i-arrow"/></svg></button>
+  </div>
+  <button class="skip" onclick="scrollToSection(3)">Skip to Calibration <svg><use href="#i-arrow"/></svg></button>
+</section>
+
+
+<!-- SECTION 3: VISUAL CALIBRATION -->
+<section class="S" id="s3">
+  <div class="S-in twocol">
+    <div>
+      <div class="phdr" style="text-align:left"><span class="pnum">Phase 1 — Visual Intelligence</span><h2>Rate Faces</h2><p style="margin:0">Swipe or tap to rate faces. This trains your personal MetaFBP attractiveness model.</p></div>
+      <div class="gp" style="padding:16px;text-align:center">
+        <p style="font-size:.7rem;color:var(--t3);margin-bottom:6px">METAFBP NEURAL NETWORK</p>
+        <div class="cal-area">
+          <div style="margin-bottom:8px">
+            <svg width="74" height="74">
+              <circle cx="37" cy="37" r="30" fill="none" stroke="var(--bdr)" stroke-width="3.5"/>
+              <circle id="calring" cx="37" cy="37" r="30" fill="none" stroke="var(--gold)" stroke-width="3.5" stroke-linecap="round" stroke-dasharray="188.5" stroke-dashoffset="188.5" style="transform:rotate(-90deg);transform-origin:center"/>
+            </svg>
+            <div style="margin-top:-52px;font-family:'Cormorant Garamond',serif;font-weight:700;font-size:.82rem;position:relative" id="calnum">0/50</div>
+          </div>
+          <div class="fcard-wrap" id="fcwrap">
+            <div class="fcard" id="fcard">
+              <div class="stamp st-like">LIKE</div>
+              <div class="stamp st-nope">NOPE</div>
+              <div id="fsvg" style="width:100%;height:100%;display:flex;align-items:center;justify-content:center"></div>
+            </div>
+          </div>
+          <div class="stars">
+            <button class="star" onclick="rateFace(1)">1</button>
+            <button class="star" onclick="rateFace(2)">2</button>
+            <button class="star" onclick="rateFace(3)">3</button>
+            <button class="star" onclick="rateFace(4)">4</button>
+            <button class="star" onclick="rateFace(5)">5</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:16px">
+      <div class="gp" style="text-align:center"><svg style="width:40px;height:40px;fill:var(--gold);opacity:.25;margin-bottom:8px"><use href="#i-heart"/></svg><h3 style="font-size:1.1rem;margin-bottom:4px">Swipe or Tap</h3><p style="font-size:.78rem;color:var(--t2);line-height:1.5">Drag the card left or right to rate, or use the 1-5 buttons below.</p></div>
+      <div class="gp" style="text-align:center"><h3 style="font-size:1.1rem;margin-bottom:4px;color:var(--gold)">50 Faces</h3><p style="font-size:.78rem;color:var(--t2);line-height:1.5">Rate 50 face images to build your personalised MetaFBP support set.</p></div>
+    </div>
+  </div>
+  <button class="skip" onclick="scrollToSection(4)">Skip to Questionnaire <svg><use href="#i-arrow"/></svg></button>
+</section>
+
+
+<!-- SECTION 4: PSYCHOMETRIC -->
+<section class="S" id="s4">
+  <div class="S-in">
+    <div class="phdr"><span class="pnum">Phase 2 — Psychometric (PIIP)</span><h2>Personality Mapping</h2><p>Answer 6 scenario questions. Our AI analyses your natural response patterns across the Seven Deadly Sins framework.</p></div>
+    <div class="qwrap" id="qwrap">
+      <div style="text-align:center;margin-bottom:10px"><span class="bdg bdg-g" id="qctr">Q1 of 6</span></div>
+      <p class="qtxt" id="qtxt"></p>
+      <textarea class="tf" id="qta" placeholder="Share your natural response..." oninput="onQInput()"></textarea>
+      <div class="wcount bad" id="wcnt">0 / 25 word minimum</div>
+      <button class="btn-g" id="qbtn" disabled style="width:100%;margin-top:10px" onclick="submitQ()">Next Question <svg style="width:12px;height:12px;fill:currentColor"><use href="#i-arrow"/></svg></button>
+      <div class="nstats">
+        <div class="nstat"><b id="nnn">40</b>Neurons</div>
+        <div class="nstat"><b id="nnc">156</b>Connections</div>
+        <div class="nstat"><b id="nns">0.45</b>Signal</div>
+      </div>
+    </div>
+  </div>
+  <button class="skip" onclick="scrollToSection(5)">Skip to HLA <svg><use href="#i-arrow"/></svg></button>
+</section>
+
+
+<!-- SECTION 5: HLA -->
+<section class="S" id="s5">
+  <div class="S-in twocol">
+    <div>
+      <div class="phdr" style="text-align:left"><span class="pnum">Phase 3 — Biological</span><h2>HLA Compatibility</h2><p style="margin:0">Upload your genetic data for biological compatibility analysis via MHC allele matching. Completely optional.</p></div>
+      <div class="loci">
+        <div class="loc" id="la"><span class="ln">HLA-A</span><span class="lv">Awaiting data</span></div>
+        <div class="loc" id="lb"><span class="ln">HLA-B</span><span class="lv">Awaiting data</span></div>
+        <div class="loc" id="lc"><span class="ln">HLA-DRB1</span><span class="lv">Awaiting data</span></div>
+      </div>
+      <div class="upzone" id="upzone" onclick="simUpload()">
+        <svg><use href="#i-dna"/></svg>
+        <p>Tap to upload your DNA data file</p>
+        <p style="font-size:.7rem;color:var(--t3);margin-top:3px">Supports 23andMe, AncestryDNA formats</p>
+        <div class="upbar" id="upbar"><div id="upfill"></div></div>
+      </div>
+      <div style="display:flex;gap:10px">
+        <button class="btn-o" style="flex:1" onclick="scrollToSection(6)">Skip for now</button>
+        <button class="btn-g" style="flex:1" onclick="scrollToSection(6)">Continue <svg style="width:12px;height:12px;fill:currentColor"><use href="#i-arrow"/></svg></button>
+      </div>
+    </div>
+    <div class="gp" style="text-align:center;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:280px">
+      <svg style="width:56px;height:56px;fill:var(--gold);opacity:.25;margin-bottom:12px"><use href="#i-dna"/></svg>
+      <h3 style="font-size:1.1rem;margin-bottom:6px">Fernet-Encrypted</h3>
+      <p style="font-size:.78rem;color:var(--t2);line-height:1.5">HLA genes influence immune compatibility and physical attraction through scent perception. Your data is encrypted at rest and never stored in plain text.</p>
+    </div>
+  </div>
+  <button class="skip" onclick="scrollToSection(6)">Skip to Complete <svg><use href="#i-arrow"/></svg></button>
+</section>
+
+
+<!-- SECTION 6: COMPLETION -->
+<section class="S" id="s6">
+  <div class="S-in">
+    <div class="comp">
+      <h1>Your Profile is Ready</h1>
+      <div class="formula">WtM = (0.4 × S_vis) + (0.3 × S_psych) + (0.3 × S_bio)</div>
+      <ul class="cklist" id="cklist">
+        <li><span class="ck done"><svg><use href="#i-check"/></svg></span>Visual preferences learned — 50 faces rated</li>
+        <li><span class="ck done"><svg><use href="#i-check"/></svg></span>Personality mapped — 7 dimensions analysed</li>
+        <li id="biock"><span class="ck pend"><svg><use href="#i-circle"/></svg></span>Biological data skipped (can add later)</li>
+      </ul>
+      <div class="qbadge"><svg style="width:14px;height:14px;fill:var(--gold)"><use href="#i-diamond"/></svg> Profile Quality: High</div><br>
+      <button class="btn-g" style="font-size:1rem;padding:16px 40px" onclick="scrollToSection(7)">Start Discovering <svg style="width:14px;height:14px;fill:currentColor"><use href="#i-arrow"/></svg></button>
+    </div>
+  </div>
+  <button class="skip" onclick="scrollToSection(7)">Skip to Discovery <svg><use href="#i-arrow"/></svg></button>
+</section>
+
+
+<!-- SECTION 7: DISCOVERY SWIPE DECK -->
+<section class="S" id="s7">
+  <div class="S-in twocol">
+    <div style="display:flex;flex-direction:column;align-items:center">
+      <div class="deck" id="deck"></div>
+      <div class="sact">
+        <button class="abtn a-no" onclick="commitSwipe('left')"><svg><use href="#i-x"/></svg></button>
+        <button class="abtn a-yes" onclick="commitSwipe('right')"><svg><use href="#i-heart"/></svg></button>
+        <button class="abtn a-sup" onclick="commitSwipe('up')"><svg><use href="#i-star"/></svg></button>
+      </div>
+      <div id="edeck" class="emptydeck" style="display:none">
+        <svg><use href="#i-diamond"/></svg>
+        <h3>You've seen everyone nearby</h3>
+        <p>New profiles refresh every few hours</p>
+        <p class="mono" style="color:var(--gold);font-size:.85rem;margin-top:6px">Next refresh in 2:47:33</p>
+      </div>
+    </div>
+    <div>
+      <div class="phdr" style="text-align:left"><span class="pnum">Discovery — Swipe Deck</span><h2>Find Your Match</h2><p style="margin:0">Swipe right to like, left to pass, or up to super like. After your 3rd like, the match reveal triggers automatically.</p></div>
+      <div class="gp" style="margin-top:16px"><h3 style="font-size:1rem;margin-bottom:6px">Physics-Based Gestures</h3><p style="font-size:.78rem;color:var(--t2);line-height:1.5">Cards follow your cursor with spring rotation. Velocity determines commit — fast swipes fly off instantly, slow drags snap back if below threshold.</p></div>
+    </div>
+  </div>
+  <button class="skip" onclick="scrollToSection(9)">Skip to Matches <svg><use href="#i-arrow"/></svg></button>
+</section>
+
+
+<!-- SECTION 9: MATCHES & CHAT -->
+<section class="S" id="s9">
+  <div class="S-in twocol">
+    <div>
+      <div class="phdr" style="text-align:left"><span class="pnum">Matches — List &amp; Chat</span><h2>Your Matches</h2><p style="margin:0">Sorted by WtM compatibility score. Tap to view details or start chatting.</p></div>
+      <div id="mlist"></div>
+    </div>
+    <div id="chatpanel">
+      <div class="phdr" style="text-align:left"><span class="pnum">Messaging</span><h2 style="font-size:1.3rem">Chat</h2><p style="margin:0">Real-time messaging with typing indicators and auto-replies.</p></div>
+      <div class="chatarea" id="chatarea" style="display:none">
+        <div class="chdr">
+          <button class="backbtn" onclick="closeChat()"><svg><use href="#i-back"/></svg></button>
+          <div class="av av-s" id="chatav" style="background:var(--bg3)"></div>
+          <span style="font-weight:600;font-size:.88rem" id="chatname"></span>
+        </div>
+        <div class="msgs" id="msgs"></div>
+        <div class="chinput">
+          <input type="text" class="tf" id="chinp" placeholder="Type a message..." onkeydown="if(event.key==='Enter')sendMsg()">
+          <button class="sendbtn" onclick="sendMsg()"><svg><use href="#i-send"/></svg></button>
+        </div>
+      </div>
+      <div id="chatplaceholder" class="gp" style="text-align:center;padding:40px 20px">
+        <svg style="width:40px;height:40px;fill:var(--gold);opacity:.25;margin-bottom:10px"><use href="#i-heart"/></svg>
+        <p style="color:var(--t3);font-size:.82rem">Select a match to start chatting</p>
+      </div>
+    </div>
+  </div>
+  <button class="skip" onclick="scrollToSection(10)">Skip to Profile <svg><use href="#i-arrow"/></svg></button>
+</section>
+
+
+<!-- SECTION 10: PROFILE -->
+<section class="S" id="s10">
+  <div class="S-in twocol">
+    <div>
+      <div class="phdr" style="text-align:left"><span class="pnum">Profile — Personality</span><h2>Your Profile</h2><p style="margin:0">Seven Deadly Sins radar chart with animated entry, personality breakdown bars, and account settings.</p></div>
+      <div id="profcontent"></div>
+    </div>
+    <div>
+      <div class="gp" style="text-align:center;margin-bottom:16px">
+        <div class="stitle">Personality Radar</div>
+        <canvas id="radar" width="300" height="300" style="max-width:100%"></canvas>
+      </div>
+      <button class="btn-o" style="width:100%" onclick="openSettings()"><svg style="width:14px;height:14px;fill:currentColor"><use href="#i-gear"/></svg> Settings</button>
+    </div>
+  </div>
+  <button class="skip" onclick="scrollToSection(11)">Skip to Admin <svg><use href="#i-arrow"/></svg></button>
+</section>
+
+
+<!-- SECTION 11: ADMIN -->
+<section class="S" id="s11">
+  <div class="S-in">
+    <div class="phdr"><span class="pnum">Admin — Calibration Dashboard</span><h2>Calibration Review</h2><p>Monitor Gemini calibration accuracy, review pending examples, and track drift over time.</p></div>
+    <div id="admincontent"></div>
+  </div>
+</section>
+
+
+<!-- Inlined scripts -->
+<script>
+/**
+ * data.js — Harmonia Preview
+ *
+ * All static data constants used across the app:
+ *   - U            Current user object
+ *   - CANDS        Swipe-deck candidate profiles
+ *   - MATCHES      Confirmed matches with chat history
+ *   - CALDATA      Admin calibration review examples
+ *   - STATS        Admin dashboard counters
+ *   - EFF          Gemini drift / efficiency data points
+ *   - FQ           Psychometric questionnaire prompts
+ *   - HM           Coverage heatmap values (7 sins × 6 questions)
+ *   - SINS         Seven Deadly Sins label array
+ *   - AREPLIES     Auto-reply strings for chat simulation
+ */
+
+/* ── Current user ───────────────────────────────────────────── */
+const U = {
+  fn:    'Alex',
+  age:   28,
+  email: 'alex@example.com',
+  loc:   'Central London',
+  sins: {
+    wrath:    { s: -2.1, c: .85, w: 1.5, f: 'Conflict Style' },
+    sloth:    { s:  .1,  c: .99, w: 1.3, f: 'Drive'          },
+    pride:    { s:  .95, c: .98, w: 1.0, f: 'Ego'            },
+    lust:     { s:  .85, c: .75, w: 1.0, f: 'Spontaneity'    },
+    greed:    { s: -1.2, c: .72, w: 1.0, f: 'Generosity'     },
+    gluttony: { s:  .4,  c: .68, w:  .7, f: 'Moderation'     },
+    envy:     { s: -.5,  c: .62, w:  .7, f: 'Contentment'    },
+  },
+};
+
+/* ── Swipe-deck candidates ──────────────────────────────────── */
+const CANDS = [
+  { n: 'Sophia',   a: 26, l: 'Shoreditch',   ph: 3, t: ['Adventurous', 'Generous',   'Creative']    },
+  { n: 'Isabella', a: 24, l: 'Camden',        ph: 4, t: ['Ambitious',   'Empathetic', 'Direct']      },
+  { n: 'Olivia',   a: 29, l: 'Notting Hill',  ph: 2, t: ['Peacekeeper', 'Spontaneous','Curious']     },
+  { n: 'Amara',    a: 27, l: 'Brixton',       ph: 3, t: ['Independent', 'Passionate', 'Loyal']       },
+  { n: 'Chloe',    a: 25, l: 'Greenwich',     ph: 4, t: ['Witty',       'Generous',   'Adventurous'] },
+  { n: 'Priya',    a: 28, l: 'Hackney',       ph: 3, t: ['Driven',      'Kind',       'Confident']   },
+  { n: 'Mia',      a: 23, l: 'Islington',     ph: 2, t: ['Creative',    'Empathetic', 'Calm']        },
+  { n: 'Elena',    a: 30, l: 'Kensington',    ph: 4, t: ['Intellectual','Spontaneous','Warm']        },
+];
+
+/* ── Confirmed matches ──────────────────────────────────────── */
+const MATCHES = [
+  {
+    n: 'Priya S.', a: 28, i: 'P',
+    tl: 'Warm communicator with strong values',
+    wtm: 91, v: 88, p: 92, b: 94,
+    t:  ['Conflict-avoidant', 'Generous', 'Spontaneous', 'Content'],
+    bg: 'Instant Spark', bc: 'bdg-g',
+    lm: 'That restaurant sounds amazing! When were you thinking?',
+    msgs: [
+      { f: 'them', t: 'Hey! I loved your profile. The peacekeeper trait resonated.',       tm: '2:14 PM' },
+      { f: 'you',  t: "Thanks! I noticed we share the generous trait. Been to Borough Market?", tm: '2:18 PM' },
+      { f: 'them', t: "Yes! Every Saturday. There's this incredible cheese stall...",      tm: '2:21 PM' },
+      { f: 'you',  t: 'We should go together sometime. I know a great tapas place.',       tm: '2:25 PM' },
+      { f: 'them', t: 'That restaurant sounds amazing! When were you thinking?',           tm: '2:28 PM' },
+    ],
+  },
+  {
+    n: 'Elena M.', a: 30, i: 'E',
+    tl: 'Thoughtful intellectual with adventurous spirit',
+    wtm: 82, v: 85, p: 78, b: 84,
+    t:  ['Conflict-avoidant', 'Spontaneous', 'Generous'],
+    bg: 'Strong Chemistry', bc: 'bdg-g',
+    lm: 'Just finished the book you recommended!',
+    msgs: [
+      { f: 'them', t: 'Hi! Your profile is fascinating. What got you into personality science?', tm: '11:03 AM' },
+      { f: 'you',  t: 'Always been curious about what makes people tick. You?',                  tm: '11:20 AM' },
+      { f: 'them', t: 'Just finished the book you recommended!',                                 tm: '1:45 PM'  },
+    ],
+  },
+  {
+    n: 'Sarah K.', a: 25, i: 'S',
+    tl: 'Creative problem-solver, deep connection',
+    wtm: 75, v: 72, p: 81, b: 71,
+    t:  ['Achievement-oriented', 'Empathetic', 'Direct'],
+    bg: 'Deep Connection', bc: 'bdg-m',
+    lm: null, msgs: [],
+  },
+  {
+    n: 'Maya R.', a: 27, i: 'M',
+    tl: 'Balance of ambition and leisure',
+    wtm: 68, v: 79, p: 52, b: 74,
+    t:  ['Independent', 'Curious', 'Reserved'],
+    bg: 'Potential', bc: 'bdg-x',
+    lm: null, msgs: [],
+  },
+];
+
+/* ── Admin calibration review examples ─────────────────────── */
+const CALDATA = [
+  {
+    qn: 3, sin: 'Wrath',
+    txt: "I'd take a deep breath first. Getting angry won't fix it. I'd calmly explain we all committed to equal effort and ask what happened.",
+    sc: -2.1, co: .85,
+    ev: "Getting angry won't fix it",
+  },
+  {
+    qn: 1, sin: 'Greed',
+    txt: "I'd split it evenly. Life's too short to nitpick over who had extra chips. If someone ordered much more, I'd mention it casually.",
+    sc: -1.8, co: .72,
+    ev: "split it evenly. Life's too short",
+  },
+  {
+    qn: 5, sin: 'Lust',
+    txt: "I'd be torn. But my friend needs me — that comes first. I'd text the date, explain, and hope they understand.",
+    sc: -.5, co: .64,
+    ev: "my friend needs me — that comes first",
+  },
+];
+
+/* ── Admin dashboard counters ───────────────────────────────── */
+const STATS = { total: 147, pend: 23, appr: 89, corr: 31, rej: 4 };
+
+/* ── Gemini drift / efficiency data points ──────────────────── */
+const EFF = [
+  { b: 1, d: 2.1 },
+  { b: 2, d: 1.8 },
+  { b: 3, d: 1.5 },
+  { b: 4, d: 1.2 },
+  { b: 5, d: 1.0 },
+  { b: 6, d:  .9 },
+  { b: 7, d: .85 },
+  { b: 8, d: .78 },
+];
+
+/* ── Psychometric questionnaire prompts ─────────────────────── */
+const FQ = [
+  "The bill arrives at a group dinner. Everyone contributed differently. What's your approach to splitting it?",
+  "Your car breaks down — repair quote £1,200. Walk me through how you handle it.",
+  "Free weekend — no obligations. What does your ideal weekend look like?",
+  "Group project, one person hasn't done their share. Deadline is tomorrow. What do you do?",
+  "Best friend calls in tears, needing help — but you're about to leave for a date. What do you do?",
+  "Someone you respect gives feedback about a blind spot in your personality. How do you react?",
+];
+
+/* ── Coverage heatmap (7 sins × 6 questions) ────────────────── */
+const HM = [
+  [6, 3, 7, 2, 5, 4],
+  [3, 1, 4, 6, 2, 5],
+  [5, 7, 3, 4, 6, 2],
+  [4, 2, 6, 1, 3, 7],
+  [2, 5, 1, 3, 7, 4],
+  [7, 4, 2, 5, 1, 3],
+  [1, 6, 5, 7, 4, 2],
+];
+
+/* ── Seven Deadly Sins labels ───────────────────────────────── */
+const SINS = ['Wrath', 'Sloth', 'Pride', 'Lust', 'Greed', 'Gluttony', 'Envy'];
+
+/* ── Chat auto-replies ──────────────────────────────────────── */
+const AREPLIES = [
+  "That's such a great point! Couldn't agree more.",
+  "Haha so right! We should definitely do that.",
+  "Interesting perspective! Tell me more.",
+  "Just thinking the same thing! Great minds.",
+];
+
+/**
+ * animations.js — Harmonia Preview
+ *
+ * Pure animation helpers — no DOM querying of app state.
+ * Depends on: GSAP + ScrollTrigger (loaded before this file)
+ *
+ * Exports (globals):
+ *   initDust()          — canvas particle field
+ *   boom()              — confetti burst
+ *   flash()             — gold edge flash
+ *   initDots()          — build phase-nav dots
+ *   initScroll()        — ScrollTrigger entrance + dot tracking
+ *   setDot(i)           — activate dot at index i
+ *   trigMR()            — match-reveal GSAP timeline
+ *   closeMR()           — dismiss match-reveal overlay
+ */
+
+
+/* ── Section manifest (mirrors index.html IDs) ──────────────── */
+const SECTS   = ['s0','s1','s2','s3','s4','s5','s6','s7','s9','s10','s11'];
+const SLABELS = ['Hero','Sign Up','Photos','Calibrate','Questions','HLA','Complete','Discover','Matches','Profile','Admin'];
+
+
+/* ── Smooth scroll helper ───────────────────────────────────── */
+function scrollToSection(i) {
+  const el = document.getElementById(`s${i}`);
+  if (!el) {
+    console.warn(`Section s${i} not found`);
+    return;
+  }
+  el.scrollIntoView({
+    behavior: 'smooth',
+    block: 'start'
+  });
+}
+
+
+/* ── Phase nav dots ─────────────────────────────────────────── */
+function initDots() {
+  const container = document.getElementById('pdots');
+  SECTS.forEach((_, i) => {
+    const dot = document.createElement('button');
+    dot.className = 'pdot';
+    dot.dataset.label = SLABELS[i];
+    dot.onclick = () => scrollToSection(i);
+    container.appendChild(dot);
+  });
+}
+
+function setDot(i) {
+  document.querySelectorAll('.pdot').forEach((d, j) => d.classList.toggle('on', j === i));
+}
+
+
+/* ── ScrollTrigger — entrance animations + dot tracking ─────── */
+function initScroll() {
+  gsap.registerPlugin(ScrollTrigger);
+
+  SECTS.forEach((id, i) => {
+    const el = document.getElementById(id);
+
+    // Staggered section entrance
+    gsap.from(el.querySelector('.S-in'), {
+      scrollTrigger: {
+        trigger: el,
+        start: 'top 80%',
+        toggleActions: 'play none none reverse',
+      },
+      y: 40, opacity: 0, duration: .8, ease: 'expo.out',
+    });
+
+    // Dot activation
+    ScrollTrigger.create({
+      trigger: el,
+      start: 'top center',
+      end:   'bottom center',
+      onEnter:     () => setDot(i),
+      onEnterBack: () => setDot(i),
+    });
+  });
+}
+
+
+/* ── Ambient dust particle canvas ───────────────────────────── */
+function initDust() {
+  const canvas = document.getElementById('dust');
+  const ctx    = canvas.getContext('2d');
+  let W, H;
+
+  function resize() { W = canvas.width = innerWidth; H = canvas.height = innerHeight; }
+  resize();
+  addEventListener('resize', resize);
+
+  // Build particle pool
+  const N    = 500;
+  const orbs = [];
+  for (let i = 0; i < N; i++) {
+    orbs.push({
+      x:  Math.random() * W,
+      y:  Math.random() * H,
+      vx: (Math.random() - .5) * .12,
+      vy: (Math.random() - .5) * .10,
+      r:  Math.random() * 1 + .3,
+      ph: Math.random() * 6.28,
+      sp: Math.random() * .008 + .003,
+      g:  Math.random() < .35,   // gold vs maroon
+      ba: Math.random() * .25 + .12,
+    });
+  }
+
+  (function draw() {
+    ctx.clearRect(0, 0, W, H);
+    const dark = document.documentElement.dataset.theme !== 'light';
+    const t    = Date.now() * .001;
+
+    for (const o of orbs) {
+      // Drift + sine wobble
+      o.x += o.vx + Math.sin(t * .5 + o.ph) * .07;
+      o.y += o.vy + Math.cos(t * .3 + o.ph) * .05;
+      if (o.x < -5)  o.x = W + 5;
+      if (o.x > W+5) o.x = -5;
+      if (o.y < -5)  o.y = H + 5;
+      if (o.y > H+5) o.y = -5;
+
+      const alpha = Math.max(.04, Math.min(o.ba + Math.sin(t * o.sp * 100 + o.ph) * .1, .5)) * (dark ? 1 : .55);
+
+      // Glow halo
+      const grad = ctx.createRadialGradient(o.x, o.y, 0, o.x, o.y, o.r * 3);
+      if (o.g) {
+        grad.addColorStop(0,  `rgba(240,200,110,${alpha})`);
+        grad.addColorStop(.4, `rgba(240,200,110,${alpha * .4})`);
+        grad.addColorStop(1,  'rgba(240,200,110,0)');
+      } else {
+        grad.addColorStop(0,  `rgba(139,58,58,${alpha * .7})`);
+        grad.addColorStop(.4, `rgba(114,47,55,${alpha * .3})`);
+        grad.addColorStop(1,  'rgba(114,47,55,0)');
+      }
+      ctx.fillStyle = grad;
+      ctx.beginPath();
+      ctx.arc(o.x, o.y, o.r * 3, 0, 6.28);
+      ctx.fill();
+
+      // Core dot
+      ctx.fillStyle = o.g
+        ? `rgba(255,220,140,${alpha * 1.1})`
+        : `rgba(160,80,80,${alpha * .8})`;
+      ctx.beginPath();
+      ctx.arc(o.x, o.y, o.r * .4, 0, 6.28);
+      ctx.fill();
+    }
+
+    requestAnimationFrame(draw);
+  }());
+}
+
+
+/* ── Edge flash on interaction ──────────────────────────────── */
+function flash() {
+  document.body.style.boxShadow = 'inset 0 0 50px var(--goldg)';
+  setTimeout(() => { document.body.style.boxShadow = ''; }, 120);
+}
+
+
+/* ── Confetti burst ─────────────────────────────────────────── */
+function boom() {
+  const canvas = document.getElementById('confetti');
+  const ctx    = canvas.getContext('2d');
+  canvas.width  = innerWidth;
+  canvas.height = innerHeight;
+
+  const particles = [];
+  for (let i = 0; i < 80; i++) {
+    particles.push({
+      x:    canvas.width / 2,
+      y:    canvas.height * .3,
+      vx:   (Math.random() - .5) * 12,
+      vy:   -(Math.random() * 10 + 4),
+      sz:   Math.random() * 5 + 3,
+      c:    i < 40 ? '#F0C86E' : '#722F37',
+      rot:  Math.random() * 360,
+      rs:   (Math.random() - .5) * 15,
+      life: 1,
+      sh:   Math.random() > .5,  // square vs circle
+    });
+  }
+
+  let frame = 0;
+  (function animate() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    let alive = 0;
+
+    for (const p of particles) {
+      if (p.life <= 0) continue;
+      alive = 1;
+      p.vy  += .15;
+      p.vx  *= .99;
+      p.x   += p.vx;
+      p.y   += p.vy;
+      p.rot += p.rs;
+      if (frame > 40) p.life -= .015;
+
+      ctx.save();
+      ctx.globalAlpha = Math.max(0, p.life);
+      ctx.translate(p.x, p.y);
+      ctx.rotate(p.rot * Math.PI / 180);
+      ctx.fillStyle = p.c;
+      if (p.sh) {
+        ctx.fillRect(-p.sz / 2, -p.sz / 2, p.sz, p.sz * .6);
+      } else {
+        ctx.beginPath();
+        ctx.arc(0, 0, p.sz / 2, 0, 6.28);
+        ctx.fill();
+      }
+      ctx.restore();
+    }
+
+    frame++;
+    alive ? requestAnimationFrame(animate) : ctx.clearRect(0, 0, canvas.width, canvas.height);
+  }());
+}
+
+
+/* ── Match reveal GSAP timeline ─────────────────────────────── */
+function trigMR() {
+  const overlay = document.getElementById('mrovl');
+  overlay.classList.add('on');
+  boom();
+
+  gsap.timeline()
+    .to(overlay, { background: 'rgba(10,5,6,.92)', duration: .3 })
+    .from('#mravl', { x: -250, scale: .5, opacity: 0, duration: .6, ease: 'back.out(1.7)' }, .3)
+    .from('#mravr', { x:  250, scale: .5, opacity: 0, duration: .6, ease: 'back.out(1.7)' }, .3)
+    .from('#mrtitle', { scale: .8, opacity: 0, duration: .5, ease: 'back.out(2)' }, 1)
+
+    // Score count-up
+    .call(() => {
+      const el = document.getElementById('mrscore');
+      gsap.to({ v: 0 }, {
+        v: 82, duration: 1, ease: 'power2.out',
+        onUpdate() { el.textContent = Math.round(this.targets()[0].v); },
+      });
+    }, null, 1.3)
+
+    // Ring reveals
+    .to('#rv', { attr: { 'stroke-dashoffset': 515 * (1 - .85) }, duration: 1, ease: 'power2.out' }, 2.3)
+    .to('#rp', { attr: { 'stroke-dashoffset': 402 * (1 - .78) }, duration: 1, ease: 'power2.out' }, 2.5)
+    .to('#rb', { attr: { 'stroke-dashoffset': 289 * (1 - .84) }, duration: 1, ease: 'power2.out' }, 2.7)
+
+    // Labels & traits
+    .from('.rlbl',        { opacity: 0, y:  8,  stagger: .10, duration: .3 }, 3.2)
+    .from('.shtrait .bdg',{ opacity: 0, x: -12, stagger: .08, duration: .3 }, 3.6)
+    .from('.stcard',      { opacity: 0, y:  10, stagger: .10, duration: .3 }, 4.0)
+    .from('.mrbtns',      { opacity: 0, y:  16,               duration: .35 }, 4.5);
+}
+
+
+/* ── Dismiss match reveal ────────────────────────────────────── */
+function closeMR() {
+  gsap.to('#mrovl', {
+    opacity: 0, duration: .3,
+    onComplete() {
+      const o = document.getElementById('mrovl');
+      o.classList.remove('on');
+      o.style.opacity    = '';
+      o.style.background = '';
+      gsap.set('#rv', { attr: { 'stroke-dashoffset': 515 } });
+      gsap.set('#rp', { attr: { 'stroke-dashoffset': 402 } });
+      gsap.set('#rb', { attr: { 'stroke-dashoffset': 289 } });
+      document.getElementById('mrscore').textContent = '0';
+    },
+  });
+}
+
+/**
+ * app.js — Harmonia Preview
+ *
+ * Feature modules (in order):
+ *   1. Theme toggle
+ *   2. Toast notifications
+ *   3. Bottom-sheet modal
+ *   4. Avatar SVG generator
+ *   5. Sign-up form validation
+ *   6. Photo grid
+ *   7. Visual calibration (MetaFBP face rater)
+ *   8. Psychometric questionnaire (PIIP)
+ *   9. HLA upload simulation
+ *  10. Swipe deck
+ *  11. Match list & chat
+ *  12. Profile view + radar chart
+ *  13. Admin dashboard
+ *  14. DOMContentLoaded bootstrap
+ *
+ * Depends on: data.js  animations.js  GSAP + ScrollTrigger
+ */
+
+
+/* ─────────────────────────────────────────────────────────────
+   1. THEME TOGGLE
+   ───────────────────────────────────────────────────────────── */
+function togTheme() {
+  const html    = document.documentElement;
+  const newMode = html.dataset.theme === 'dark' ? 'light' : 'dark';
+  html.dataset.theme = newMode;
+  document.getElementById('thbtn').innerHTML =
+    `<svg><use href="#i-${newMode === 'dark' ? 'moon' : 'sun'}"/></svg>`;
+  toast(newMode.charAt(0).toUpperCase() + newMode.slice(1) + ' mode', 'tg');
+}
+
+
+/* ─────────────────────────────────────────────────────────────
+   2. TOAST NOTIFICATIONS
+   ───────────────────────────────────────────────────────────── */
+function toast(message, variant = 'tg') {
+  const container = document.getElementById('toasts');
+  const el        = document.createElement('div');
+  el.className    = `toast ${variant}`;
+  el.textContent  = message;
+  container.appendChild(el);
+
+  requestAnimationFrame(() => el.classList.add('show'));
+  setTimeout(() => {
+    el.classList.remove('show');
+    setTimeout(() => el.remove(), 400);
+  }, 3000);
+
+  // Keep max 3 toasts visible
+  while (container.children.length > 3) container.firstChild.remove();
+}
+
+
+/* ─────────────────────────────────────────────────────────────
+   3. BOTTOM-SHEET MODAL
+   ───────────────────────────────────────────────────────────── */
+function openSheet(html) {
+  document.getElementById('mcontent').innerHTML = html;
+  document.getElementById('mbg').classList.add('open');
+  document.getElementById('msheet').classList.add('open');
+}
+
+function closeSheet() {
+  document.getElementById('mbg').classList.remove('open');
+  document.getElementById('msheet').classList.remove('open');
+}
+
+
+/* ─────────────────────────────────────────────────────────────
+   4. AVATAR SVG GENERATOR
+   Deterministic pseudo-random from integer seed.
+   ───────────────────────────────────────────────────────────── */
+
+/** Mulberry32 PRNG — returns a seeded () => [0,1) function */
+function mub(seed) {
+  return function () {
+    seed |= 0;
+    seed  = (seed + 0x6D2B79F5) | 0;
+    let t = Math.imul(seed ^ (seed >>> 15), 1 | seed);
+    t     = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+  };
+}
+
+function genAv(seed, size) {
+  const s  = size || 80;
+  const r  = mub(seed);
+
+  const skinPalette = ['#F4C7A3','#E8B88A','#D4A373','#C68E5B','#A0714F','#8B6242'];
+  const hairPalette = ['#2C1810','#4A3728','#8B6242','#D4A853','#C0392B','#1A1A2E'];
+  const eyePalette  = ['#4A90D9','#2C6B3F','#8B6242','#4A3728'];
+
+  const skin     = skinPalette[r() * skinPalette.length | 0];
+  const hair     = hairPalette[r() * hairPalette.length | 0];
+  const eye      = eyePalette [r() * eyePalette.length  | 0];
+  const fw       = 28 + r() * 8;
+  const fh       = 32 + r() * 8;
+  const glasses  = r() > .7;
+  const mouthCrv = r() > .5 ? 3 : -1;
+
+  return `<svg width="${s}" height="${s}" viewBox="0 0 80 80">
+  <defs>
+    <linearGradient id="bg${seed}" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%"   stop-color="hsl(${seed % 360},26%,20%)"/>
+      <stop offset="100%" stop-color="hsl(${(seed * 7) % 360},36%,13%)"/>
+    </linearGradient>
+  </defs>
+  <rect width="80" height="80" fill="url(#bg${seed})" rx="10"/>
+  <ellipse cx="40" cy="44" rx="${fw / 2}"     ry="${fh / 2}" fill="${skin}"/>
+  <ellipse cx="40" cy="28" rx="${fw / 2 + 2}" ry="14"        fill="${hair}"/>
+  <rect x="${40 - fw / 2 - 1}" y="22" width="${fw + 2}" height="10" fill="${hair}" rx="2"/>
+  <circle cx="34" cy="42" r="2.5" fill="${eye}"/>
+  <circle cx="46" cy="42" r="2.5" fill="${eye}"/>
+  <circle cx="34.8" cy="41.5" r=".9" fill="white"/>
+  <circle cx="46.8" cy="41.5" r=".9" fill="white"/>
+  <path d="M36 52 Q40 ${52 + mouthCrv} 44 52" fill="none" stroke="#8B4542" stroke-width="1.5" stroke-linecap="round"/>
+  ${glasses ? `
+  <circle cx="34" cy="42" r="5" fill="none" stroke="rgba(200,200,200,.5)" stroke-width=".8"/>
+  <circle cx="46" cy="42" r="5" fill="none" stroke="rgba(200,200,200,.5)" stroke-width=".8"/>
+  <line x1="39" y1="42" x2="41" y2="42" stroke="rgba(200,200,200,.5)" stroke-width=".8"/>` : ''}
+</svg>`;
+}
+
+
+/* ─────────────────────────────────────────────────────────────
+   5. SIGN-UP FORM
+   ───────────────────────────────────────────────────────────── */
+function doSignup() {
+  const name    = document.getElementById('fn').value.trim();
+  const age     = +document.getElementById('fa').value;
+  const email   = document.getElementById('fe').value.trim();
+  const consent = document.getElementById('fc').checked;
+  let valid = true;
+
+  // Name
+  if (name.length < 2) {
+    document.getElementById('efn').style.display = 'block'; valid = false;
+  } else {
+    document.getElementById('efn').style.display = 'none';
+  }
+
+  // Age
+  if (isNaN(age) || age < 18 || age > 99) {
+    document.getElementById('efa').style.display = 'block'; valid = false;
+  } else {
+    document.getElementById('efa').style.display = 'none';
+  }
+
+  // Email
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    document.getElementById('efe').style.display = 'block'; valid = false;
+  } else {
+    document.getElementById('efe').style.display = 'none';
+  }
+
+  if (valid && consent) {
+    U.fn  = name;
+    U.age = age;
+    toast('Profile created!', 'tg');
+    flash();
+    scrollToSection(2);
+  } else if (!consent) {
+    toast('Accept consent', 'tm');
+  }
+}
+
+
+/* ─────────────────────────────────────────────────────────────
+   6. PHOTO GRID
+   ───────────────────────────────────────────────────────────── */
+let photoN = 0;
+
+function initPhotos() {
+  const grid = document.getElementById('pgrid');
+  grid.innerHTML = '';
+  photoN = 0;
+
+  for (let i = 0; i < 6; i++) {
+    const slot = document.createElement('div');
+    slot.className = `pslot${i === 0 ? ' main' : ''}`;
+    slot.innerHTML = `
+      <span class="plus"><svg><use href="#i-${i === 0 ? 'cam' : 'plus'}"/></svg></span>
+      ${i === 0 ? '<span class="slbl">Main</span>' : ''}
+      <button class="dbtn" onclick="event.stopPropagation();rmPh(this.parentElement)">×</button>`;
+    slot.onclick = () => fillPh(slot, i);
+    grid.appendChild(slot);
+  }
+  updPh();
+}
+
+function fillPh(slot, i) {
+  if (slot.classList.contains('on')) return;
+  slot.classList.add('on');
+  const hue = 20 + Math.random() * 30;
+  slot.style.background = `linear-gradient(135deg,hsl(${hue},42%,28%),hsl(${hue + 20},50%,18%))`;
+  slot.querySelector('.plus').style.display = 'none';
+  const avatar = document.createElement('div');
+  avatar.className = 'sav';
+  avatar.innerHTML = genAv(60 + i * 7, 65);
+  slot.appendChild(avatar);
+  gsap.from(slot, { scale: .8, opacity: 0, duration: .4, ease: 'back.out(1.7)' });
+  photoN++;
+  updPh();
+  flash();
+}
+
+function rmPh(slot) {
+  slot.classList.remove('on');
+  slot.style.background = '';
+  const av = slot.querySelector('.sav');
+  if (av) av.remove();
+  slot.querySelector('.plus').style.display = '';
+  photoN--;
+  updPh();
+}
+
+function updPh() {
+  document.getElementById('pcount').textContent = `${photoN}/6 photos`;
+  document.getElementById('photobtn').disabled  = photoN < 1;
+}
+
+
+/* ─────────────────────────────────────────────────────────────
+   7. VISUAL CALIBRATION (MetaFBP face rater)
+   ───────────────────────────────────────────────────────────── */
+let calN = 0;
+
+function initCal() {
+  calN = 0;
+  updCal();
+  showFace();
+  setupFSwipe();
+}
+
+function showFace() {
+  if (calN >= 50) {
+    toast('Learning preferences...', 'tg');
+    setTimeout(() => scrollToSection(4), 1200);
+    return;
+  }
+  document.getElementById('fsvg').innerHTML = genAv(calN * 17 + 42, 130);
+  gsap.fromTo('#fcard',
+    { y: 24, opacity: 0, scale: .96 },
+    { y:  0, opacity: 1, scale:  1,  duration: .35, ease: 'back.out(1.7)' }
+  );
+}
+
+function rateFace(rating) {
+  calN++;
+  updCal();
+  flash();
+  const dir = rating >= 4 ? 'right' : rating <= 2 ? 'left' : 'up';
+  const tx  = dir === 'right' ? 350 : dir === 'left' ? -350 : 0;
+  gsap.to('#fcard', {
+    x: tx, y: dir === 'up' ? -250 : 0,
+    rotation: tx * .04, opacity: 0,
+    duration: .3, ease: 'power3.in',
+    onComplete() { gsap.set('#fcard', { x: 0, y: 0, rotation: 0 }); showFace(); },
+  });
+}
+
+function updCal() {
+  const offset = 188.5 - (calN / 50) * 188.5;
+  gsap.to('#calring', { attr: { 'stroke-dashoffset': offset }, duration: .4, ease: 'power2.out' });
+  document.getElementById('calnum').textContent = `${calN}/50`;
+}
+
+function setupFSwipe() {
+  const wrap = document.getElementById('fcwrap');
+  let startX = 0, dragging = 0;
+
+  wrap.addEventListener('pointerdown', e => { startX = e.clientX; dragging = 1; });
+
+  document.addEventListener('pointermove', e => {
+    if (!dragging) return;
+    const dx   = e.clientX - startX;
+    const card = document.getElementById('fcard');
+    card.style.transform = `translateX(${dx}px) rotate(${dx * .1}deg)`;
+    card.querySelector('.st-like').style.opacity = Math.min(Math.max( dx / 130, 0), 1);
+    card.querySelector('.st-nope').style.opacity = Math.min(Math.max(-dx / 130, 0), 1);
+  });
+
+  document.addEventListener('pointerup', e => {
+    if (!dragging) return;
+    dragging = 0;
+    const dx   = e.clientX - startX;
+    const card = document.getElementById('fcard');
+    card.querySelector('.st-like').style.opacity = 0;
+    card.querySelector('.st-nope').style.opacity = 0;
+    if (Math.abs(dx) > 110) {
+      rateFace(dx > 0 ? 4 : 2);
+    } else {
+      gsap.to(card, { x: 0, rotation: 0, duration: .5, ease: 'elastic.out(1,.5)' });
+    }
+  });
+}
+
+
+/* ─────────────────────────────────────────────────────────────
+   8. PSYCHOMETRIC QUESTIONNAIRE (PIIP)
+   ───────────────────────────────────────────────────────────── */
+let qI = 0;
+
+function initQ() { qI = 0; showQ(0); }
+
+function showQ(i) {
+  if (i >= FQ.length) { startGem(); return; }
+
+  document.getElementById('qctr').textContent  = `Q${i + 1} of 6`;
+  document.getElementById('qtxt').textContent  = FQ[i];
+  document.getElementById('qta').value         = '';
+  document.getElementById('qbtn').disabled     = true;
+  document.getElementById('wcnt').textContent  = '0 / 25 word minimum';
+  document.getElementById('wcnt').className    = 'wcount bad';
+
+  gsap.fromTo('#qwrap',
+    { x: 50, opacity: 0 },
+    { x:  0, opacity: 1, duration: .35, ease: 'expo.out' }
+  );
+}
+
+function onQInput() {
+  const text    = document.getElementById('qta').value.trim();
+  const words   = text ? text.split(/\s+/).length : 0;
+  const counter = document.getElementById('wcnt');
+  const btn     = document.getElementById('qbtn');
+
+  if (words < 25) {
+    counter.textContent = `${words} / 25 word minimum`;
+    counter.className   = 'wcount bad';
+    btn.disabled        = true;
+  } else if (words <= 150) {
+    counter.textContent = `${words} words ✓`;
+    counter.className   = 'wcount ok';
+    btn.disabled        = false;
+  } else {
+    counter.textContent = `${words} — 150 max`;
+    counter.className   = 'wcount bad';
+    btn.disabled        = true;
+  }
+
+  // Live neural-net stats
+  document.getElementById('nnn').textContent = 40  + Math.floor(words / 10);
+  document.getElementById('nnc').textContent = 156 + Math.floor(words / 25) * 20;
+  document.getElementById('nns').textContent = Math.min(.45 + words * .005, .99).toFixed(2);
+}
+
+function submitQ() {
+  flash();
+  qI++;
+  gsap.to('#qwrap', {
+    x: -50, opacity: 0, duration: .25, ease: 'power3.in',
+    onComplete() { showQ(qI); },
+  });
+}
+
+function startGem() {
+  const overlay = document.getElementById('govl');
+  overlay.classList.add('on');
+
+  const label = document.getElementById('gtxt');
+  const bar   = document.getElementById('gfill');
+
+  const phases = [
+    { t: 'Extracting linguistic signals...',   p: 20,  d: 0     },
+    { t: 'Mapping personality dimensions...',  p: 50,  d: 2000  },
+    { t: 'Calculating confidence scores...',   p: 80,  d: 4500  },
+    { t: 'Building your profile...',           p: 100, d: 7000  },
+  ];
+
+  phases.forEach(ph => setTimeout(() => {
+    label.textContent  = ph.t;
+    bar.style.width    = ph.p + '%';
+  }, ph.d));
+
+  setTimeout(() => {
+    label.textContent = 'Profile Complete!';
+    gsap.to('#gres', { opacity: 1, duration: .5 });
+  }, 8500);
+
+  setTimeout(() => {
+    overlay.classList.remove('on');
+    scrollToSection(5);
+  }, 10500);
+}
+
+
+/* ─────────────────────────────────────────────────────────────
+   9. HLA UPLOAD SIMULATION
+   ───────────────────────────────────────────────────────────── */
+let hlaUp = false;
+
+function simUpload() {
+  if (hlaUp) return;
+  const bar  = document.getElementById('upbar');
+  const fill = document.getElementById('upfill');
+  bar.style.display = 'block';
+
+  gsap.to(fill, {
+    width: '100%', duration: 2, ease: 'power2.inOut',
+    onComplete() {
+      hlaUp = true;
+      const loci = [
+        { el: 'la', v: 'A*02:01',    d: 0   },
+        { el: 'lb', v: 'B*07:02',    d: 300 },
+        { el: 'lc', v: 'DRB1*15:01', d: 600 },
+      ];
+      loci.forEach(l => setTimeout(() => {
+        const cell = document.getElementById(l.el);
+        cell.classList.add('act');
+        cell.querySelector('.lv').textContent = l.v;
+        gsap.from(cell, { scale: .8, duration: .4, ease: 'back.out(1.7)' });
+      }, l.d));
+
+      toast('Genetic data encrypted', 'tg');
+
+      const bioRow = document.getElementById('biock');
+      if (bioRow) {
+        bioRow.innerHTML = '<span class="ck done"><svg><use href="#i-check"/></svg></span>Biological data uploaded — 3 HLA loci';
+      }
+    },
+  });
+}
+
+
+/* ─────────────────────────────────────────────────────────────
+   10. SWIPE DECK
+   ───────────────────────────────────────────────────────────── */
+let cardI = 0, swpN = 0, rtN = 0;
+
+function initDeck() { cardI = 0; swpN = 0; rtN = 0; renderDeck(); }
+
+function renderDeck() {
+  const deck  = document.getElementById('deck');
+  const empty = document.getElementById('edeck');
+  deck.innerHTML = '';
+
+  if (cardI >= CANDS.length) {
+    deck.style.display  = 'none';
+    empty.style.display = 'block';
+    return;
+  }
+
+  deck.style.display  = '';
+  empty.style.display = 'none';
+
+  // Stack: back → front (off = 2..0)
+  for (let off = 2; off >= 0; off--) {
+    const idx  = cardI + off;
+    if (idx >= CANDS.length) continue;
+
+    const c    = CANDS[idx];
+    const card = document.createElement('div');
+    card.className   = 'scard';
+    card.style.zIndex = 3 - off;
+    card.style.transform = `scale(${1 - off * .05}) translateY(${off * 10}px)`;
+    if (off > 0) card.style.pointerEvents = 'none';
+
+    const hue = (idx * 47 + 20) % 360;
+    card.innerHTML = `
+      <div class="stamp st-l">LIKE</div>
+      <div class="stamp st-n">NOPE</div>
+      <div class="stamp st-s">SUPER</div>
+      <div class="cphoto" style="background:linear-gradient(135deg,hsl(${hue},32%,20%),hsl(${hue+30},42%,13%))">
+        ${genAv(idx * 31 + 100, 110)}
+        <div class="dots">
+          ${Array(c.ph).fill(0).map((_, i) => `<div class="dot${i === 0 ? ' on' : ''}"></div>`).join('')}
+        </div>
+      </div>
+      <div class="cinfo">
+        <div class="cname">${c.n}, ${c.a}</div>
+        <div class="cloc"><svg><use href="#i-pin"/></svg>${c.l}</div>
+        <div class="ctags">${c.t.map(t => `<span class="bdg bdg-g">${t}</span>`).join('')}</div>
+      </div>`;
+
+    deck.appendChild(card);
+    if (off === 0) setupSwipe(card);
+  }
+}
+
+function setupSwipe(card) {
+  let sx = 0, sy = 0, dragging = 0;
+
+  card.addEventListener('pointerdown', e => {
+    sx = e.clientX; sy = e.clientY; dragging = 1;
+    card.style.transition = 'none';
+  });
+
+  const onMove = e => {
+    if (!dragging) return;
+    const dx = e.clientX - sx;
+    const dy = e.clientY - sy;
+    card.style.transform = `translateX(${dx}px) translateY(${dy}px) rotate(${dx * .08}deg)`;
+    card.querySelector('.st-l').style.opacity = Math.min(Math.max( dx / 130, 0), 1);
+    card.querySelector('.st-n').style.opacity = Math.min(Math.max(-dx / 130, 0), 1);
+    card.querySelector('.st-s').style.opacity = Math.min(Math.max(-dy /  90, 0), 1);
+  };
+
+  const onUp = e => {
+    if (!dragging) return;
+    dragging = 0;
+    const dx = e.clientX - sx;
+    const dy = e.clientY - sy;
+    ['st-l','st-n','st-s'].forEach(cls => { card.querySelector(`.${cls}`).style.opacity = 0; });
+
+    if      (Math.abs(dx) > 120) commitSwipe(dx > 0 ? 'right' : 'left');
+    else if (dy < -90)           commitSwipe('up');
+    else gsap.to(card, { x: 0, y: 0, rotation: 0, duration: .5, ease: 'elastic.out(1,.5)' });
+  };
+
+  document.addEventListener('pointermove', onMove);
+  document.addEventListener('pointerup',   onUp);
+}
+
+function commitSwipe(dir) {
+  const deck = document.getElementById('deck');
+  const card = deck.lastElementChild;
+  if (!card) return;
+
+  const tx = dir === 'right' ? 650 : dir === 'left' ? -650 : 0;
+  const ty = dir === 'up'    ? -450 : 0;
+
+  if (dir === 'right') rtN++;
+  swpN++;
+  flash();
+
+  gsap.to(card, {
+    x: tx, y: ty, rotation: tx ? tx * .04 : 0, opacity: 0,
+    duration: .3, ease: 'power3.in',
+    onComplete() {
+      cardI++;
+      if (rtN === 3 && dir === 'right') setTimeout(trigMR, 300);
+      renderDeck();
+    },
+  });
+}
+
+
+/* ─────────────────────────────────────────────────────────────
+   11. MATCH LIST & CHAT
+   ───────────────────────────────────────────────────────────── */
+function initMatches() {
+  const list = document.getElementById('mlist');
+  list.innerHTML = '';
+
+  MATCHES.forEach((m, i) => {
+    const card = document.createElement('div');
+    card.className = 'mcard';
+    card.onclick   = () => openChat(i);
+    const bg = `linear-gradient(135deg,hsl(${i*60+10},36%,26%),hsl(${i*60+40},46%,18%))`;
+    const circ  = 2 * Math.PI * 13;
+    const score = circ * (1 - m.wtm / 100);
+
+    card.innerHTML = `
+      <div class="av av-m" style="background:${bg}">${m.i}</div>
+      <div class="mi">
+        <div class="mn">${m.n}, ${m.a}</div>
+        <div class="mb"><span class="${m.bc}">${m.bg}</span></div>
+        ${m.lm
+          ? `<div class="ml">${m.lm}</div>`
+          : `<div class="ml" style="opacity:.4;font-style:italic">No messages yet</div>`}
+      </div>
+      <div style="flex-shrink:0;text-align:center">
+        <svg width="34" height="34">
+          <circle cx="17" cy="17" r="13" fill="none" stroke="var(--bdr)" stroke-width="2.5"/>
+          <circle cx="17" cy="17" r="13" fill="none" stroke="var(--gold)" stroke-width="2.5"
+            stroke-linecap="round" stroke-dasharray="${circ}" stroke-dashoffset="${score}"
+            style="transform:rotate(-90deg);transform-origin:center"/>
+        </svg>
+        <div style="font-size:.55rem;font-weight:700;margin-top:-24px;position:relative">${m.wtm}</div>
+      </div>`;
+
+    list.appendChild(card);
+  });
+}
+
+function openChat(i) {
+  const m   = MATCHES[i];
+  const ch  = document.getElementById('chatarea');
+  const ph  = document.getElementById('chatplaceholder');
+  ph.style.display = 'none';
+  ch.style.display = 'flex';
+
+  const bg = `linear-gradient(135deg,hsl(${i*60+10},36%,26%),hsl(${i*60+40},46%,18%))`;
+  document.getElementById('chatav').textContent   = m.i;
+  document.getElementById('chatav').style.background = bg;
+  document.getElementById('chatname').textContent = m.n;
+
+  const msgs = document.getElementById('msgs');
+  msgs.innerHTML = m.msgs.map(msg =>
+    `<div class="bub ${msg.f === 'you' ? 'you' : 'them'}">${msg.t}<div class="btime">${msg.tm}</div></div>`
+  ).join('') + '<div class="typi" id="typi"><i></i><i></i><i></i></div>';
+
+  setTimeout(() => { msgs.scrollTop = msgs.scrollHeight; }, 50);
+}
+
+function closeChat() {
+  document.getElementById('chatarea').style.display = 'none';
+  document.getElementById('chatplaceholder').style.display = '';
+}
+
+function sendMsg() {
+  const input = document.getElementById('chinp');
+  const text  = input.value.trim();
+  if (!text) return;
+  input.value = '';
+
+  const msgs  = document.getElementById('msgs');
+  const typi  = document.getElementById('typi');
+  const now   = new Date();
+  const ts    = `${now.getHours()}:${String(now.getMinutes()).padStart(2, '0')}`;
+
+  const outBub = document.createElement('div');
+  outBub.className = 'bub you';
+  outBub.innerHTML = `${text}<div class="btime">${ts}</div>`;
+  msgs.insertBefore(outBub, typi);
+  msgs.scrollTop = msgs.scrollHeight;
+
+  // Typing indicator then auto-reply
+  setTimeout(() => { typi.classList.add('on'); msgs.scrollTop = msgs.scrollHeight; }, 500);
+  setTimeout(() => {
+    typi.classList.remove('on');
+    const reply  = document.createElement('div');
+    reply.className = 'bub them';
+    const tsNext = `${now.getHours()}:${String(now.getMinutes() + 1).padStart(2, '0')}`;
+    reply.innerHTML = `${AREPLIES[Math.random() * AREPLIES.length | 0]}<div class="btime">${tsNext}</div>`;
+    msgs.insertBefore(reply, typi);
+    msgs.scrollTop = msgs.scrollHeight;
+  }, 2500);
+}
+
+
+/* ─────────────────────────────────────────────────────────────
+   12. PROFILE VIEW + RADAR CHART
+   ───────────────────────────────────────────────────────────── */
+function initProfile() {
+  const container = document.getElementById('profcontent');
+  const sins      = U.sins;
+
+  container.innerHTML = `
+    <div class="profhdr">
+      <div class="av av-xl av-ring" style="background:linear-gradient(135deg,var(--golds),var(--bg3))">${U.fn[0]}</div>
+      <h2>${U.fn}</h2>
+      <p class="pm">${U.age} · ${U.loc}</p>
+      <div class="qbadge" style="margin-top:8px">
+        <svg style="width:12px;height:12px;fill:var(--gold)"><use href="#i-diamond"/></svg>
+        Profile Quality: High
+      </div>
+    </div>
+    <div class="pgal">
+      ${[0,1,2,3].map(i =>
+        `<div style="background:linear-gradient(135deg,hsl(${20+i*30},36%,26%),hsl(${40+i*30},46%,18%))">${genAv(i*13+50, 38)}</div>`
+      ).join('')}
+      <div style="border:2px dashed var(--goldd);background:transparent;cursor:pointer" onclick="toast('Photo picker','ti')">
+        <svg style="width:16px;height:16px;fill:var(--gold)"><use href="#i-plus"/></svg>
+      </div>
+    </div>
+    <div class="stitle">Personality Breakdown</div>
+    ${Object.entries(sins).map(([, v]) => {
+      const pct = Math.abs(v.s) / 5 * 50;
+      return `<div class="pbrow">
+        <div class="pblbl">${v.f}</div>
+        <div class="pbbar">
+          <div class="pbctr"></div>
+          <div class="pbfill ${v.s > 0 ? 'vice' : 'virtue'}" style="width:${pct}%"></div>
+        </div>
+        <div class="pbsc">${v.s > 0 ? '+' : ''}${v.s}</div>
+        <div class="pbwt">${v.w}×</div>
+      </div>`;
+    }).join('')}`;
+
+  // Animate bars
+  setTimeout(() => {
+    gsap.from('.pbfill', { scaleX: 0, transformOrigin: '50% 50%', duration: .8, stagger: .1, ease: 'expo.out' });
+  }, 200);
+
+  drawRadar();
+}
+
+function drawRadar() {
+  const cv = document.getElementById('radar');
+  if (!cv) return;
+
+  const ctx  = cv.getContext('2d');
+  const W    = cv.width;
+  const H    = cv.height;
+  const cx   = W / 2;
+  const cy   = H / 2;
+  const R    = 110;
+  const sins = U.sins;
+  const lbl  = Object.values(sins).map(v => v.f);
+  const vals = Object.values(sins).map(v => (v.s + 5) / 10);
+  const n    = 7;
+  const step = (Math.PI * 2) / n;
+
+  ctx.clearRect(0, 0, W, H);
+
+  // Background rings
+  for (let ring = 1; ring <= 4; ring++) {
+    const r = (ring / 4) * R;
+    ctx.beginPath();
+    for (let i = 0; i <= n; i++) {
+      const a = i * step - Math.PI / 2;
+      i === 0 ? ctx.moveTo(cx + Math.cos(a) * r, cy + Math.sin(a) * r)
+              : ctx.lineTo(cx + Math.cos(a) * r, cy + Math.sin(a) * r);
+    }
+    ctx.closePath();
+    ctx.strokeStyle = 'rgba(240,200,110,.08)';
+    ctx.lineWidth   = 1;
+    ctx.stroke();
+  }
+
+  // Spoke lines
+  for (let i = 0; i < n; i++) {
+    const a = i * step - Math.PI / 2;
+    ctx.beginPath();
+    ctx.moveTo(cx, cy);
+    ctx.lineTo(cx + Math.cos(a) * R, cy + Math.sin(a) * R);
+    ctx.strokeStyle = 'rgba(240,200,110,.05)';
+    ctx.stroke();
+  }
+
+  // Filled polygon
+  ctx.beginPath();
+  for (let i = 0; i <= n; i++) {
+    const idx = i % n;
+    const a   = idx * step - Math.PI / 2;
+    const r   = vals[idx] * R;
+    i === 0 ? ctx.moveTo(cx + Math.cos(a) * r, cy + Math.sin(a) * r)
+            : ctx.lineTo(cx + Math.cos(a) * r, cy + Math.sin(a) * r);
+  }
+  ctx.closePath();
+  ctx.fillStyle   = 'rgba(240,200,110,.12)';
+  ctx.fill();
+  ctx.strokeStyle = '#F0C86E';
+  ctx.lineWidth   = 2;
+  ctx.stroke();
+
+  // Data-point dots
+  for (let i = 0; i < n; i++) {
+    const a = i * step - Math.PI / 2;
+    const r = vals[i] * R;
+    ctx.beginPath();
+    ctx.arc(cx + Math.cos(a) * r, cy + Math.sin(a) * r, 3, 0, 6.28);
+    ctx.fillStyle = '#F0C86E';
+    ctx.fill();
+  }
+
+  // Labels
+  ctx.font         = '10px DM Sans,sans-serif';
+  ctx.textAlign    = 'center';
+  ctx.textBaseline = 'middle';
+  ctx.fillStyle    = getComputedStyle(document.documentElement).getPropertyValue('--t2').trim() || '#C4B8B0';
+
+  for (let i = 0; i < n; i++) {
+    const a = i * step - Math.PI / 2;
+    ctx.fillText(lbl[i], cx + Math.cos(a) * (R + 20), cy + Math.sin(a) * (R + 20));
+  }
+}
+
+function openSettings() {
+  openSheet(`
+    <div style="margin-bottom:16px">
+      <h4 style="font-family:'Cormorant Garamond',serif;font-size:1rem;margin-bottom:10px">Account</h4>
+      ${[['Name', U.fn], ['Email', U.email], ['Location', U.loc]].map(([label, val]) => `
+      <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--bdr);font-size:.82rem">
+        <span style="color:var(--t2)">${label}</span><span style="color:var(--t3)">${val}</span>
+      </div>`).join('')}
+    </div>
+    <div style="margin-bottom:16px">
+      <h4 style="font-family:'Cormorant Garamond',serif;font-size:1rem;margin-bottom:10px">Preferences</h4>
+      ${[['Age Range', '22–34'], ['Distance', '15 km']].map(([label, val]) => `
+      <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--bdr);font-size:.82rem">
+        <span style="color:var(--t2)">${label}</span><span style="color:var(--t3)">${val}</span>
+      </div>`).join('')}
+    </div>
+    <div style="margin-bottom:16px">
+      <h4 style="font-family:'Cormorant Garamond',serif;font-size:1rem;margin-bottom:10px">Actions</h4>
+      <button style="color:var(--gold);background:none;border:none;cursor:pointer;font-size:.82rem;text-decoration:underline"
+        onclick="toast('Would restart questionnaire','ti')">Retake Questionnaire</button><br>
+      <button style="color:var(--gold);background:none;border:none;cursor:pointer;font-size:.82rem;text-decoration:underline;margin-top:6px"
+        onclick="toast('Would open upload','ti')">Add DNA Data</button>
+    </div>
+    <button style="width:100%;padding:10px;background:transparent;border:1.5px solid var(--mar);color:var(--marl);border-radius:10px;font-weight:600;cursor:pointer;font-size:.85rem"
+      onclick="toast('Requires confirmation','tm')">Delete Account</button>`);
+}
+
+
+/* ─────────────────────────────────────────────────────────────
+   13. ADMIN DASHBOARD
+   ───────────────────────────────────────────────────────────── */
+function initAdmin() {
+  const container = document.getElementById('admincontent');
+
+  container.innerHTML = `
+    <div class="astats">
+      ${[['total','Total'],['pend','Pending'],['appr','Approved'],['corr','Corrected'],['rej','Rejected']].map(([k, label]) => `
+      <div class="astat">
+        <div class="an" data-t="${STATS[k]}">0</div>
+        <div class="al">${label}</div>
+      </div>`).join('')}
+    </div>
+
+    <div class="stitle">Coverage Heatmap</div>
+    <div style="font-size:.78rem;margin-bottom:6px">134/210 validated — 63.8%</div>
+    <div style="height:4px;background:var(--bdr);border-radius:2px;overflow:hidden;margin-bottom:10px">
+      <div style="height:100%;width:63.8%;background:linear-gradient(90deg,var(--gold),var(--gold2));border-radius:2px;box-shadow:0 0 6px var(--golds)"></div>
+    </div>
+
+    <div class="hmgrid">
+      <div class="hmhdr"></div>
+      ${['Q1','Q2','Q3','Q4','Q5','Q6'].map(q => `<div class="hmhdr">${q}</div>`).join('')}
+      ${SINS.map((sin, ri) =>
+        `<div class="hmrl">${sin}</div>` +
+        HM[ri].map(v => `<div class="hmc ${v >= 5 ? 'hg' : v >= 2 ? 'hs' : 'hm'}">${v}</div>`).join('')
+      ).join('')}
+    </div>
+
+    <div class="stitle">Review Queue</div>
+    ${CALDATA.map((ex, i) => `
+    <div class="rcard" id="rc${i}">
+      <div class="rh">
+        <span class="bdg bdg-g">Q${ex.qn}</span>
+        <span class="bdg bdg-m">${ex.sin}</span>
+      </div>
+      <div class="rt">${ex.txt}</div>
+      <div class="rm">
+        <span>Score: <b>${ex.sc}</b></span>
+        <span>Confidence: <b>${ex.co}</b></span>
+      </div>
+      <div class="re">"${ex.ev}"</div>
+      <div class="racts">
+        <button class="ra" onclick="revAct(${i},'a')">✓ Approve</button>
+        <button class="rc" onclick="document.getElementById('cp${i}').classList.toggle('on')">✎ Correct</button>
+        <button class="rr" onclick="revAct(${i},'r')">✕ Reject</button>
+      </div>
+      <div class="cpanel" id="cp${i}">
+        <div class="cv" id="cv${i}">${ex.sc}</div>
+        <input type="range" min="-50" max="50" value="${ex.sc * 10}"
+          oninput="document.getElementById('cv${i}').textContent=(this.value/10).toFixed(1)">
+        <button class="btn-g" style="width:100%;margin-top:6px;padding:7px" onclick="revAct(${i},'c')">Submit</button>
+      </div>
+    </div>`).join('')}
+
+    <div class="stitle" style="margin-top:16px">Gemini Drift</div>
+    <canvas id="effch" width="400" height="180" style="width:100%;max-height:180px;border-radius:12px"></canvas>`;
+
+  // Animate stat counters
+  setTimeout(() => {
+    container.querySelectorAll('.an[data-t]').forEach(el => {
+      gsap.to({ v: 0 }, {
+        v: +el.dataset.t, duration: 1, ease: 'power2.out',
+        onUpdate() { el.textContent = Math.round(this.targets()[0].v); },
+      });
+    });
+    gsap.from('.hmc', { opacity: 0, duration: .2, stagger: .015 });
+  }, 100);
+
+  setTimeout(drawEff, 200);
+}
+
+function revAct(i, action) {
+  const card = document.getElementById(`rc${i}`);
+  gsap.to(card, {
+    x: action === 'r' ? -250 : 250,
+    opacity: 0, height: 0, padding: 0, margin: 0,
+    duration: .35, ease: 'power2.in',
+    onComplete() { card.remove(); },
+  });
+  toast({ a: 'Approved', c: 'Corrected', r: 'Rejected' }[action], action === 'r' ? 'tm' : 'tg');
+}
+
+function drawEff() {
+  const cv = document.getElementById('effch');
+  if (!cv) return;
+
+  const ctx  = cv.getContext('2d');
+  const W    = cv.width;
+  const H    = cv.height;
+  const pad  = { t: 16, r: 14, b: 24, l: 34 };
+  const pW   = W - pad.l - pad.r;
+  const pH   = H - pad.t - pad.b;
+  const maxY = 2.5;
+  const xS   = pW / (EFF.length - 1);
+
+  ctx.clearRect(0, 0, W, H);
+
+  // Y-axis labels + grid lines
+  ctx.font      = '9px JetBrains Mono,monospace';
+  ctx.fillStyle = getComputedStyle(document.documentElement).getPropertyValue('--t3').trim() || '#7A6E68';
+  ctx.textAlign = 'right';
+
+  for (let i = 0; i <= 5; i++) {
+    const val = (maxY / 5 * i).toFixed(1);
+    const y   = pad.t + pH - (i / 5) * pH;
+    ctx.fillText(val, pad.l - 4, y + 3);
+    ctx.beginPath();
+    ctx.moveTo(pad.l, y);
+    ctx.lineTo(W - pad.r, y);
+    ctx.strokeStyle = 'rgba(122,110,104,.08)';
+    ctx.lineWidth   = 1;
+    ctx.stroke();
+  }
+
+  // X-axis labels
+  ctx.textAlign = 'center';
+  EFF.forEach((d, i) => ctx.fillText(`B${d.b}`, pad.l + i * xS, H - 5));
+
+  // Fill area
+  ctx.beginPath();
+  EFF.forEach((d, i) => {
+    const x = pad.l + i * xS;
+    const y = pad.t + pH - (d.d / maxY) * pH;
+    i === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
+  });
+  ctx.lineTo(pad.l + (EFF.length - 1) * xS, pad.t + pH);
+  ctx.lineTo(pad.l, pad.t + pH);
+  ctx.closePath();
+  ctx.fillStyle = 'rgba(240,200,110,.06)';
+  ctx.fill();
+
+  // Line
+  const gold = getComputedStyle(document.documentElement).getPropertyValue('--gold').trim() || '#F0C86E';
+  ctx.beginPath();
+  EFF.forEach((d, i) => {
+    const x = pad.l + i * xS;
+    const y = pad.t + pH - (d.d / maxY) * pH;
+    i === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
+  });
+  ctx.strokeStyle = gold;
+  ctx.lineWidth   = 2;
+  ctx.stroke();
+
+  // Data-point dots
+  EFF.forEach((d, i) => {
+    const x = pad.l + i * xS;
+    const y = pad.t + pH - (d.d / maxY) * pH;
+    ctx.beginPath();
+    ctx.arc(x, y, 3, 0, 6.28);
+    ctx.fillStyle = gold;
+    ctx.fill();
+  });
+
+  // Annotation
+  ctx.font      = '9px DM Sans';
+  ctx.fillStyle = gold;
+  ctx.textAlign = 'center';
+  ctx.fillText('↓ 62.9% improvement', W / 2, pad.t + 5);
+}
+
+
+/* ─────────────────────────────────────────────────────────────
+   14. BOOTSTRAP
+   ───────────────────────────────────────────────────────────── */
+document.addEventListener('DOMContentLoaded', () => {
+  // Ambient effects
+  initDust();
+  initDots();
+    // Sync theme button icon with initial theme
+    const initTheme = document.documentElement.dataset.theme;
+    document.getElementById('thbtn').innerHTML =
+      `<svg><use href="#i-${initTheme === 'dark' ? 'moon' : 'sun'}"/></svg>`;
+
+  // Staggered sign-up form entrance
+  gsap.from('#signupform .fgroup', {
+    y: 18, opacity: 0, duration: .45, stagger: .07, ease: 'expo.out', delay: .3,
+  });
+
+  // Feature modules
+  initPhotos();
+  initCal();
+  initQ();
+  showQ(0);
+  initDeck();
+  initMatches();
+  initProfile();
+  initAdmin();
+
+  // Confetti on completion section enter
+  ScrollTrigger.create({
+    trigger: '#s6',
+    start: 'top center',
+    onEnter: () => boom(),
+    once: true,
+  });
+
+  // ScrollTrigger entrance animations + dot sync
+  setTimeout(initScroll, 100);
+
+  console.log('Harmonia Preview v9.0 — modular build');
+});
+
+
+</script>
+
+</body>
+</html>
